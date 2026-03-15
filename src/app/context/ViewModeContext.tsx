@@ -29,10 +29,6 @@ export function ViewModeProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem("mechrush-view-mode", newMode);
     };
 
-    if (!mounted) {
-        return <>{children}</>;
-    }
-
     return (
         <ViewModeContext.Provider value={{ viewMode, toggleViewMode }}>
             {children}
