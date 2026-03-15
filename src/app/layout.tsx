@@ -36,6 +36,13 @@ export default function RootLayout({
                 <div className="hidden md:flex space-x-8">
                   <Link href="/tech-events" className="hover:text-forge-red transition-colors">Tech Events</Link>
                   <Link href="/non-tech-events" className="hover:text-forge-red transition-colors">Non-Tech Events</Link>
+                  <Link href="/opus" className="text-forge-red hover:text-white font-bold transition-colors flex flex-row items-center gap-1">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-forge-red opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-forge-red"></span>
+                    </span>
+                    OPUS
+                  </Link>
                 </div>
                 <ViewModeToggle />
                 <ThemeSwitcher />
