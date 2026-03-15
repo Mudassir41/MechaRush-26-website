@@ -12,7 +12,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "MechRush | Mechanical Symposium",
+  title: "Mecharush'26 | Mechanical Symposium",
   description: "The ultimate mechanical engineering symposium in Chennai. Engineer the Rush.",
 };
 
@@ -29,8 +29,8 @@ export default function RootLayout({
           <nav className="sticky top-0 z-50 glass-panel border-b-0 border-foreground/10 px-6 py-4">
             <div className="max-w-7xl mx-auto flex items-center justify-between">
               <Link href="/" className="flex items-center gap-3 text-2xl font-bold tracking-tighter">
-                <img src="/logo.png" alt="MechRush Logo" className="w-8 h-8 rounded-md" />
-                <span>MECH<span className="text-forge-red transition-colors">RUSH</span></span>
+                <img src="/logo.png" alt="Mecharush'26 Logo" className="w-8 h-8 rounded-md" />
+                <span>MECHA<span className="text-forge-red transition-colors">RUSH'26</span></span>
               </Link>
               <div className="flex items-center space-x-4 md:space-x-8 text-sm font-medium">
                 <div className="hidden md:flex space-x-8">
@@ -53,7 +53,7 @@ export default function RootLayout({
             <div className="max-w-7xl mx-auto px-6">
               <p className="font-bold text-foreground mb-2 text-base">B.S. Abdur Rahman Crescent Institute of Science & Technology</p>
               <p>© {new Date().getFullYear()} Mechanical Department Symposium, Chennai.</p>
-              <p className="mt-2 text-xs opacity-60">Created for MechRush</p>
+              <p className="mt-2 text-xs opacity-60">Created for Mecharush'26</p>
             </div>
           </footer>
         </ViewModeProvider>

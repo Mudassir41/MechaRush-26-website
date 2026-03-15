@@ -73,8 +73,8 @@ export default function TechEventsPage() {
                 <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4">
                     <span className="text-forge-red">Tech</span> Events
                 </h1>
-                <p className="text-metallic max-w-2xl mx-auto text-lg">
-                    The core arenas of MechRush. Register via Unstop to secure your spot.
+                <p className="text-metallic text-lg max-w-2xl mx-auto font-light">
+                    The core arenas of Mecharush'26. Register via Unstop to secure your spot.
                 </p>
             </motion.div>
 

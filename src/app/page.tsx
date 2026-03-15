@@ -42,7 +42,7 @@ export default function Home() {
           </div>
 
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter mb-6">
-            Mech<span className="text-gradient drop-shadow-2xl">Rush</span> '26
+            Mecha<span className="text-gradient drop-shadow-2xl">rush</span> '26
           </h1>
 
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-metallic mb-12 font-light">
