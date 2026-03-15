@@ -3,216 +3,199 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, User, Phone, X, ShieldAlert } from "lucide-react";
 import { useState } from "react";
-import { useViewMode } from "../context/ViewModeContext";
 
 interface EventCardProps {
-    title: string;
-    description: string;
-    coordinators?: string[];
-    coordinatorsPhones?: string[];
-    rules?: string[];
-    sponsors?: string[];
-    linkUrl: string;
-    linkText: string;
-    imageIcon: React.ReactNode;
-    imageUrl?: string;
-    delay?: number;
+  title: string;
+  description: string;
+  coordinators?: string[];
+  coordinatorsPhones?: string[];
+  rules?: string[];
+  sponsors?: string[];
+  linkUrl: string;
+  linkText: string;
+  imageIcon: React.ReactNode;
+  imageUrl?: string;
+  delay?: number;
+  accent?: string;
 }
 
 export default function EventCard({
-    title,
-    description,
-    coordinators,
-    coordinatorsPhones,
-    rules,
-    sponsors,
-    linkUrl,
-    linkText,
-    imageIcon,
-    imageUrl,
-    delay = 0
+  title, description, coordinators, coordinatorsPhones, rules, sponsors,
+  linkUrl, linkText, imageIcon, imageUrl, delay = 0, accent = "#e62e2d",
 }: EventCardProps) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const { viewMode } = useViewMode();
+  const [open, setOpen] = useState(false);
 
-    return (
-        <>
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.5, delay }}
+        onClick={() => setOpen(true)}
+        className="group relative flex flex-col rounded-xl overflow-hidden cursor-pointer"
+        style={{
+          background: "rgba(12,16,22,0.88)",
+          border: "1px solid rgba(255,255,255,0.06)",
+          backdropFilter: "blur(12px)",
+          transition: "border-color 0.35s, box-shadow 0.35s",
+        }}
+        whileHover={{
+          boxShadow: `0 0 0 1px ${accent}44, 0 8px 40px ${accent}22`,
+          borderColor: `${accent}44`,
+        }}
+      >
+        {/* Image or icon */}
+        {imageUrl ? (
+          <div className="relative w-full h-44 overflow-hidden">
+            <div className="absolute inset-0 z-10"
+              style={{ background: `linear-gradient(to bottom, transparent 40%, rgba(12,16,22,0.95) 100%)` }} />
+            <img src={imageUrl} alt={title}
+              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+            {/* Icon badge */}
+            <div className="absolute bottom-3 left-4 z-20 w-9 h-9 rounded-lg flex items-center justify-center text-white"
+              style={{ background: `${accent}22`, border: `1px solid ${accent}44` }}>
+              {imageIcon}
+            </div>
+          </div>
+        ) : (
+          <div className="px-6 pt-6 pb-0">
+            <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-5"
+              style={{ background: `${accent}15`, border: `1px solid ${accent}30`, color: accent }}>
+              {imageIcon}
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-col flex-1 p-6 pt-4">
+          <h3 className="text-xl font-black uppercase tracking-tight text-white mb-2.5 group-hover:text-white transition-colors">
+            {title}
+          </h3>
+          <p className="text-white/40 text-sm leading-relaxed mb-5 flex-1">{description}</p>
+
+          {coordinators && coordinators.length > 0 && (
+            <div className="mb-5 space-y-1.5">
+              <div className="text-[9px] tracking-[0.35em] uppercase font-bold" style={{ color: `${accent}80` }}>
+                Coordinators
+              </div>
+              {coordinators.map((name, i) => (
+                <div key={i} className="flex items-center gap-1.5 text-xs text-white/50">
+                  <User size={11} style={{ color: accent }} /> {name}
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="flex items-center gap-2 text-xs font-bold tracking-wider uppercase mt-auto"
+            style={{ color: `${accent}cc` }}>
+            View Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* Hover top-bar accent */}
+        <div className="absolute top-0 inset-x-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }} />
+      </motion.div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {open && (
+          <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay }}
-                onClick={() => setIsModalOpen(true)}
-                className="group relative flex flex-col justify-between glass-panel p-6 sm:p-8 rounded-xl overflow-hidden hover:border-forge-red/50 transition-colors duration-500 bg-charcoal/40 cursor-pointer"
+              initial={{ opacity: 0, y: 40, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.97 }}
+              transition={{ type: "spring", damping: 26, stiffness: 350 }}
+              className="relative w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl pointer-events-auto"
+              style={{ background: "#0c1016", border: `1px solid ${accent}30` }}
             >
-                {/* Background glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-forge-red/0 to-forge-red/0 group-hover:from-forge-red/5 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
+              {/* Top accent line */}
+              <div className="h-1 w-full rounded-t-2xl"
+                style={{ background: `linear-gradient(90deg, ${accent}, ${accent}88, transparent)` }} />
 
-                <div>
-                    {viewMode === "image" && imageUrl ? (
-                        <div className="w-full h-48 mb-6 rounded-lg overflow-hidden relative shadow-lg group-hover:shadow-[0_0_25px_rgba(230,46,45,0.2)] transition-shadow">
-                            <div className="absolute inset-0 bg-charcoal/20 group-hover:bg-transparent transition-colors z-10" />
-                            <img
-                                src={imageUrl}
-                                alt={title}
-                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                            />
-                        </div>
-                    ) : (
-                        <div className="w-14 h-14 rounded-lg bg-foreground/5 border border-foreground/10 flex items-center justify-center text-forge-red mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            {imageIcon}
-                        </div>
-                    )}
+              {/* Close button */}
+              <button onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white bg-white/5 hover:bg-white/10 transition-colors">
+                <X size={16} />
+              </button>
 
-                    <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-forge-red transition-colors">
-                        {title}
-                    </h3>
-
-                    <p className="text-metallic text-sm leading-relaxed tracking-wide mb-6">
-                        {description}
-                    </p>
-
-                    {coordinators && coordinators.length > 0 && (
-                        <div className="mb-6 space-y-2">
-                            <h4 className="text-xs font-semibold uppercase tracking-widest text-foreground/50 border-b border-foreground/5 pb-1">Coordinators</h4>
-                            <ul className="text-sm text-foreground/80 space-y-1">
-                                {coordinators.map((name, idx) => (
-                                    <li key={idx} className="flex items-center gap-2">
-                                        <User size={14} className="text-forge-red/80" /> {name}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
+              {/* Hero image */}
+              {imageUrl && (
+                <div className="relative w-full h-52 overflow-hidden">
+                  <div className="absolute inset-0 z-10"
+                    style={{ background: "linear-gradient(to bottom, transparent 30%, #0c1016 100%)" }} />
+                  <img src={imageUrl} alt={title} className="w-full h-full object-cover" />
                 </div>
+              )}
 
-                <div className="inline-flex items-center gap-2 text-sm font-bold text-foreground group-hover:text-forge-red w-max transition-colors mt-auto">
-                    View Details & Register <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </div>
-            </motion.div>
-
-            {/* Event Details Modal */}
-            <AnimatePresence>
-                {isModalOpen && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setIsModalOpen(false)}
-                            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
-                        />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-panel rounded-2xl p-6 sm:p-10 shadow-2xl flex flex-col pointer-events-auto"
-                        >
-                            <button
-                                onClick={(e) => { e.stopPropagation(); setIsModalOpen(false); }}
-                                className="absolute top-6 right-6 p-2 rounded-full z-10 bg-background/50 backdrop-blur-md border border-foreground/10 hover:bg-foreground/10 transition-colors text-foreground"
-                            >
-                                <X size={20} />
-                            </button>
-
-                            {viewMode === "image" && imageUrl ? (
-                                <div className="w-full h-48 sm:h-64 -mt-6 -mx-6 mb-8 rounded-t-2xl overflow-hidden relative sm:w-[calc(100%+3rem)]">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent z-10" />
-                                    <img
-                                        src={imageUrl}
-                                        alt={title}
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <div className="absolute bottom-6 left-6 sm:left-10 z-20">
-                                        <div className="w-12 h-12 rounded-lg bg-background/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-2 shadow-inner">
-                                            {imageIcon}
-                                        </div>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="w-16 h-16 rounded-xl bg-foreground/5 border border-foreground/10 flex items-center justify-center text-forge-red mb-6 shadow-inner mt-2">
-                                    {imageIcon}
-                                </div>
-                            )}
-
-                            <h2 className={`text-3xl sm:text-4xl font-black uppercase tracking-tight text-foreground mb-4 ${viewMode === "image" && imageUrl ? 'mt-2' : ''}`}>
-                                {title}
-                            </h2>
-
-                            <p className="text-metallic text-base sm:text-lg mb-8">
-                                {description}
-                            </p>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                                {/* Rulebook */}
-                                <div className="space-y-4">
-                                    <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-forge-red border-b border-forge-red/20 pb-2">
-                                        <ShieldAlert size={16} /> Rulebook
-                                    </h4>
-                                    <ul className="space-y-3 text-sm text-foreground/80 list-disc list-inside">
-                                        {rules ? rules.map((rule, idx) => (
-                                            <li key={idx} className="leading-relaxed">{rule}</li>
-                                        )) : (
-                                            <>
-                                                <li className="leading-relaxed">Teams map consist of 2-4 members.</li>
-                                                <li className="leading-relaxed">Judge's decision is final.</li>
-                                                <li className="leading-relaxed">Use of malpractices will lead to immediate disqualification.</li>
-                                            </>
-                                        )}
-                                    </ul>
-                                </div>
-
-                                {/* Coordinators & Connect */}
-                                <div className="space-y-8">
-                                    {coordinators && coordinators.length > 0 && (
-                                        <div className="space-y-4">
-                                            <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-forge-red border-b border-forge-red/20 pb-2">
-                                                <User size={16} /> Coordinators
-                                            </h4>
-                                            <ul className="space-y-3 text-sm text-foreground/80">
-                                                {coordinators.map((name, idx) => (
-                                                    <li key={idx} className="flex flex-col">
-                                                        <span className="font-medium text-foreground">{name}</span>
-                                                        <span className="flex items-center gap-2 text-metallic mt-1">
-                                                            <Phone size={12} /> {coordinatorsPhones?.[idx] || "+91 98765 43210"}
-                                                        </span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-
-                                    {sponsors && sponsors.length > 0 && (
-                                        <div className="space-y-4">
-                                            <h4 className="text-sm font-bold uppercase tracking-widest text-foreground/50 border-b border-foreground/10 pb-2">
-                                                Event Sponsor
-                                            </h4>
-                                            <div className="flex flex-wrap gap-2">
-                                                {sponsors.map((sponsor, idx) => (
-                                                    <span key={idx} className="px-3 py-1 bg-foreground/5 border border-foreground/10 rounded-md text-sm text-foreground/80">
-                                                        {sponsor}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="mt-auto pt-6 border-t border-foreground/10 flex justify-end">
-                                <a
-                                    href={linkUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-8 py-4 bg-forge-red text-white font-bold rounded-lg shadow-lg hover:bg-forge-red-hover transition-colors flex items-center gap-2"
-                                >
-                                    {linkText} <ArrowRight size={18} />
-                                </a>
-                            </div>
-                        </motion.div>
-                    </div>
+              <div className="p-6 sm:p-8">
+                {!imageUrl && (
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                    style={{ background: `${accent}15`, border: `1px solid ${accent}30`, color: accent }}>
+                    {imageIcon}
+                  </div>
                 )}
-            </AnimatePresence>
-        </>
-    );
+
+                <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white mb-3">{title}</h2>
+                <p className="text-white/50 text-base mb-8 leading-relaxed">{description}</p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
+                  {/* Rules */}
+                  <div>
+                    <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 pb-2 border-b"
+                      style={{ color: accent, borderColor: `${accent}20` }}>
+                      <ShieldAlert size={14} /> Rulebook
+                    </h4>
+                    <ul className="space-y-2.5 text-sm text-white/50 list-disc list-inside">
+                      {rules ? rules.map((r, i) => <li key={i}>{r}</li>) : (
+                        <>
+                          <li>Teams must consist of 2–4 members.</li>
+                          <li>Judge's decision is final.</li>
+                          <li>Malpractice leads to disqualification.</li>
+                        </>
+                      )}
+                    </ul>
+                  </div>
+
+                  {/* Coordinators */}
+                  {coordinators && coordinators.length > 0 && (
+                    <div>
+                      <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 pb-2 border-b"
+                        style={{ color: accent, borderColor: `${accent}20` }}>
+                        <User size={14} /> Coordinators
+                      </h4>
+                      <ul className="space-y-3 text-sm">
+                        {coordinators.map((name, i) => (
+                          <li key={i} className="flex flex-col">
+                            <span className="font-semibold text-white/80">{name}</span>
+                            <span className="flex items-center gap-1.5 text-white/30 text-xs mt-0.5">
+                              <Phone size={11} /> {coordinatorsPhones?.[i] || "—"}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-6 border-t flex justify-end" style={{ borderColor: `${accent}15` }}>
+                  <a href={linkUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-8 py-3.5 rounded-lg font-bold text-sm tracking-wider uppercase text-white transition-all hover:opacity-90 active:scale-95"
+                    style={{ background: accent, boxShadow: `0 0 30px ${accent}44` }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {linkText} <ArrowRight size={16} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }

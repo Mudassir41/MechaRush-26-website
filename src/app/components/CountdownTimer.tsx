@@ -1,73 +1,65 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
-interface TimeLeft {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
+const TARGET = new Date("2026-04-07T09:00:00+05:30").getTime();
+
+function Ring({ value, max, label, color }: { value: number; max: number; label: string; color: string }) {
+  const R = 36, C = 2 * Math.PI * R;
+  const off = C * (1 - Math.max(0, Math.min(1, value / max)));
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative w-[88px] h-[88px] flex items-center justify-center">
+        <svg className="absolute inset-0 -rotate-90" viewBox="0 0 88 88">
+          <circle cx="44" cy="44" r={R} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="5" />
+          <motion.circle cx="44" cy="44" r={R} fill="none" stroke={color} strokeWidth="5" strokeLinecap="round"
+            strokeDasharray={C} strokeDashoffset={off}
+            style={{ filter: `drop-shadow(0 0 6px ${color})`, transition: "stroke-dashoffset 0.8s ease, stroke 0.6s" }} />
+        </svg>
+        <span className="text-xl font-black tabular-nums text-white" style={{ fontFamily: "monospace" }}>
+          {String(value).padStart(2, "0")}
+        </span>
+      </div>
+      <span className="text-[9px] tracking-[0.35em] uppercase font-bold text-white/25">{label}</span>
+    </div>
+  );
 }
 
-export default function CountdownTimer() {
-    const calculateTimeLeft = (): TimeLeft => {
-        // April 7, 2026, 09:00 AM (assuming 2026 based on metadata context)
-        const eventDate = new Date("2026-04-07T09:00:00+05:30");
-        const difference = +eventDate - +new Date();
+interface Props { accent?: string }
 
-        let timeLeft: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+export default function CountdownTimer({ accent = "#e62e2d" }: Props) {
+  const [diff, setDiff] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
-        if (difference > 0) {
-            timeLeft = {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((difference / 1000 / 60) % 60),
-                seconds: Math.floor((difference / 1000) % 60),
-            };
-        }
+  useEffect(() => {
+    setMounted(true);
+    const tick = () => setDiff(Math.max(0, TARGET - Date.now()));
+    tick(); const id = setInterval(tick, 1000); return () => clearInterval(id);
+  }, []);
 
-        return timeLeft;
-    };
+  if (!mounted) return null;
 
-    const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
-    const [mounted, setMounted] = useState(false);
+  const days    = Math.floor(diff / 86400000);
+  const hours   = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
 
-    useEffect(() => {
-        setMounted(true);
-        const timer = setInterval(() => {
-            setTimeLeft(calculateTimeLeft());
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
-
-    if (!mounted) {
-        return (
-            <div className="flex gap-4 sm:gap-8 justify-center mt-8">
-                {[...Array(4)].map((_, i) => (
-                    <div key={i} className="flex flex-col items-center">
-                        <div className="text-4xl sm:text-6xl font-bold bg-charcoal/50 border border-foreground/5 backdrop-blur-sm rounded-lg w-16 sm:w-24 h-20 sm:h-24 flex items-center justify-center text-metallic animate-pulse">
-                            -
-                        </div>
-                    </div>
-                ))}
-            </div>
-        );
-    }
-
-    return (
-        <div className="flex gap-4 sm:gap-8 justify-center mt-8 font-mono">
-            {Object.entries(timeLeft).map(([unit, value]) => (
-                <div key={unit} className="flex flex-col items-center">
-                    <div className="text-4xl sm:text-6xl font-bold bg-charcoal border border-foreground/10 backdrop-blur-sm shadow-xl rounded-lg w-16 sm:w-24 h-20 sm:h-24 flex items-center justify-center text-foreground relative overflow-hidden group">
-                        <div className="absolute inset-x-0 bottom-0 h-1 bg-forge-red transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                        {String(value).padStart(2, "0")}
-                    </div>
-                    <span className="uppercase text-xs sm:text-sm mt-3 tracking-widest text-metallic opacity-80">
-                        {unit}
-                    </span>
-                </div>
-            ))}
-        </div>
-    );
+  return (
+    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+      className="flex flex-col items-center">
+      <div className="text-[9px] tracking-[0.4em] uppercase font-bold mb-5 transition-colors duration-500" style={{ color: `${accent}60` }}>
+        ⚡ T-Minus
+      </div>
+      <div className="flex items-center gap-3 sm:gap-6">
+        <Ring value={days}    max={365} label="Days"    color={accent} />
+        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: `${accent}50` }}>:</div>
+        <Ring value={hours}   max={24}  label="Hours"   color={accent} />
+        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: `${accent}50` }}>:</div>
+        <Ring value={minutes} max={60}  label="Minutes" color={accent} />
+        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: `${accent}50` }}>:</div>
+        <Ring value={seconds} max={60}  label="Seconds" color={accent} />
+      </div>
+    </motion.div>
+  );
 }
