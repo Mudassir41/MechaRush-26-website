@@ -29,7 +29,7 @@ export default function OpusHub() {
                     Welcome to the experimental phase. Here we are testing radically different, highly-interactive, and realistic mechanical simulations. Choose an experience below.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto text-left">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto text-left">
                     <Link href="/opus/gears" className="group p-8 rounded-2xl glass-panel relative overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
                         <div className="absolute inset-0 bg-gradient-to-br from-charcoal/40 to-transparent z-0 group-hover:from-forge-red/10 transition-colors" />
                         <div className="relative z-10 flex flex-col h-full">
@@ -56,6 +56,22 @@ export default function OpusHub() {
                             </h2>
                             <p className="text-metallic text-sm leading-relaxed mb-8 flex-1">
                                 An interactive, photorealistic WebGL rendering of a mechanical engine block floating in the center of the viewport, rendered live via Three.js.
+                            </p>
+                            <div className="flex items-center gap-2 font-bold text-sm text-foreground group-hover:text-forge-red transition-colors mt-auto">
+                                Enter Simulation <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </div>
+                    </Link>
+
+                    <Link href="/opus/ocean" className="group p-8 rounded-2xl glass-panel relative overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
+                        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent z-0 group-hover:from-forge-red/10 transition-colors" />
+                        <div className="relative z-10 flex flex-col h-full">
+                            <span className="text-forge-red mb-6" style={{ fontSize: 40 }}>🌊</span>
+                            <h2 className="text-3xl font-bold uppercase tracking-tight text-foreground mb-3">
+                                Liquid Metal
+                            </h2>
+                            <p className="text-metallic text-sm leading-relaxed mb-8 flex-1">
+                                A photorealistic WebGL fluid simulation adapted from oceanic physics, rendering heavy metallic swells with dynamic foam streaking and subsurface scattering.
                             </p>
                             <div className="flex items-center gap-2 font-bold text-sm text-foreground group-hover:text-forge-red transition-colors mt-auto">
                                 Enter Simulation <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

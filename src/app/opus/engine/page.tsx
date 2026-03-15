@@ -7,6 +7,7 @@ import * as THREE from "three";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { WebGLErrorBoundary } from "../../components/WebGLErrorBoundary";
 
 // A procedural, abstract "Mechanical Engine Core" using Three.js primitives
 function EngineBlock() {
@@ -105,17 +106,19 @@ export default function EngineOpus() {
 
             {/* 3D Canvas */}
             <div className="flex-1 w-full relative cursor-move">
-                <Canvas camera={{ position: [5, 4, 6], fov: 45 }}>
-                    <ambientLight intensity={0.5} />
-                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-                    <pointLight position={[-10, -10, -10]} intensity={0.5} color="#e62e2d" />
+                <WebGLErrorBoundary>
+                    <Canvas camera={{ position: [5, 4, 6], fov: 45 }}>
+                        <ambientLight intensity={0.5} />
+                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+                        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#e62e2d" />
 
-                    <EngineBlock />
+                        <EngineBlock />
 
-                    <ContactShadows position={[0, -2, 0]} opacity={0.5} scale={10} blur={2} far={4} />
-                    <Environment preset="city" />
-                    <OrbitControls enablePan={false} maxPolarAngle={Math.PI / 2 + 0.1} minDistance={3} maxDistance={15} />
-                </Canvas>
+                        <ContactShadows position={[0, -2, 0]} opacity={0.5} scale={10} blur={2} far={4} />
+                        <Environment preset="city" />
+                        <OrbitControls enablePan={false} maxPolarAngle={Math.PI / 2 + 0.1} minDistance={3} maxDistance={15} />
+                    </Canvas>
+                </WebGLErrorBoundary>
             </div>
         </div>
     );
