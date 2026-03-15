@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, User, Phone, X, ShieldAlert } from "lucide-react";
 import { useState } from "react";
+import { useViewMode } from "../context/ViewModeContext";
 
 interface EventCardProps {
     title: string;
@@ -32,6 +33,7 @@ export default function EventCard({
     delay = 0
 }: EventCardProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { viewMode } = useViewMode();
 
     return (
         <>
@@ -47,7 +49,7 @@ export default function EventCard({
                 <div className="absolute inset-0 bg-gradient-to-br from-forge-red/0 to-forge-red/0 group-hover:from-forge-red/5 group-hover:to-transparent transition-all duration-500 pointer-events-none" />
 
                 <div>
-                    {imageUrl ? (
+                    {viewMode === "image" && imageUrl ? (
                         <div className="w-full h-48 mb-6 rounded-lg overflow-hidden relative shadow-lg group-hover:shadow-[0_0_25px_rgba(230,46,45,0.2)] transition-shadow">
                             <div className="absolute inset-0 bg-charcoal/20 group-hover:bg-transparent transition-colors z-10" />
                             <img
@@ -113,7 +115,7 @@ export default function EventCard({
                                 <X size={20} />
                             </button>
 
-                            {imageUrl ? (
+                            {viewMode === "image" && imageUrl ? (
                                 <div className="w-full h-48 sm:h-64 -mt-6 -mx-6 mb-8 rounded-t-2xl overflow-hidden relative sm:w-[calc(100%+3rem)]">
                                     <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 to-transparent z-10" />
                                     <img
@@ -133,7 +135,7 @@ export default function EventCard({
                                 </div>
                             )}
 
-                            <h2 className={`text-3xl sm:text-4xl font-black uppercase tracking-tight text-foreground mb-4 ${imageUrl ? 'mt-2' : ''}`}>
+                            <h2 className={`text-3xl sm:text-4xl font-black uppercase tracking-tight text-foreground mb-4 ${viewMode === "image" && imageUrl ? 'mt-2' : ''}`}>
                                 {title}
                             </h2>
 
