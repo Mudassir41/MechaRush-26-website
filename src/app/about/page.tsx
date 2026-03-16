@@ -107,7 +107,7 @@ export default function AboutControlPanel() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-[#e62e2d] font-mono p-4 sm:p-8 pt-28 relative overflow-hidden">
+    <div className="min-h-screen bg-black text-[#e62e2d] font-mono p-4 sm:p-8 pt-32 sm:pt-40 relative overflow-hidden">
 
       {/* Global CRT Scanning Line */}
       <ScanningLine />
