@@ -7,19 +7,18 @@ import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent }
 import { X, Menu, Phone } from "lucide-react";
 
 const CONTACTS = [
-  { name: "Mudassir",        role: "Tech Head",          phone: "9876543210" },
-  { name: "Suzy",            role: "Non-Tech Head",       phone: "9080191348" },
-  { name: "Shakthi",         role: "Tech Coordinator",    phone: "9042818580" },
-  { name: "Gokulraj",        role: "Non-Tech Coordinator", phone: "9087654321" },
+  { name: "Sathick. A.S",    role: "Tech Coordinator",   phone: "+91 6381032845" },
+  { name: "Susikaran V",     role: "Non-Tech Coord",     phone: "+91 7305432674" },
+  { name: "Support Email",   role: "General Inquiry",    phone: "contact@mecharush.in" },
 ];
 
 const NAV_LINKS = [
   { href: "/",               label: "Home"       },
-  { href: "#about",          label: "About"      },
+  { href: "/about",          label: "About"      },
   { href: "/tech-events",    label: "Tech Events" },
   { href: "/non-tech-events",label: "Non-Tech"   },
-  { href: "#schedule",       label: "Schedule"   },
-  { href: "#location",       label: "Location"   },
+  { href: "/#schedule",       label: "Schedule"   },
+  { href: "/#location",       label: "Location"   },
 ];
 
 export default function NavBar() {
@@ -38,27 +37,21 @@ export default function NavBar() {
       >
         <div className="max-w-7xl mx-auto px-5 h-20 flex items-center justify-between gap-4">
 
-          {/* Left — college logo */}
-          <a
-            href="https://crescent.education"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 group flex-shrink-0"
-            title="B.S. Abdur Rahman Crescent Institute"
-          >
-            <div className="w-12 h-12 rounded-xl overflow-hidden border border-white/10 group-hover:border-[#e62e2d]/40 transition-colors bg-white/5 p-1">
-              <img src="/logo.png" alt="Crescent Logo" className="w-full h-full object-contain" />
-            </div>
-            <div className="hidden sm:block">
-               <div className="text-[10px] text-white/40 tracking-widest font-bold uppercase">Dept of Mechanical</div>
-               <div className="text-[13px] font-black uppercase tracking-wider text-white/90 group-hover:text-white transition-colors leading-none mt-0.5">
-                  BSAR Crescent
-               </div>
-            </div>
-          </a>
+          {/* Left — college logo & MechaRush logo */}
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <a
+              href="https://crescent.education"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-10 w-32 relative flex-shrink-0 transition-transform hover:scale-105"
+              title="B.S. Abdur Rahman Crescent Institute"
+            >
+              <img src="/assets/crescent-logo-white.png" alt="Crescent Logo" className="w-full h-full object-contain" />
+            </a>
+          </div>
 
           {/* Center — Inline Logo (appears on scroll) */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-auto">
              <AnimatePresence>
                 {isScrolled && (
                    <motion.div 
@@ -68,7 +61,9 @@ export default function NavBar() {
                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
                      className="relative w-48 h-12 sm:w-64 sm:h-16"
                    >
-                     <Image src="/assets/mecharush_inline.png" alt="MechaRush" fill className="object-contain drop-shadow-[0_0_15px_rgba(230,46,45,0.5)]" />
+                     <Link href="/" title="MechaRush Home" className="block w-full h-full hover:scale-105 transition-transform">
+                        <Image src="/assets/mecharush_inline.png" alt="MechaRush" fill className="object-contain drop-shadow-[0_0_15px_rgba(230,46,45,0.5)] cursor-pointer" />
+                     </Link>
                    </motion.div>
                 )}
              </AnimatePresence>
@@ -126,7 +121,7 @@ export default function NavBar() {
                     transition={{ delay: i * 0.05 + 0.1 }}>
                     <Link href={href}
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center gap-4 px-5 py-4 rounded-xl text-sm font-black tracking-widest uppercase text-white/50 hover:text-white hover:bg-[#e62e2d]/10 hover:shadow-[inset_4px_0_0_#e62e2d] transition-all">
+                      className="flex items-center gap-4 px-5 py-4 rounded-xl text-sm font-black tracking-widest uppercase text-white/50 hover:text-white hover:bg-[#e62e2d]/10 hover:transition-all">
                       {label}
                     </Link>
                   </motion.div>

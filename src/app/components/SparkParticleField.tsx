@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useHUDStore } from "../store/hudStore";
 
 // ═══════════════════════════════════════════════════════════
 //  SPARK PARTICLE FIELD
@@ -52,16 +53,25 @@ function drawGear(ctx: CanvasRenderingContext2D, x: number, y: number, r: number
 }
 
 interface Props {
-  density?: number; // 0-1, controls particle count
+  density?: number; // 0-1 base density
 }
 
 export default function SparkParticleField({ density = 0.6 }: Props) {
+  const { telemetry } = useHUDStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const visibleRef = useRef(true);
   const [mounted, setMounted] = useState(false);
 
+  // Smooth target for max particles so it ramps up 10x
+  const targetMultiplier = useRef(1);
+
   useEffect(() => { setMounted(true); }, []);
+
+  // Update target multiplier based on telemetry
+  useEffect(() => {
+    targetMultiplier.current = telemetry === "CHAOTIC" ? 10 : 1;
+  }, [telemetry]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -92,23 +102,29 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
       }
     }, 2000);
 
-    const maxParticles = Math.floor(80 * density);
+    const baseMaxParticles = Math.floor(80 * density);
     const particles = particlesRef.current;
+    let currentMultiplier = 1;
 
-    function spawn() {
-      if (particles.length >= maxParticles) return;
-      const type = Math.random() < 0.08 ? "gear" : Math.random() < 0.3 ? "spark" : "ember";
+    function spawn(maxAllowed: number) {
+      if (particles.length >= maxAllowed) return;
+      
+      // When chaotic (high multiplier), emphasize sparks and embers
+      const isChaotic = currentMultiplier > 2;
+      const r = Math.random();
+      const type = r < 0.05 ? "gear" : r < (isChaotic ? 0.6 : 0.3) ? "spark" : "ember";
+      
       const p: Particle = {
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: -(0.2 + Math.random() * 0.6),
-        size: type === "gear" ? 8 + Math.random() * 14 : type === "spark" ? 1 + Math.random() * 1.5 : 1.5 + Math.random() * 2.5,
+        vx: (Math.random() - 0.5) * (isChaotic ? 1.5 : 0.4), // faster horizontally when chaotic
+        vy: -(0.2 + Math.random() * (isChaotic ? 1.2 : 0.6)), // faster vertically when chaotic
+        size: type === "gear" ? 8 + Math.random() * 14 : type === "spark" ? 1 + Math.random() * 2 : 1.5 + Math.random() * 3,
         life: 0,
-        maxLife: type === "gear" ? 400 + Math.random() * 600 : 60 + Math.random() * 120,
+        maxLife: type === "gear" ? 400 + Math.random() * 600 : 60 + Math.random() * 140,
         type,
         rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.02,
+        rotSpeed: (Math.random() - 0.5) * (isChaotic ? 0.06 : 0.02),
         color: type === "gear" ? "#e62e2d"
              : type === "spark" ? SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)]
              : EMBER_COLORS[Math.floor(Math.random() * EMBER_COLORS.length)],
@@ -121,10 +137,21 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
       rafId = requestAnimationFrame(animate);
       if (!visibleRef.current || !ctx) return;
 
+      // Smoothly approach the target multiplier
+      // Ramp up fast, ramp down slow (the fade out is also handled by particles dying)
+      if (currentMultiplier < targetMultiplier.current) {
+         currentMultiplier += 0.2; // Fast chaos ignition
+      } else if (currentMultiplier > targetMultiplier.current) {
+         currentMultiplier -= 0.01; // Slow nominal cooldown
+      }
+
       ctx.clearRect(0, 0, width, height);
 
-      // Spawn
-      for (let i = 0; i < 2; i++) spawn();
+      const dynamicMax = Math.floor(baseMaxParticles * currentMultiplier);
+
+      // Spawn rate scales with desired max
+      const spawnRate = currentMultiplier > 2 ? 8 : 2; 
+      for (let i = 0; i < spawnRate; i++) spawn(dynamicMax);
 
       // Update & draw
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -153,7 +180,7 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
           ctx.globalAlpha = alpha * 0.8;
           ctx.fillStyle = p.color;
           ctx.shadowColor = p.color;
-          ctx.shadowBlur = 4;
+          ctx.shadowBlur = targetMultiplier.current > 2 ? 8 : 4; // Glow more when chaotic
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
           ctx.fill();
@@ -163,7 +190,7 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
           ctx.globalAlpha = alpha * 0.5;
           ctx.fillStyle = p.color;
           ctx.shadowColor = p.color;
-          ctx.shadowBlur = 8;
+          ctx.shadowBlur = targetMultiplier.current > 2 ? 15 : 8;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
           ctx.fill();

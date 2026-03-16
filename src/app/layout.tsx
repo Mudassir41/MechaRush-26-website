@@ -2,19 +2,31 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
+import AIAssistant from "./components/AIAssistant";
+import GlobalHUD from "./components/GlobalHUD";
+import ClickAudioProvider from "./components/ClickAudioProvider";
+import EngineAudio from "./components/EngineAudio";
 
 const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mecharush'26 | The Ultimate Mechanical Symposium",
-  description: "The ultimate mechanical engineering symposium at B.S. Abdur Rahman Crescent Institute, Chennai. April 7, 2026. Engineer the Rush.",
+  title: "MechaRush '26",
+  description: "National Level Technical Symposium | Dept of Mechanical Engineering",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en" className="dark scroll-smooth">
       <body className={`${outfit.variable} antialiased min-h-screen flex flex-col bg-[#080a0c]`}>
+        <ClickAudioProvider />
+        <EngineAudio />
         <NavBar />
+        <AIAssistant />
+        <GlobalHUD />
         <main className="flex-1 flex flex-col">
           {children}
         </main>

@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 type Phase =
   | "idle"        // waiting for user
-  | "cranking"    // button pressed, engine starting
-  | "revving"     // RPM rising
+  | "pressurizing" // button pressed, fuel pumps start
+  | "spooling"    // turbine rising
   | "launching"   // flash + transition
   | "done";       // gone
 
@@ -35,67 +35,68 @@ function useAudioEngine() {
     master.gain.linearRampToValueAtTime(1.0,  now + 3.0);
     master.connect(ctx.destination);
 
-    // Engine fundamental tone – pitch ramps up like an engine cranking
-    [0, 7, 14, 21].forEach((semitone, i) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(40 + i * 8, now);
-      osc.frequency.exponentialRampToValueAtTime(180 + i * 35, now + TOTAL_CRANK_MS / 1000);
-      gain.gain.setValueAtTime(0.15, now);
-      osc.connect(gain);
-      gain.connect(master);
-      osc.start(now);
-      osc.stop(now + TOTAL_CRANK_MS / 1000 + 0.5);
-      nodesRef.current.push(osc);
-    });
+    // Turbine high-pitch spool whine
+    const turbine = ctx.createOscillator();
+    const turbineGain = ctx.createGain();
+    turbine.type = "sine";
+    // Sweep from low whine to extremely high pitch
+    turbine.frequency.setValueAtTime(200, now);
+    turbine.frequency.exponentialRampToValueAtTime(4500, now + TOTAL_CRANK_MS / 1000);
+    turbineGain.gain.setValueAtTime(0.0, now);
+    turbineGain.gain.linearRampToValueAtTime(0.15, now + 1.0);
+    turbineGain.gain.linearRampToValueAtTime(0.4, now + TOTAL_CRANK_MS / 1000);
+    turbine.connect(turbineGain);
+    turbineGain.connect(master);
+    turbine.start(now);
+    turbine.stop(now + TOTAL_CRANK_MS / 1000 + 0.5);
+    nodesRef.current.push(turbine);
 
-    // Rumble sub
+    // Pressurized fluid/gas hiss
+    const bufSize = ctx.sampleRate * (TOTAL_CRANK_MS / 1000);
+    const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let j = 0; j < data.length; j++) data[j] = Math.random() * 2 - 1;
+    const hissSrc = ctx.createBufferSource();
+    const hissFlt = ctx.createBiquadFilter();
+    const hissGain = ctx.createGain();
+    hissSrc.buffer = buf;
+    hissFlt.type = "highpass";
+    hissFlt.frequency.value = 2000;
+    // Hiss starts quiet, gets loud as pressure builds
+    hissGain.gain.setValueAtTime(0, now);
+    hissGain.gain.linearRampToValueAtTime(0.3, now + TOTAL_CRANK_MS / 1000);
+    hissSrc.connect(hissFlt);
+    hissFlt.connect(hissGain);
+    hissGain.connect(master);
+    hissSrc.start(now);
+    nodesRef.current.push(hissSrc);
+
+    // Rumble sub (the heavy rocket booster shaking)
     const rumble = ctx.createOscillator();
     const rumbleGain = ctx.createGain();
     rumble.type = "sine";
-    rumble.frequency.setValueAtTime(28, now);
-    rumble.frequency.linearRampToValueAtTime(55, now + TOTAL_CRANK_MS / 1000);
-    rumbleGain.gain.setValueAtTime(0.3, now);
-    rumbleGain.gain.linearRampToValueAtTime(0.6, now + TOTAL_CRANK_MS / 1000);
+    rumble.frequency.setValueAtTime(30, now);
+    rumble.frequency.linearRampToValueAtTime(65, now + TOTAL_CRANK_MS / 1000);
+    rumbleGain.gain.setValueAtTime(0.2, now);
+    rumbleGain.gain.linearRampToValueAtTime(0.8, now + TOTAL_CRANK_MS / 1000);
     rumble.connect(rumbleGain);
     rumbleGain.connect(master);
     rumble.start(now);
     rumble.stop(now + TOTAL_CRANK_MS / 1000 + 0.5);
     nodesRef.current.push(rumble);
 
-    // Sputtering noise bursts at the start
-    for (let i = 0; i < 6; i++) {
-      const buf = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let j = 0; j < data.length; j++) data[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / data.length, 2);
-      const src = ctx.createBufferSource();
-      const flt = ctx.createBiquadFilter();
-      const spG = ctx.createGain();
-      src.buffer = buf;
-      flt.type = "bandpass";
-      flt.frequency.value = 300 + i * 80;
-      flt.Q.value = 2;
-      spG.gain.setValueAtTime(0.3 + i * 0.04, now + i * 0.18);
-      src.connect(flt);
-      flt.connect(spG);
-      spG.connect(master);
-      src.start(now + i * 0.18);
-      nodesRef.current.push(src);
-    }
-
-    // Roar burst at end (launch moment)
+    // Main Engine Ignition Roar burst at end
     const roar = ctx.createOscillator();
     const roarGain = ctx.createGain();
     roar.type = "sawtooth";
-    roar.frequency.setValueAtTime(220, now + TOTAL_CRANK_MS / 1000 - 0.1);
-    roar.frequency.exponentialRampToValueAtTime(800, now + TOTAL_CRANK_MS / 1000 + 0.6);
-    roarGain.gain.setValueAtTime(0.0, now + TOTAL_CRANK_MS / 1000 - 0.1);
-    roarGain.gain.linearRampToValueAtTime(0.9, now + TOTAL_CRANK_MS / 1000 + 0.15);
+    roar.frequency.setValueAtTime(150, now + TOTAL_CRANK_MS / 1000 - 0.2);
+    roar.frequency.exponentialRampToValueAtTime(600, now + TOTAL_CRANK_MS / 1000 + 0.6);
+    roarGain.gain.setValueAtTime(0.0, now + TOTAL_CRANK_MS / 1000 - 0.2);
+    roarGain.gain.linearRampToValueAtTime(1.0, now + TOTAL_CRANK_MS / 1000 + 0.1);
     roarGain.gain.linearRampToValueAtTime(0.0, now + TOTAL_CRANK_MS / 1000 + 0.8);
     roar.connect(roarGain);
     roarGain.connect(master);
-    roar.start(now + TOTAL_CRANK_MS / 1000 - 0.1);
+    roar.start(now + TOTAL_CRANK_MS / 1000 - 0.2);
     roar.stop(now + TOTAL_CRANK_MS / 1000 + 1.0);
     nodesRef.current.push(roar);
 
@@ -107,7 +108,7 @@ function useAudioEngine() {
 
 export default function IgnitionScreen({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState<Phase>("idle");
-  const [rpm, setRpm] = useState(0);
+  const [thrust, setThrust] = useState(0);
   const [logs, setLogs] = useState<string[]>([]);
   const { playIgnition, cleanup } = useAudioEngine();
   const rafRef = useRef<number | null>(null);
@@ -115,18 +116,18 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
   // Animated log lines for the cockpit HUD
   const LOG_SEQUENCE = [
-    { t: 100,  msg: "SYS: Initializing Forge-Drive™ v26.4.7..." },
-    { t: 450,  msg: "SYS: Connecting fuel injectors..." },
-    { t: 800,  msg: "SYS: Turbo spool-up confirmed..." },
+    { t: 100,  msg: "SYS: Initializing Orbital Forge-Drive™ v26.4.7..." },
+    { t: 450,  msg: "SYS: Pressurizing fuel manifolds..." },
+    { t: 800,  msg: "SYS: Turbine spool-up confirmed..." },
     { t: 1200, msg: "SYS: Ignition sequence engaged..." },
-    { t: 1700, msg: "WARN: Thermal output nominal at 4200°C" },
-    { t: 2200, msg: "SYS: RPM threshold approaching..." },
+    { t: 1700, msg: "WARN: Core thermal output nominal at 4200°C" },
+    { t: 2200, msg: "SYS: Thrust threshold approaching..." },
     { t: 2700, msg: "SYS: All systems GREEN — LAUNCHING" },
   ];
 
   const handleIgnite = useCallback(() => {
     if (phase !== "idle") return;
-    setPhase("cranking");
+    setPhase("pressurizing");
     playIgnition();
 
     startRef.current = performance.now();
@@ -136,24 +137,24 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
       setTimeout(() => setLogs((prev) => [...prev, msg]), t);
     });
 
-    // Animate RPM
-    const animRpm = (now: number) => {
+    // Animate Thrust %
+    const animThrust = (now: number) => {
       const elapsed = now - startRef.current;
       const progress = Math.min(elapsed / TOTAL_CRANK_MS, 1);
       // Ease-in curve so it feels like a real engine spooling
       const eased = Math.pow(progress, 0.6);
-      setRpm(Math.round(eased * 8500));
+      setThrust(Math.min(Math.round(eased * 105), 100)); // Peaks at 100%
 
       if (progress < 1) {
-        rafRef.current = requestAnimationFrame(animRpm);
+        rafRef.current = requestAnimationFrame(animThrust);
       } else {
-        setRpm(8500);
-        setPhase("revving");
+        setThrust(100);
+        setPhase("spooling");
         setTimeout(() => setPhase("launching"), 400);
         setTimeout(() => { cleanup(); onComplete(); }, 1300);
       }
     };
-    rafRef.current = requestAnimationFrame(animRpm);
+    rafRef.current = requestAnimationFrame(animThrust);
   }, [phase, playIgnition, cleanup, onComplete]);
 
   useEffect(() => {
@@ -163,15 +164,15 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
     };
   }, [cleanup]);
 
-  // RPM gauge arc path
+  // Thrust gauge arc path
   const GAUGE_R = 88;
   const GAUGE_CX = 100;
   const GAUGE_CY = 100;
   const START_ANGLE = 135;
   const END_ANGLE   = 405;
   const TOTAL_ARC   = END_ANGLE - START_ANGLE;
-  const rpmFraction = rpm / 9000;
-  const currentArcDeg = rpmFraction * TOTAL_ARC;
+  const thrustFraction = thrust / 100;
+  const currentArcDeg = thrustFraction * TOTAL_ARC;
 
   function polarToXY(cx: number, cy: number, r: number, angleDeg: number) {
     const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -190,7 +191,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
     ? describeArc(GAUGE_CX, GAUGE_CY, GAUGE_R, START_ANGLE, START_ANGLE + currentArcDeg)
     : "";
 
-  const rpmColor = rpm > 7500 ? "#ff5a1f" : rpm > 5000 ? "#f59e0b" : "#e62e2d";
+  const thrustColor = thrust > 85 ? "#ff5a1f" : thrust > 50 ? "#f59e0b" : "#e62e2d";
 
   return (
     <AnimatePresence>
@@ -285,23 +286,23 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
                 <path d={trackD} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" strokeLinecap="round" />
                 {/* Fill */}
                 {fillD && (
-                  <path d={fillD} fill="none" stroke={rpmColor} strokeWidth="8" strokeLinecap="round"
-                    style={{ filter: `drop-shadow(0 0 6px ${rpmColor})`, transition: "stroke 0.3s" }} />
+                  <path d={fillD} fill="none" stroke={thrustColor} strokeWidth="8" strokeLinecap="round"
+                    style={{ filter: `drop-shadow(0 0 6px ${thrustColor})`, transition: "stroke 0.3s" }} />
                 )}
                 {/* Needle tip dot */}
                 {fillD && (() => {
                   const pt = polarToXY(GAUGE_CX, GAUGE_CY, GAUGE_R, START_ANGLE + currentArcDeg);
-                  return <circle cx={pt.x} cy={pt.y} r="4" fill={rpmColor} style={{ filter: `drop-shadow(0 0 6px ${rpmColor})` }} />;
+                  return <circle cx={pt.x} cy={pt.y} r="4" fill={thrustColor} style={{ filter: `drop-shadow(0 0 6px ${thrustColor})` }} />;
                 })()}
-                {/* REDLINE label */}
-                <text x="164" y="68" fontSize="5.5" fill="#ff5a1f" opacity="0.7" fontFamily="monospace">RED</text>
+                {/* 100% label */}
+                <text x="164" y="68" fontSize="5.5" fill="#ff5a1f" opacity="0.7" fontFamily="monospace">MAX</text>
               </svg>
               {/* Center readout */}
-              <div className="relative text-center z-10">
-                <div className="text-3xl font-black tabular-nums" style={{ color: rpmColor, textShadow: `0 0 20px ${rpmColor}`, fontFamily: "monospace", transition: "color 0.3s" }}>
-                  {rpm.toLocaleString()}
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-2">
+                <div className="text-4xl font-black tabular-nums tracking-tighter" style={{ color: thrustColor }}>
+                  {thrust}
                 </div>
-                <div className="text-[10px] tracking-[0.35em] text-white/30 uppercase font-bold mt-1">RPM</div>
+                <div className="text-[10px] text-white/40 tracking-widest font-bold uppercase">Thrust %</div>
               </div>
             </div>
 
@@ -345,12 +346,12 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
             {phase === "idle" ? (
               <button
                 onClick={handleIgnite}
-                className="btn-ignite px-14 py-5 text-lg rounded-lg tracking-widest"
+                className="btn-ignite px-10 py-5 text-lg rounded-lg tracking-widest sm:px-14"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                ⚡ IGNITE ENGINE
+                INITIATE LAUNCH
               </button>
-            ) : phase === "cranking" || phase === "revving" ? (
+            ) : phase === "pressurizing" || phase === "spooling" ? (
               <div className="flex items-center gap-3 text-white/50 text-sm tracking-widest uppercase font-bold">
                 <motion.div
                   animate={{ rotate: 360 }}

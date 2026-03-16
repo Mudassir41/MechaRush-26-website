@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 // Renders animated fire GIF + smoke particles on top of everything
-export default function FireSmokeOverlay() {
+export default function FireSmokeOverlay({ isChaotic = false }: { isChaotic?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Smoke particles are CSS-driven, no canvas needed
@@ -54,11 +54,13 @@ export default function FireSmokeOverlay() {
 
       {/* Bottom fire glow — simulates fire beneath without a GIF blocking the ocean */}
       <div
-        className="absolute bottom-0 inset-x-0 h-32 pointer-events-none"
+        className={`absolute inset-x-0 bottom-0 pointer-events-none transition-all duration-300 ${isChaotic ? 'h-56' : 'h-32'}`}
         style={{
-          background: "linear-gradient(to top, rgba(230,46,45,0.12) 0%, rgba(255,90,31,0.05) 50%, transparent 100%)",
+          background: isChaotic 
+            ? "linear-gradient(to top, rgba(255,59,48,0.4) 0%, rgba(255,140,0,0.2) 60%, transparent 100%)"
+            : "linear-gradient(to top, rgba(230,46,45,0.12) 0%, rgba(255,90,31,0.05) 50%, transparent 100%)",
           animationName: "fire-flicker",
-          animationDuration: "0.6s",
+          animationDuration: isChaotic ? "0.2s" : "0.6s",
           animationIterationCount: "infinite",
           animationDirection: "alternate",
           animationTimingFunction: "ease-in-out",
@@ -67,11 +69,13 @@ export default function FireSmokeOverlay() {
 
       {/* Left edge ember glow */}
       <div
-        className="absolute left-0 top-1/3 w-24 h-64 pointer-events-none"
+        className={`absolute left-0 top-1/4 pointer-events-none transition-all duration-300 ${isChaotic ? 'w-48 h-[600px]' : 'w-24 h-64'}`}
         style={{
-          background: "radial-gradient(ellipse at left, rgba(255,60,0,0.07) 0%, transparent 70%)",
+          background: isChaotic
+            ? "radial-gradient(ellipse at left, rgba(255,60,0,0.25) 0%, transparent 70%)"
+            : "radial-gradient(ellipse at left, rgba(255,60,0,0.07) 0%, transparent 70%)",
           animationName: "fire-flicker",
-          animationDuration: "0.9s",
+          animationDuration: isChaotic ? "0.3s" : "0.9s",
           animationDelay: "0.3s",
           animationIterationCount: "infinite",
           animationDirection: "alternate",
@@ -81,11 +85,13 @@ export default function FireSmokeOverlay() {
 
       {/* Right edge ember glow */}
       <div
-        className="absolute right-0 top-1/3 w-24 h-64 pointer-events-none"
+        className={`absolute right-0 top-1/4 w-24 h-64 pointer-events-none transition-all duration-300 ${isChaotic ? 'w-48 h-[600px]' : 'w-24 h-64'}`}
         style={{
-          background: "radial-gradient(ellipse at right, rgba(255,60,0,0.07) 0%, transparent 70%)",
+          background: isChaotic
+            ? "radial-gradient(ellipse at right, rgba(255,60,0,0.25) 0%, transparent 70%)"
+            : "radial-gradient(ellipse at right, rgba(255,60,0,0.07) 0%, transparent 70%)",
           animationName: "fire-flicker",
-          animationDuration: "1.1s",
+          animationDuration: isChaotic ? "0.25s" : "1.1s",
           animationDelay: "0.15s",
           animationIterationCount: "infinite",
           animationDirection: "alternate",

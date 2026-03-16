@@ -21,7 +21,7 @@ function Ring({ value, max, label, color }: { value: number; max: number; label:
           {String(value).padStart(2, "0")}
         </span>
       </div>
-      <span className="text-[9px] tracking-[0.35em] uppercase font-bold text-white/25">{label}</span>
+      <span className="text-[10px] tracking-[0.35em] uppercase font-bold text-white/90">{label}</span>
     </div>
   );
 }
@@ -48,16 +48,16 @@ export default function CountdownTimer({ accent = "#e62e2d" }: Props) {
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
       className="flex flex-col items-center">
-      <div className="text-[9px] tracking-[0.4em] uppercase font-bold mb-5 transition-colors duration-500" style={{ color: `${accent}60` }}>
-        ⚡ T-Minus
+      <div className="text-[11px] tracking-[0.4em] uppercase font-bold mb-5 transition-colors duration-500" style={{ color: accent }}>
+        T-MINUS
       </div>
       <div className="flex items-center gap-3 sm:gap-6">
         <Ring value={days}    max={365} label="Days"    color={accent} />
-        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: `${accent}50` }}>:</div>
+        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: accent }}>:</div>
         <Ring value={hours}   max={24}  label="Hours"   color={accent} />
-        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: `${accent}50` }}>:</div>
+        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: accent }}>:</div>
         <Ring value={minutes} max={60}  label="Minutes" color={accent} />
-        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: `${accent}50` }}>:</div>
+        <div className="text-xl font-black -mt-6 transition-colors duration-500" style={{ color: accent }}>:</div>
         <Ring value={seconds} max={60}  label="Seconds" color={accent} />
       </div>
     </motion.div>

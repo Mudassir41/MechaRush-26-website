@@ -17,11 +17,12 @@ interface EventCardProps {
   imageUrl?: string;
   delay?: number;
   accent?: string;
+  rulebookUrl?: string;
 }
 
 export default function EventCard({
   title, description, coordinators, coordinatorsPhones, rules, sponsors,
-  linkUrl, linkText, imageIcon, imageUrl, delay = 0, accent = "#e62e2d",
+  linkUrl, linkText, imageIcon, imageUrl, delay = 0, accent = "#e62e2d", rulebookUrl
 }: EventCardProps) {
   const [open, setOpen] = useState(false);
 
@@ -102,7 +103,7 @@ export default function EventCard({
         {open && (
           <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
+              onClick={(e) => { e.stopPropagation(); setOpen(false); }}
               className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
             <motion.div
@@ -118,9 +119,11 @@ export default function EventCard({
                 style={{ background: `linear-gradient(90deg, ${accent}, ${accent}88, transparent)` }} />
 
               {/* Close button */}
-              <button onClick={() => setOpen(false)}
-                className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white bg-white/5 hover:bg-white/10 transition-colors">
-                <X size={16} />
+              <button 
+                onClick={(e) => { e.stopPropagation(); setOpen(false); }}
+                className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full flex items-center justify-center text-white/50 hover:text-white bg-black/20 hover:bg-black/50 border border-white/10 transition-all cursor-pointer"
+              >
+                <X size={20} />
               </button>
 
               {/* Hero image */}
@@ -182,10 +185,15 @@ export default function EventCard({
                   )}
                 </div>
 
-                <div className="pt-6 border-t flex justify-end" style={{ borderColor: `${accent}15` }}>
+                <div className="pt-6 border-t flex flex-wrap items-center justify-end gap-3" style={{ borderColor: `${accent}15` }}>
+                  <a href={rulebookUrl || "#"} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-xs tracking-wider uppercase text-white hover:bg-white/10 border border-white/20 transition-all active:scale-95"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Rulebook PDF
+                  </a>
                   <a href={linkUrl} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-8 py-3.5 rounded-lg font-bold text-sm tracking-wider uppercase text-white transition-all hover:opacity-90 active:scale-95"
-                    style={{ background: accent, boxShadow: `0 0 30px ${accent}44` }}
+                    className="flex items-center gap-2 px-8 py-3 rounded-lg font-bold text-xs tracking-wider uppercase text-black bg-white hover:bg-gray-200 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {linkText} <ArrowRight size={16} />
