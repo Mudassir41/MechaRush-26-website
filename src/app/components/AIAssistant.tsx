@@ -54,6 +54,12 @@ export default function AIAssistant() {
 
       recognition.onerror = (event: any) => {
         console.error("Speech recognition error:", event.error);
+        if (event.error === "network") {
+          setMessages(prev => [...prev, { 
+            role: "assistant", 
+            content: "SYSTEM WARNING: Speech recognition failed due to a network error. This often happens on local environments without HTTPS. Please use text mode or deploy to a secure server." 
+          }]);
+        }
         setAiState("idle");
       };
 

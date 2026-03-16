@@ -52,7 +52,7 @@ function useAudioEngine() {
     nodesRef.current.push(turbine);
 
     // Pressurized fluid/gas hiss
-    const bufSize = ctx.sampleRate * (TOTAL_CRANK_MS / 1000);
+    const bufSize = Math.floor(ctx.sampleRate * (TOTAL_CRANK_MS / 1000));
     const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
     const data = buf.getChannelData(0);
     for (let j = 0; j < data.length; j++) data[j] = Math.random() * 2 - 1;

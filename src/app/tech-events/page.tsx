@@ -11,8 +11,8 @@ const techEvents = [
     description: "A technical competition designed to test engineering skills and truss knowledge through the construction of structural bridges. Apply principles of structural mechanics, load distribution and material efficiency.",
     icon: <Bot size={20} />,
     imageUrl: "/assets/trussmaster.jpg",
-    coordinators: ["Sathick A.S", "Admin"],
-    coordinatorsPhones: ["+91 6381032845", "mudassir@mecharush.in"],
+    coordinators: ["Sakthinarayanan", "Sathick"],
+    coordinatorsPhones: ["+91 7358291682", "+91 6381032845"],
     linkUrl: "#gforms-bridge",
   },
   {
@@ -20,8 +20,8 @@ const techEvents = [
     description: "A dynamic quiz and debate hybrid event testing participants' foundational knowledge and critical thinking on mechanical engineering concepts, history, and current trends.",
     icon: <MessageSquare size={20} />,
     imageUrl: "/assets/events/mech_clash.jpeg",
-    coordinators: ["Sathick A.S", "Admin"],
-    coordinatorsPhones: ["+91 6381032845", "mudassir@mecharush.in"],
+    coordinators: ["Muneeb", "Dhanush"],
+    coordinatorsPhones: ["+91 6385599422", "+91 9444415408"],
     linkUrl: "#gforms-quiz",
   },
   {
@@ -29,8 +29,8 @@ const techEvents = [
     description: "A computer-aided design (CAD) modeling contest where participants demonstrate their proficiency in 3D modeling software by creating detailed and innovative mechanical components or assemblies.",
     icon: <PenTool size={20} />,
     imageUrl: "/events/cad_modelling.png",
-    coordinators: ["Sathick A.S", "Admin"],
-    coordinatorsPhones: ["+91 6381032845", "mudassir@mecharush.in"],
+    coordinators: ["Abdul Ghani A.", "Md Abdulla"],
+    coordinatorsPhones: ["+91 7845346160", "+91 6383996346"],
     linkUrl: "#gforms-cad",
   },
   {
@@ -38,8 +38,8 @@ const techEvents = [
     description: "Bring your pre-built autonomous line-following robot! Navigate a complex track quickly and accurately. This is a competition of who has designed and built the best one.",
     icon: <Bot size={20} />,
     imageUrl: "/events/pathfinder_robot.png",
-    coordinators: ["Sathick A.S", "Admin"],
-    coordinatorsPhones: ["+91 6381032845", "mudassir@mecharush.in"],
+    coordinators: ["Mohammed mudassir basha", "Akif"],
+    coordinatorsPhones: ["mudassir@mecharush.in", "+91 82708 94966"],
     linkUrl: "#gforms-pathfinder",
   },
   {
@@ -47,8 +47,8 @@ const techEvents = [
     description: "An innovative idea presentation event where aspiring engineers pitch projects or business models related to technical engineering advancements, focusing on feasibility and market potential.",
     icon: <Target size={20} />,
     imageUrl: "/assets/events/venture_vault.jpeg",
-    coordinators: ["Sathick A.S", "Admin"],
-    coordinatorsPhones: ["+91 6381032845", "mudassir@mecharush.in"],
+    coordinators: ["Sai Srijith", "Ahamed Ibrahim"],
+    coordinatorsPhones: ["+91 730503259", "+91 9361827918"],
     linkUrl: "#gforms-pitchdeck",
   },
   {
@@ -56,8 +56,8 @@ const techEvents = [
     description: "An exhilarating challenge that tests teams' speed, precision, and coordination in disassembling and reassembling the tyres of a GO KART that is provided, simulating high-pressure maintenance.",
     icon: <Wrench size={20} />,
     imageUrl: "/assets/events/wmremove-transformed.jpeg",
-    coordinators: ["Sathick A.S", "Admin"],
-    coordinatorsPhones: ["+91 6381032845", "mudassir@mecharush.in"],
+    coordinators: ["Dhanush", "Ajmal"],
+    coordinatorsPhones: ["+91 9444415408", "+91 7010438504"],
     linkUrl: "#gforms-pitstop",
   }
 ];
@@ -67,7 +67,7 @@ export default function TechEventsPage() {
     <div className="min-h-screen pt-24 pb-20 px-6 relative">
       {/* Background */}
       <div className="fixed inset-0 z-[0] pointer-events-none">
-        <Image src="/assets/bg/staged_combustion.png" alt="Tech Events Background" fill className="object-cover opacity-30 mix-blend-luminosity filter blur-[1px]" />
+        <Image src="/assets/bg/engineering_facility.png" alt="Tech Events Background" fill className="object-cover opacity-30 mix-blend-luminosity filter blur-[1px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/80 to-black pointer-events-none" />
       </div>
 

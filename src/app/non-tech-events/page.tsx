@@ -8,9 +8,9 @@ import { Gamepad2, Users, Calendar, MapPin, ChevronRight, Trophy, Zap, AlertCirc
 const nonTechEvents = [
   {
     title: "IPL Auction",
-    description: "A multi-stage strategy competition where participants simulate the role of franchise owners. Build the highest-rated cricket team while staying within a fixed virtual budget.",
-    coordinators: ["Susikaran V", "Admin"],
-    coordinatorsPhones: ["+91 7305432674", "mudassir@mecharush.in"],
+    description: "A multi-stage strategy competition where participants simulate the role of franchise owners. Build your team while staying within a budget.",
+    coordinators: ["Harrun Shaeik", "Gokularaj"],
+    coordinatorsPhones: ["+91 7305272864", "+91 7200204875"],
     icon: <Users size={20} />,
     imageUrl: "/assets/1773476155332_2.png",
     linkUrl: "#gforms-ipl",
@@ -18,8 +18,8 @@ const nonTechEvents = [
   {
     title: "Football Tournament",
     description: "A high-energy, competitive 5-a-side football tournament designed to test participants' teamwork, agility, tactical awareness, and physical endurance in a fast-paced format.",
-    coordinators: ["Susikaran V", "Admin"],
-    coordinatorsPhones: ["+91 7305432674", "mudassir@mecharush.in"],
+    coordinators: ["Abubakar", "Afthal"],
+    coordinatorsPhones: ["+91 9894815326", "+91 6369554088"],
     icon: <Trophy size={20} />,
     imageUrl: "/assets/events/football.png",
     linkUrl: "#gforms-football",
@@ -27,8 +27,8 @@ const nonTechEvents = [
   {
     title: "Crescent Chess Knockout",
     description: "An intense 1v1 chess competition featuring multiple rounds, including Blitz and Rapid formats, challenging intellectual depth, strategic planning, and tactical precision.",
-    coordinators: ["Susikaran V", "Admin"],
-    coordinatorsPhones: ["+91 7305432674", "mudassir@mecharush.in"],
+    coordinators: ["Benny Samuel"],
+    coordinatorsPhones: ["+91 9884666827"],
     icon: <Users size={20} />,
     imageUrl: "/assets/events/chess.png",
     linkUrl: "#gforms-chess",
@@ -45,8 +45,8 @@ const nonTechEvents = [
   {
     title: "Tote-Bag Painting",
     description: "A creative painting competition that challenges the artistic skill of participants through the transformation of blank tote bags into creative art. Focuses on visual composition and color harmony.",
-    coordinators: ["Susikaran V", "Admin"],
-    coordinatorsPhones: ["+91 7305432674", "mudassir@mecharush.in"],
+    coordinators: ["Raiyan Hakeem", "Kowsika"],
+    coordinatorsPhones: ["+91 7845980047", "+91 6369280827"],
     icon: <Palette size={20} />,
     imageUrl: "/events/non-tech/tote_bag.png",
     linkUrl: "#gforms-painting",
@@ -92,7 +92,7 @@ export default function NonTechEventsPage() {
               title={e.title || "TBA"}
               description={e.description || "Details coming soon"}
               coordinators={e.coordinators || []}
-              coordinatorsPhones={["", ""]}
+              coordinatorsPhones={e.coordinatorsPhones || []}
               imageIcon={e.icon}
               imageUrl={e.imageUrl}
               linkText="Register Now"

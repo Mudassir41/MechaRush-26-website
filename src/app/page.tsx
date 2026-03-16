@@ -11,7 +11,7 @@ import GearDivider from "./components/GearDivider";
 import IgnitionScreen from "./components/IgnitionScreen";
 import EventCard from "./components/EventCard";
 import { useHUDStore } from "./store/hudStore";
-import { Calendar, MapPin, ChevronRight, Wrench, Zap, Clock, Award, Phone, ExternalLink, Flame, Cog, Rocket, Users, Gamepad2, BrainCircuit, AlertTriangle } from "lucide-react";
+import { Calendar, MapPin, ChevronRight, Wrench, Zap, Clock, Award, Phone, ExternalLink, Flame, Cog, Rocket, Users, Gamepad2, BrainCircuit, AlertTriangle, Mail } from "lucide-react";
 
 /* ──────────────────── DATA ──────────────────── */
 
@@ -38,26 +38,26 @@ const HIGHLIGHTS = [
     tag: "TECH",
     icon: <Cog size={24} />,
     rules: ["Presentations strictly 5 minutes.", "Ideas must be original.", "Q&A session will follow each pitch."],
-    coordinators: ["Sathick A.S", "Mudassir"],
-    phones: ["+91 6381032845", "mudassir@mecharush.in"]
+    coordinators: ["Sai Srijith", "Ahamed Ibrahim"],
+    phones: ["+91 730503259", "+91 9361827918"]
   },
   {
     title: "Pathfinder Robot",
     desc: "A robotics competition challenging teams to navigate a complex track. Note: Bring your prebuilt line-follower robot! It's a competition of who designed and built the best one.",
-    image: "/assets/events/pathfinder.jpeg",
+    image: "/assets/pathfinder_hero.png",
     tag: "TECH",
     icon: <BrainCircuit size={24} />,
     rules: ["Bot must be autonomous line-follower.", "Robots must be pre-built by the team.", "Fastest completion without track deviations wins."],
-    coordinators: ["Sathick A.S", "Contact Us"],
-    phones: ["+91 6381032845", "contact@mecharush.in"]
+    coordinators: ["Mohammed mudassir basha", "Akif"],
+    phones: ["mudassir@mecharush.in", "+91 82708 94966"]
   },
 ];
 
 const CONTACTS = [
-  { name: "Sathick. A.S", role: "Technical Events Coordinator", phone: "+91 6381032845" },
-  { name: "Susikaran V", role: "Non-Technical Events Coordinator", phone: "+91 7305432674" },
-  { name: "Admin Setup", role: "Global Admin", phone: "mudassir@mecharush.in" },
-  { name: "Sponsorships", role: "Brand & Partnerships", phone: "sponsors@mecharush.in" },
+  { name: "Sathick. A.S", role: "Technical Events Coordinator", link: "tel:+916381032845", display: "+91 63810 32845" },
+  { name: "Susikaran V", role: "Non-Technical Events Coordinator", link: "tel:+917305432674", display: "+91 73054 32674" },
+  { name: "Admin Setup", role: "Global Admin", link: "mailto:mudassir@mecharush.in", display: "mudassir@mecharush.in" },
+  { name: "Sponsorships", role: "Brand & Partnerships", link: "mailto:sponsors@mecharush.in", display: "sponsors@mecharush.in" }
 ];
 
 const MAP_EMBED = "https://www.google.com/maps?q=B.S.+Abdur+Rahman+Crescent+Institute+Mechanical+Department,+Vandalur,+Chennai&output=embed";
@@ -498,7 +498,7 @@ export default function Home() {
             </div>
 
             <div className="divide-y" style={{ borderColor: `${ACCENT}08` }}>
-              {CONTACTS.map(({ name, role, phone }, i) => (
+              {CONTACTS.map(({ name, role, link, display }, i) => (
                 <motion.div key={name} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ delay: i * 0.08 }}
                   className="flex items-center justify-between px-6 py-5 group hover:bg-white/[0.02] transition-colors">
@@ -507,12 +507,14 @@ export default function Home() {
                     <div className="text-[10px] tracking-widest uppercase font-bold mt-0.5" style={{ color: `${ACCENT}60` }}>{role}</div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="font-mono text-sm text-white/30 hidden sm:block">{phone}</span>
-                    <a href={`tel:${phone}`}
+                    <span className="font-mono text-sm text-white/30 hidden sm:block">{display}</span>
+                    <a href={link}
                       className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all hover:scale-105"
                       style={{ background: `${ACCENT}15`, border: `1px solid ${ACCENT}30`, color: ACCENT }}>
-                      <Phone size={14} />
-                      <span className="text-xs font-bold tracking-wider uppercase hidden sm:block">Call</span>
+                      {link.startsWith("mailto") ? <Mail size={14} /> : <Phone size={14} />}
+                      <span className="text-xs font-bold tracking-wider uppercase hidden sm:block">
+                        {link.startsWith("mailto") ? "Mail" : "Call"}
+                      </span>
                     </a>
                   </div>
                 </motion.div>

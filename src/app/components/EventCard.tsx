@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, User, Phone, X, ShieldAlert } from "lucide-react";
+import { ArrowRight, User, Phone, X, ShieldAlert, Mail } from "lucide-react";
 import { useState } from "react";
 
 interface EventCardProps {
@@ -176,7 +176,8 @@ export default function EventCard({
                           <li key={i} className="flex flex-col">
                             <span className="font-semibold text-white/80">{name}</span>
                             <span className="flex items-center gap-1.5 text-white/30 text-xs mt-0.5">
-                              <Phone size={11} /> {coordinatorsPhones?.[i] || "—"}
+                              {coordinatorsPhones?.[i]?.includes("@") ? <Mail size={11} /> : <Phone size={11} />} 
+                              {coordinatorsPhones?.[i] || "—"}
                             </span>
                           </li>
                         ))}
