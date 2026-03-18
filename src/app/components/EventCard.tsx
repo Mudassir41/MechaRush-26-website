@@ -101,7 +101,7 @@ export default function EventCard({
       {/* Modal */}
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="fixed inset-0 z-[999] flex items-end sm:items-center justify-center p-0 sm:p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={(e) => { e.stopPropagation(); setOpen(false); }}
               className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
@@ -111,7 +111,7 @@ export default function EventCard({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.97 }}
               transition={{ type: "spring", damping: 26, stiffness: 350 }}
-              className="relative w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl pointer-events-auto"
+              className="relative w-full sm:max-w-2xl max-h-[90vh] overflow-y-auto sm:overflow-y-visible rounded-t-2xl sm:rounded-2xl pointer-events-auto"
               style={{ background: "#0c1016", border: `1px solid ${accent}30` }}
             >
               {/* Top accent line */}

@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import Groq from 'groq-sdk';
+import Cerebras from '@cerebras/cerebras_cloud_sdk';
 
-// Initialize Groq client with the environment variable
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || "empty", // Assuming the user provides this in .env.local
+const cerebras = new Cerebras({
+  apiKey: process.env.CEREBRAS_API_KEY || "empty",
 });
 
 const SYSTEM_PROMPT = `
@@ -45,16 +44,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Messages array is required' }, { status: 400 });
     }
 
-    if (!process.env.GROQ_API_KEY || process.env.GROQ_API_KEY.trim() === "" || process.env.GROQ_API_KEY === "empty") {
-       return NextResponse.json({ response: "CRITICAL ALERT: GROQ API Key unavailable. Logic core disconnected." });
+    if (!process.env.CEREBRAS_API_KEY || process.env.CEREBRAS_API_KEY.trim() === "" || process.env.CEREBRAS_API_KEY === "empty") {
+       return NextResponse.json({ response: "CRITICAL ALERT: CEREBRAS API Key unavailable. Logic core disconnected." });
     }
 
-    const completion = await groq.chat.completions.create({
+    const completion = await cerebras.chat.completions.create({
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...messages
       ],
-      model: 'openai/gpt-oss-20b',
+      model: 'llama3.1-8b',
       temperature: 0.6,
       max_tokens: 512,
     });
@@ -62,7 +61,7 @@ export async function POST(req: Request) {
     const reply = completion.choices[0]?.message?.content || "Processing error. Core reboot required.";
     return NextResponse.json({ response: reply });
   } catch (error: any) {
-    console.error('Groq API Error:', error);
+    console.error('Cerebras API Error:', error);
     return NextResponse.json({ error: error.message || 'Failed to process request' }, { status: 500 });
   }
 }

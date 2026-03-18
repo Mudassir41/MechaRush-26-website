@@ -96,10 +96,6 @@ export default function Home() {
   const { telemetry, ignitionDone, setIgnitionDone } = useHUDStore();
   const [emblemState, setEmblemState] = useState<"video" | "image" | "hidden">("hidden");
 
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 0.5, 0]);
-
   useEffect(() => {
     if (sessionStorage.getItem("mechrush_ignited")) setIgnitionDone(true);
   }, []);
@@ -125,7 +121,7 @@ export default function Home() {
       <div className={`relative flex flex-col items-center overflow-hidden anomaly-transition ${telemetry === "CHAOTIC" ? "anomaly-active" : ""}`}>
 
         {/* ═══════ HERO SECTION ═══════ */}
-        <motion.section ref={heroRef} style={{ opacity: heroOpacity }}
+        <motion.section
           className="relative w-full max-w-7xl mx-auto px-6 pt-32 pb-8 flex flex-col items-center min-h-screen">
 
           {/* HUD bracket corners */}

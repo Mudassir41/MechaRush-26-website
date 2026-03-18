@@ -59,7 +59,7 @@ export default function NavBar() {
                      animate={{ opacity: 1, y: 0, scale: 1 }} 
                      exit={{ opacity: 0, y: -20, scale: 0.8 }}
                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                     className="relative w-48 h-12 sm:w-64 sm:h-16"
+                     className="relative hidden sm:block w-64 h-16"
                    >
                      <Link href="/" title="MechaRush Home" className="block w-full h-full hover:scale-105 transition-transform">
                         <Image src="/assets/mecharush_inline.png" alt="MechaRush" fill className="object-contain drop-shadow-[0_0_15px_rgba(230,46,45,0.5)] cursor-pointer" />

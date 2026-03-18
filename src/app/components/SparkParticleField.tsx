@@ -23,6 +23,10 @@ interface Particle {
 const EMBER_COLORS = ["#e62e2d", "#ff5a1f", "#f59e0b", "#ff8c00", "#ff4500"];
 const SPARK_COLORS = ["#fff", "#ffeedd", "#ffcc88", "#ffaa44"];
 
+// Magma / molten lava palette for CHAOTIC state
+const MAGMA_EMBER_COLORS = ["#ff2200", "#ff4400", "#ff6600", "#cc1100", "#ff3300", "#e63900", "#cc3300"];
+const MAGMA_SPARK_COLORS = ["#ffee00", "#ffdd44", "#ffffff", "#ffcc00", "#ffaa22", "#fff5cc"];
+
 function drawGear(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, teeth: number, rot: number, alpha: number) {
   ctx.save();
   ctx.translate(x, y);
@@ -125,9 +129,9 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
         type,
         rotation: Math.random() * Math.PI * 2,
         rotSpeed: (Math.random() - 0.5) * (isChaotic ? 0.06 : 0.02),
-        color: type === "gear" ? "#e62e2d"
-             : type === "spark" ? SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)]
-             : EMBER_COLORS[Math.floor(Math.random() * EMBER_COLORS.length)],
+        color: type === "gear" ? (isChaotic ? "#ff4400" : "#e62e2d")
+             : type === "spark" ? (isChaotic ? MAGMA_SPARK_COLORS : SPARK_COLORS)[Math.floor(Math.random() * (isChaotic ? MAGMA_SPARK_COLORS : SPARK_COLORS).length)]
+             : (isChaotic ? MAGMA_EMBER_COLORS : EMBER_COLORS)[Math.floor(Math.random() * (isChaotic ? MAGMA_EMBER_COLORS : EMBER_COLORS).length)],
       };
       particles.push(p);
     }
@@ -186,13 +190,14 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
           ctx.fill();
           ctx.shadowBlur = 0;
         } else {
-          // Ember
-          ctx.globalAlpha = alpha * 0.5;
+          // Ember — during chaos, draw larger with intense magma glow
+          const isChaoticNow = targetMultiplier.current > 2;
+          ctx.globalAlpha = alpha * (isChaoticNow ? 0.7 : 0.5);
           ctx.fillStyle = p.color;
           ctx.shadowColor = p.color;
-          ctx.shadowBlur = targetMultiplier.current > 2 ? 15 : 8;
+          ctx.shadowBlur = isChaoticNow ? 20 : 8;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, p.size * (isChaoticNow ? 1.3 : 1), 0, Math.PI * 2);
           ctx.fill();
           ctx.shadowBlur = 0;
         }

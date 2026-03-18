@@ -140,10 +140,11 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
     // Animate Thrust %
     const animThrust = (now: number) => {
       const elapsed = now - startRef.current;
-      const progress = Math.min(elapsed / TOTAL_CRANK_MS, 1);
+      const progress = Math.max(0, Math.min(elapsed / TOTAL_CRANK_MS, 1));
       // Ease-in curve so it feels like a real engine spooling
       const eased = Math.pow(progress, 0.6);
-      setThrust(Math.min(Math.round(eased * 105), 100)); // Peaks at 100%
+      const nextThrust = Math.min(Math.round(eased * 105), 100);
+      setThrust(Number.isNaN(nextThrust) ? 0 : nextThrust);
 
       if (progress < 1) {
         rafRef.current = requestAnimationFrame(animThrust);
@@ -300,7 +301,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
               {/* Center readout */}
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-2">
                 <div className="text-4xl font-black tabular-nums tracking-tighter" style={{ color: thrustColor }}>
-                  {thrust}
+                  {thrust || 0}
                 </div>
                 <div className="text-[10px] text-white/40 tracking-widest font-bold uppercase">Thrust %</div>
               </div>
