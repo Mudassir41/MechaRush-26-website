@@ -23,6 +23,8 @@ interface Particle {
 
 const EMBER_COLORS = ["#e62e2d", "#ff5a1f", "#f59e0b", "#ff8c00", "#ff4500"];
 const SPARK_COLORS = ["#fff", "#ffeedd", "#ffcc88", "#ffaa44"];
+const MAGMA_EMBER_COLORS = ["#ff3b30", "#ff5a1f", "#ff0000", "#cc0000", "#ff2a00"];
+const MAGMA_SPARK_COLORS = ["#fff", "#ffddcc", "#ffbb99", "#ff9966"];
 
 function drawGear(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, teeth: number, rot: number, alpha: number) {
   ctx.save();
