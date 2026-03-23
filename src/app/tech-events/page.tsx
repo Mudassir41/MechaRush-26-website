@@ -18,7 +18,7 @@ const techEvents = [
       "Team should consist of 3 to 4 members",
       "Registration fee for the event is Rs. 200",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/TrussMaster_EventBook-MechaRush26.pdf",
   },
@@ -34,7 +34,7 @@ const techEvents = [
       "Team should consist of 1 to 2 members",
       "Registration fee for the event is Rs. 150",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/MechClash_Mecharush26.pdf",
   },
@@ -50,7 +50,7 @@ const techEvents = [
       "Team should consist of 1 member",
       "Registration fee for the event is Rs. 100",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/CADMania_EventBook-Mecharush26.pdf",
   },
@@ -66,7 +66,7 @@ const techEvents = [
       "Team should consist of 2 to 4 members",
       "Registration fee for the event is Rs. 400",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/PathFinder_Mecharush26.pdf",
   },
@@ -78,7 +78,13 @@ const techEvents = [
     coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
     coordinatorsPhones: ["+91 7305032595", "+91 9361827918"],
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
-    rules: ["Team Size: 1-2 per team", "Available Slots: 20", "Entry Fee: Rs. 150"],
+    rules: [
+      "Team should consist of 1 to 2 members",
+      "Registration fee for the event is Rs. 150",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete rule book first",
+      "Screening round may be conducted if registrations exceed 50 teams"
+    ],
     rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",
   },
   {
@@ -93,7 +99,7 @@ const techEvents = [
       "Team should consist of 4 members",
       "Registration fee for the event is Rs. 200",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/PitStop_EventBook-MechaRush26.pdf",
   }

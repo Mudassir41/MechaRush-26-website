@@ -41,7 +41,7 @@ const HIGHLIGHTS = [
       "Team should consist of 1 to 2 members",
       "Registration fee for the event is Rs. 150",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first",
+      "Before registering, read the complete rule book first",
       "Screening round may be conducted if registrations exceed 50 teams"
     ],
     coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
@@ -59,7 +59,7 @@ const HIGHLIGHTS = [
       "Team should consist of 2 to 4 members",
       "Registration fee for the event is Rs. 400",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     coordinators: ["Mohammed mudassir basha", "Akif"],
     phones: ["mudassir@mecharush.in", "+91 82708 94966"],

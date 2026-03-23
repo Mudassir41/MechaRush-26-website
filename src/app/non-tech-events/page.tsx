@@ -18,7 +18,7 @@ const nonTechEvents = [
       "Team should consist of 2 to 4 members",
       "Registration fee for the event is Rs. 300",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/MockIPLAuction_Mecharush26.pdf",
   },
@@ -34,7 +34,7 @@ const nonTechEvents = [
       "Team should consist of 5 to 7 members",
       "Registration fee for the event is Rs. 500",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/FootballTournament_Mecharush26.pdf",
   },
@@ -50,7 +50,7 @@ const nonTechEvents = [
       "Team should consist of 1 member",
       "Registration fee for the event is Rs. 100",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/CrescentChess_Mecharush26.pdf",
   },
@@ -66,7 +66,7 @@ const nonTechEvents = [
       "Team should consist of 1 member",
       "Registration fee for the event is Rs. 100",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/Photography_Mecharush26.pdf",
   },
@@ -82,7 +82,7 @@ const nonTechEvents = [
       "Team should consist of 1 to 2 members",
       "Registration fee for the event is Rs. 200",
       "Judge's or Organiser's decision is final",
-      "Before registering, read the complete EVENT DETAILS first"
+      "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/ToteBagPainting_Mecharush26.pdf",
   },

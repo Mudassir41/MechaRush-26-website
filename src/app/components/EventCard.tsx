@@ -191,7 +191,7 @@ export default function EventCard({
                     className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-xs tracking-wider uppercase text-white hover:bg-white/10 border border-white/20 transition-all active:scale-95"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    EVENT DETAILS
+                    Rulebook PDF
                   </a>
                   <a href={linkUrl} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-2 px-8 py-3 rounded-lg font-bold text-xs tracking-wider uppercase text-black bg-white hover:bg-gray-200 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
