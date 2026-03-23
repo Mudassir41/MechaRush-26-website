@@ -14,7 +14,12 @@ const techEvents = [
     coordinators: ["Sakthinarayanan", "Sathick"],
     coordinatorsPhones: ["+91 7358291682", "+91 6381032845"],
     linkUrl: "#gforms-bridge",
-    rules: ["Team Size: 3-4 per team", "Entry Fee: Rs. 200"],
+    rules: [
+      "Team should consist of 3 to 4 members",
+      "Registration fee for the event is Rs. 200",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/TrussMaster_EventBook-MechaRush26.pdf",
   },
   {
@@ -25,7 +30,12 @@ const techEvents = [
     coordinators: ["Md Muneeb", "Dhanush"],
     coordinatorsPhones: ["+91 6385599422", "+91 9444415408"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfuC_3s3ukELR5BLsc1Pt-ixqTMBsz4UZyxlmK0LzFelviLag/viewform?usp=header",
-    rules: ["Team Size: 1-2 per team", "Entry Fee: Rs. 150"],
+    rules: [
+      "Team should consist of 1 to 2 members",
+      "Registration fee for the event is Rs. 150",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/MechClash_Mecharush26.pdf",
   },
   {
@@ -36,7 +46,12 @@ const techEvents = [
     coordinators: ["Abdul Ghani.A", "Md Abdulla"],
     coordinatorsPhones: ["+91 7845346160", "+91 6383996346"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeXE3ivah3i2ma59oNfpw3RExFZ7NDil7Bx4IaVu_QDLQ65Vw/viewform?usp=header",
-    rules: ["Team Size: Individual", "Entry Fee: Rs. 100"],
+    rules: [
+      "Team should consist of 1 member",
+      "Registration fee for the event is Rs. 100",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/CADMania_EventBook-Mecharush26.pdf",
   },
   {
@@ -47,7 +62,12 @@ const techEvents = [
     coordinators: ["Mohammed mudassir basha", "Akif"],
     coordinatorsPhones: ["mudassir@mecharush.in", "+91 82708 94966"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
-    rules: ["Team Size: 2-4 per team", "Entry Fee: Rs. 400"],
+    rules: [
+      "Team should consist of 2 to 4 members",
+      "Registration fee for the event is Rs. 400",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/PathFinder_Mecharush26.pdf",
   },
   {
@@ -69,7 +89,12 @@ const techEvents = [
     coordinators: ["Dhanush", "Ajmal"],
     coordinatorsPhones: ["+91 9444415408", "+91 7010438504"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf8EJ1K0JCr-6stUVEmArdDlb85qYdCTDngriu71UeJWrvzjw/viewform?usp=dialog",
-    rules: ["Team Size: 4 per team", "Entry Fee: Rs. 200"],
+    rules: [
+      "Team should consist of 4 members",
+      "Registration fee for the event is Rs. 200",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/PitStop_EventBook-MechaRush26.pdf",
   }
 ];

@@ -14,7 +14,12 @@ const nonTechEvents = [
     icon: <Users size={20} />,
     imageUrl: "/assets/1773476155332_2.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc7A04ZbeAl3vA5tdbmhmxxYJZuT4mSdz9QFjKdl8NkNfGF9g/viewform?usp=publish-editor",
-    rules: ["Team Size: 2-4 per team", "Entry Fee: Rs. 300"],
+    rules: [
+      "Team should consist of 2 to 4 members",
+      "Registration fee for the event is Rs. 300",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/MockIPLAuction_Mecharush26.pdf",
   },
   {
@@ -25,7 +30,12 @@ const nonTechEvents = [
     icon: <Trophy size={20} />,
     imageUrl: "/assets/events/football.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSct1yHkTXW7DyKgtvmpeyUgLGo5ceoFGhw7c_cifZfcDEyXig/viewform?usp=dialog",
-    rules: ["Team Size: 5-7 per team", "Entry Fee: Rs. 500"],
+    rules: [
+      "Team should consist of 5 to 7 members",
+      "Registration fee for the event is Rs. 500",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/FootballTournament_Mecharush26.pdf",
   },
   {
@@ -36,7 +46,12 @@ const nonTechEvents = [
     icon: <Users size={20} />,
     imageUrl: "/assets/events/chess.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSccs4gxVlXE-Xb9BsJMLIKVV0z9MiutHwLhiW5MbKmoG6Q7iQ/viewform?usp=publish-editor",
-    rules: ["Team Size: Individual", "Entry Fee: Rs. 100"],
+    rules: [
+      "Team should consist of 1 member",
+      "Registration fee for the event is Rs. 100",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/CrescentChess_Mecharush26.pdf",
   },
   {
@@ -47,18 +62,28 @@ const nonTechEvents = [
     icon: <Camera size={20} />,
     imageUrl: "/events/non-tech/photography.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeBTB_FPq_gCv5ZolOytsdCa8_DfYyX1R3DqUH4X62pWLkaUA/viewform?usp=publish-editor",
-    rules: ["Team Size: Individual", "Entry Fee: Rs. 100"],
+    rules: [
+      "Team should consist of 1 member",
+      "Registration fee for the event is Rs. 100",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/Photography_Mecharush26.pdf",
   },
   {
     title: "Tote-Bag Painting",
     description: "A creative painting competition that challenges the artistic skill of participants through the transformation of blank tote bags into creative art. Focuses on visual composition and color harmony.",
-    coordinators: ["Rayan Abdul Hakeem", "Kowshika.T"],
+    coordinators: ["Raiyan Abdul Hakeem", "Kowshika.T"],
     coordinatorsPhones: ["+91 7845980047", "+91 6369280827"],
     icon: <Palette size={20} />,
     imageUrl: "/events/non-tech/tote_bag.png",
     linkUrl: "https://forms.gle/AFhfQP5G5rVzZokK6",
-    rules: ["Team Size: 1 or 2 per team", "Entry Fee: Rs. 200"],
+    rules: [
+      "Team should consist of 1 to 2 members",
+      "Registration fee for the event is Rs. 200",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     rulebookUrl: "/rulebooks/ToteBagPainting_Mecharush26.pdf",
   },
 ];
@@ -97,8 +122,8 @@ export default function NonTechEventsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {nonTechEvents.map((e, i) => (
-            <EventCard 
-              key={i} 
+            <EventCard
+              key={i}
               title={e.title || "TBA"}
               description={e.description || "Details coming soon"}
               coordinators={e.coordinators || []}
@@ -116,27 +141,27 @@ export default function NonTechEventsPage() {
         </div>
         {/* Event Coordinators Section */}
         <div className="max-w-4xl mx-auto mt-20 pt-10 border-t border-[#e62e2d]/20">
-           <h3 className="text-2xl font-black uppercase text-center text-white mb-8">
-              Non-Tech Event <span className="text-[#e62e2d]">Coordinators</span>
-           </h3>
-           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
-                 <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
-                    <Users className="text-[#e62e2d]" size={28} />
-                 </div>
-                 <h4 className="text-xl font-bold text-white mb-1">Susikaran V</h4>
-                 <p className="text-white/50 text-sm mb-3">Non-Technical Coordinator</p>
-                 <a href="tel:+917305432674" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 73054 32674</a>
+          <h3 className="text-2xl font-black uppercase text-center text-white mb-8">
+            Non-Tech Event <span className="text-[#e62e2d]">Coordinators</span>
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
+                <Users className="text-[#e62e2d]" size={28} />
               </div>
-              <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
-                 <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
-                    <Users className="text-[#e62e2d]" size={28} />
-                 </div>
-                 <h4 className="text-xl font-bold text-white mb-1">Ajmal Ahamed</h4>
-                 <p className="text-white/50 text-sm mb-3">Non-Technical Coordinator</p>
-                 <a href="tel:+917010438504" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 70104 38504</a>
+              <h4 className="text-xl font-bold text-white mb-1">Susikaran V</h4>
+              <p className="text-white/50 text-sm mb-3">Non-Technical Coordinator</p>
+              <a href="tel:+917305432674" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 73054 32674</a>
+            </div>
+            <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
+                <Users className="text-[#e62e2d]" size={28} />
               </div>
-           </div>
+              <h4 className="text-xl font-bold text-white mb-1">Ajmal Ahamed</h4>
+              <p className="text-white/50 text-sm mb-3">Non-Technical Coordinator</p>
+              <a href="tel:+917010438504" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 70104 38504</a>
+            </div>
+          </div>
         </div>
 
       </div>

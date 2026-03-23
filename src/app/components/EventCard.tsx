@@ -151,7 +151,7 @@ export default function EventCard({
                   <div>
                     <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 pb-2 border-b"
                       style={{ color: accent, borderColor: `${accent}20` }}>
-                      <ShieldAlert size={14} /> Rulebook
+                      <ShieldAlert size={14} /> EVENT DETAILS
                     </h4>
                     <ul className="space-y-2.5 text-sm text-white/50 list-disc list-inside">
                       {rules ? rules.map((r, i) => <li key={i}>{r}</li>) : (
@@ -191,7 +191,7 @@ export default function EventCard({
                     className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-xs tracking-wider uppercase text-white hover:bg-white/10 border border-white/20 transition-all active:scale-95"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Rulebook PDF
+                    EVENT DETAILS
                   </a>
                   <a href={linkUrl} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-2 px-8 py-3 rounded-lg font-bold text-xs tracking-wider uppercase text-black bg-white hover:bg-gray-200 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]"

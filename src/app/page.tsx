@@ -20,7 +20,7 @@ const SCHEDULE = [
   { time: "10:00 AM", event: "Events Kickoff — Slot 1", icon: "⚙️", desc: "First wave of competitions begin" },
   { time: "01:00 PM", event: "Lunch Break & Networking", icon: "☕", desc: "Forge connections over food" },
   { time: "02:00 PM", event: "Events Resume — Slot 2", icon: "🔧", desc: "Afternoon competitions and challenges" },
-  { time: "04:30 PM", event: "Valedictory & Prize Distribution", icon: "🏆", desc: "Award ceremony and closing" },
+  { time: "03:30 PM", event: "Valedictory & Prize Distribution", icon: "🏆", desc: "Award ceremony and closing" },
 ];
 
 const STATS = [
@@ -37,7 +37,13 @@ const HIGHLIGHTS = [
     image: "/assets/events/venture_vault.jpeg",
     tag: "TECH",
     icon: <Cog size={24} />,
-    rules: ["Presentations strictly 5 minutes.", "Ideas must be original.", "Team Size: 1-2 per team", "Entry Fee: Rs. 150", "Screening round may be conducted if registrations exceed 50 teams."],
+    rules: [
+      "Team should consist of 1 to 2 members",
+      "Registration fee for the event is Rs. 150",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first",
+      "Screening round may be conducted if registrations exceed 50 teams"
+    ],
     coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
     phones: ["+91 730503259", "+91 9361827918"],
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
@@ -49,7 +55,12 @@ const HIGHLIGHTS = [
     image: "/events/pathfinder_robot.png",
     tag: "TECH",
     icon: <BrainCircuit size={24} />,
-    rules: ["Team Size: 2-4 per team", "Bot must be autonomous line-follower.", "Robots must be pre-built by the team.", "Fastest completion without track deviations wins.", "Entry Fee: Rs. 400"],
+    rules: [
+      "Team should consist of 2 to 4 members",
+      "Registration fee for the event is Rs. 400",
+      "Judge's or Organiser's decision is final",
+      "Before registering, read the complete EVENT DETAILS first"
+    ],
     coordinators: ["Mohammed mudassir basha", "Akif"],
     phones: ["mudassir@mecharush.in", "+91 82708 94966"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
