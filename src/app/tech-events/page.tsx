@@ -56,7 +56,7 @@ const techEvents = [
     icon: <Target size={20} />,
     imageUrl: "/assets/events/venture_vault.jpeg",
     coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
-    coordinatorsPhones: ["+91 730503259", "+91 9361827918"],
+    coordinatorsPhones: ["+91 7305032595", "+91 9361827918"],
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
     rules: ["Team Size: 1-2 per team", "Available Slots: 20", "Entry Fee: Rs. 150"],
     rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",
@@ -128,27 +128,27 @@ export default function TechEventsPage() {
         </div>
         {/* Event Coordinators Section */}
         <div className="max-w-4xl mx-auto mt-20 pt-10 border-t border-[#e62e2d]/20">
-           <h3 className="text-2xl font-black uppercase text-center text-white mb-8">
-              Tech Event <span className="text-[#e62e2d]">Coordinators</span>
-           </h3>
-           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
-                 <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
-                    <Users className="text-[#e62e2d]" size={28} />
-                 </div>
-                 <h4 className="text-xl font-bold text-white mb-1">Sathick. A.S</h4>
-                 <p className="text-white/50 text-sm mb-3">Technical Events Coordinator</p>
-                 <a href="tel:+916381032845" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 63810 32845</a>
+          <h3 className="text-2xl font-black uppercase text-center text-white mb-8">
+            Tech Event <span className="text-[#e62e2d]">Coordinators</span>
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
+                <Users className="text-[#e62e2d]" size={28} />
               </div>
-              <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
-                 <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
-                    <Users className="text-[#e62e2d]" size={28} />
-                 </div>
-                 <h4 className="text-xl font-bold text-white mb-1">Mohammed Mudassir Basha</h4>
-                 <p className="text-white/50 text-sm mb-3">Technical Events Coordinator</p>
-                 <a href="mailto:mudassir@mecharush.in" className="text-[#e62e2d] hover:text-white transition-colors font-mono">mudassir@mecharush.in</a>
+              <h4 className="text-xl font-bold text-white mb-1">Sathick. A.S</h4>
+              <p className="text-white/50 text-sm mb-3">Technical Events Coordinator</p>
+              <a href="tel:+916381032845" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 63810 32845</a>
+            </div>
+            <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center hover:border-[#e62e2d]/50 transition-colors">
+              <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
+                <Users className="text-[#e62e2d]" size={28} />
               </div>
-           </div>
+              <h4 className="text-xl font-bold text-white mb-1">Mohammed Mudassir Basha</h4>
+              <p className="text-white/50 text-sm mb-3">Technical Events Coordinator</p>
+              <a href="mailto:mudassir@mecharush.in" className="text-[#e62e2d] hover:text-white transition-colors font-mono">mudassir@mecharush.in</a>
+            </div>
+          </div>
         </div>
 
       </div>
