@@ -13,6 +13,7 @@ import { useHUDStore } from "../store/hudStore";
 interface Particle {
   x: number; y: number;
   vx: number; vy: number;
+  baseVx: number; baseVy: number; // calm-state velocities — scaled by multiplier each frame
   size: number;
   life: number; maxLife: number;
   type: "ember" | "spark" | "gear";
@@ -108,26 +109,32 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
 
     function spawn(maxAllowed: number) {
       if (particles.length >= maxAllowed) return;
-      
-      // When chaotic (high multiplier), emphasize sparks and embers
+
+      // Palette flips to magma when chaotic, but speed is always stored calm — scaled live in animate
       const isChaotic = currentMultiplier > 2;
       const r = Math.random();
-      const type = r < 0.05 ? "gear" : r < (isChaotic ? 0.6 : 0.3) ? "spark" : "ember";
-      
+      const type = r < 0.05 ? "gear" : r < (isChaotic ? 0.65 : 0.3) ? "spark" : "ember";
+
+      // Calm-state base velocities — multiplied by speedScale each frame
+      const baseVx = (Math.random() - 0.5) * 0.4;
+      const baseVy = -(0.15 + Math.random() * 0.45);
+
       const p: Particle = {
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * (isChaotic ? 1.5 : 0.4), // faster horizontally when chaotic
-        vy: -(0.2 + Math.random() * (isChaotic ? 1.2 : 0.6)), // faster vertically when chaotic
-        size: type === "gear" ? 8 + Math.random() * 14 : type === "spark" ? 1 + Math.random() * 2 : 1.5 + Math.random() * 3,
+        vx: baseVx,
+        vy: baseVy,
+        baseVx,
+        baseVy,
+        size: type === "gear" ? 8 + Math.random() * 14 : type === "spark" ? 1 + Math.random() * 2.5 : 1.5 + Math.random() * 3.5,
         life: 0,
-        maxLife: type === "gear" ? 400 + Math.random() * 600 : 60 + Math.random() * 140,
+        maxLife: type === "gear" ? 400 + Math.random() * 600 : 70 + Math.random() * 160,
         type,
         rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * (isChaotic ? 0.06 : 0.02),
-        color: type === "gear" ? "#e62e2d"
-             : type === "spark" ? SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)]
-             : EMBER_COLORS[Math.floor(Math.random() * EMBER_COLORS.length)],
+        rotSpeed: (Math.random() - 0.5) * 0.02,
+        color: type === "gear" ? (isChaotic ? "#ff4400" : "#e62e2d")
+             : type === "spark" ? (isChaotic ? MAGMA_SPARK_COLORS : SPARK_COLORS)[Math.floor(Math.random() * (isChaotic ? MAGMA_SPARK_COLORS : SPARK_COLORS).length)]
+             : (isChaotic ? MAGMA_EMBER_COLORS : EMBER_COLORS)[Math.floor(Math.random() * (isChaotic ? MAGMA_EMBER_COLORS : EMBER_COLORS).length)],
       };
       particles.push(p);
     }
@@ -137,32 +144,36 @@ export default function SparkParticleField({ density = 0.6 }: Props) {
       rafId = requestAnimationFrame(animate);
       if (!visibleRef.current || !ctx) return;
 
-      // Smoothly approach the target multiplier
-      // Ramp up fast, ramp down slow (the fade out is also handled by particles dying)
+      // Ramp up fast on chaos, drain slower on return — particles decelerate live
       if (currentMultiplier < targetMultiplier.current) {
-         currentMultiplier += 0.2; // Fast chaos ignition
+        currentMultiplier = Math.min(currentMultiplier + 0.35, targetMultiplier.current);
       } else if (currentMultiplier > targetMultiplier.current) {
-         currentMultiplier -= 0.01; // Slow nominal cooldown
+        currentMultiplier = Math.max(currentMultiplier - 0.015, targetMultiplier.current);
       }
 
       ctx.clearRect(0, 0, width, height);
 
       const dynamicMax = Math.floor(baseMaxParticles * currentMultiplier);
 
-      // Spawn rate scales with desired max
-      const spawnRate = currentMultiplier > 2 ? 8 : 2; 
+      // When multiplier is draining back, let particles die naturally — don't force-kill
+      const spawnRate = currentMultiplier > 2 ? 10 : 2;
       for (let i = 0; i < spawnRate; i++) spawn(dynamicMax);
+
+      // Speed scale: calm=1x, full chaos=4x horizontally / 6x vertically for dramatic streaks
+      const speedScale = Math.max(1, currentMultiplier * 0.6);
 
       // Update & draw
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
+
+        // Apply live speed — existing particles accelerate/decelerate with the multiplier
+        p.vx = p.baseVx * speedScale + (Math.random() - 0.5) * 0.02 * speedScale;
+        p.vy = p.baseVy * speedScale;
+
         p.x += p.vx;
         p.y += p.vy;
         p.life++;
-        p.rotation += p.rotSpeed;
-
-        // Add slight sway
-        p.vx += (Math.random() - 0.5) * 0.02;
+        p.rotation += p.rotSpeed * Math.max(1, speedScale * 0.5);
 
         const progress = p.life / p.maxLife;
         if (progress >= 1 || p.y < -20 || p.x < -20 || p.x > width + 20) {

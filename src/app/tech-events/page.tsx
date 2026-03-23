@@ -14,42 +14,49 @@ const techEvents = [
     coordinators: ["Sakthinarayanan", "Sathick"],
     coordinatorsPhones: ["+91 7358291682", "+91 6381032845"],
     linkUrl: "#gforms-bridge",
+    rulebookUrl: "/rulebooks/TrussMaster_EventBook-MechaRush26.pdf",
   },
   {
     title: "Mech Clash (Quiz cum Debate)",
     description: "A dynamic quiz and debate hybrid event testing participants' foundational knowledge and critical thinking on mechanical engineering concepts, history, and current trends.",
     icon: <MessageSquare size={20} />,
     imageUrl: "/assets/events/mech_clash.jpeg",
-    coordinators: ["Muneeb", "Dhanush"],
+    coordinators: ["Md Muneeb", "Dhanush"],
     coordinatorsPhones: ["+91 6385599422", "+91 9444415408"],
-    linkUrl: "#gforms-quiz",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfuC_3s3ukELR5BLsc1Pt-ixqTMBsz4UZyxlmK0LzFelviLag/viewform?usp=header",
+    rules: ["Team Size: 1-2 per team", "Available Slots: 20", "Entry Fee: Rs. 150"],
+    rulebookUrl: "/rulebooks/MechClash_Mecharush26.pdf",
   },
   {
     title: "CAD Mania (CAD Modelling)",
     description: "A computer-aided design (CAD) modeling contest where participants demonstrate their proficiency in 3D modeling software by creating detailed and innovative mechanical components or assemblies.",
     icon: <PenTool size={20} />,
     imageUrl: "/events/cad_modelling.png",
-    coordinators: ["Abdul Ghani A.", "Md Abdulla"],
+    coordinators: ["Abdul Ghani.A", "Md Abdulla"],
     coordinatorsPhones: ["+91 7845346160", "+91 6383996346"],
-    linkUrl: "#gforms-cad",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeXE3ivah3i2ma59oNfpw3RExFZ7NDil7Bx4IaVu_QDLQ65Vw/viewform?usp=header",
+    rules: ["Team Size: Individual", "Available Slots: 30", "Entry Fee: Rs. 100"],
+    rulebookUrl: "/rulebooks/CADMania_EventBook-Mecharush26.pdf",
   },
   {
-    title: "Pathfinder (Line Follower)",
+    title: "Pathfinder",
     description: "Bring your pre-built autonomous line-following robot! Navigate a complex track quickly and accurately. This is a competition of who has designed and built the best one.",
     icon: <Bot size={20} />,
     imageUrl: "/events/pathfinder_robot.png",
     coordinators: ["Mohammed mudassir basha", "Akif"],
     coordinatorsPhones: ["mudassir@mecharush.in", "+91 82708 94966"],
-    linkUrl: "#gforms-pathfinder",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
   },
   {
     title: "Venture Vault (Idea Presentation)",
     description: "An innovative idea presentation event where aspiring engineers pitch projects or business models related to technical engineering advancements, focusing on feasibility and market potential.",
     icon: <Target size={20} />,
     imageUrl: "/assets/events/venture_vault.jpeg",
-    coordinators: ["Sai Srijith", "Ahamed Ibrahim"],
+    coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
     coordinatorsPhones: ["+91 730503259", "+91 9361827918"],
-    linkUrl: "#gforms-pitchdeck",
+    linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
+    rules: ["Team Size: 1-2 per team", "Available Slots: 20", "Entry Fee: Rs. 150"],
+    rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",
   },
   {
     title: "Pit Stop Challenge",
@@ -58,7 +65,9 @@ const techEvents = [
     imageUrl: "/assets/events/wmremove-transformed.jpeg",
     coordinators: ["Dhanush", "Ajmal"],
     coordinatorsPhones: ["+91 9444415408", "+91 7010438504"],
-    linkUrl: "#gforms-pitstop",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf8EJ1K0JCr-6stUVEmArdDlb85qYdCTDngriu71UeJWrvzjw/viewform?usp=dialog",
+    rules: ["Team Size: 4 per team", "Available Slots: 20", "Entry Fee: Rs. 200"],
+    rulebookUrl: "/rulebooks/PitStop_EventBook-MechaRush26.pdf",
   }
 ];
 
@@ -91,7 +100,7 @@ export default function TechEventsPage() {
             <Image src="/assets/tech_header.png" alt="TECH EVENTS" fill className="object-contain drop-shadow-[0_0_20px_rgba(230,46,45,0.4)]" priority />
           </div>
           <p className="text-white/30 text-lg max-w-xl mx-auto font-light">
-            The core arenas of Mecharush'26. Register via Google Forms to secure your spot.
+            The core arenas of Mecharush&apos;26. Register via Google Forms to secure your spot.
           </p>
         </motion.div>
 
@@ -107,7 +116,8 @@ export default function TechEventsPage() {
               coordinatorsPhones={e.coordinatorsPhones ? [e.coordinatorsPhones[0] || "", e.coordinatorsPhones[1] || ""] : ["", ""]}
               linkText="Register Now"
               linkUrl={e.linkUrl || "#"}
-              rules={[]}
+              rulebookUrl={e.rulebookUrl}
+              rules={e.rules}
               delay={i * 0.08}
               accent="#e62e2d"
             />
@@ -131,9 +141,9 @@ export default function TechEventsPage() {
                  <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
                     <Users className="text-[#e62e2d]" size={28} />
                  </div>
-                 <h4 className="text-xl font-bold text-white mb-1">Susikaran V</h4>
-                 <p className="text-white/50 text-sm mb-3">Non-Technical Coordinator</p>
-                 <a href="tel:+917305432674" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 73054 32674</a>
+                 <h4 className="text-xl font-bold text-white mb-1">Mohammed Mudassir Basha</h4>
+                 <p className="text-white/50 text-sm mb-3">Technical Events Coordinator</p>
+                 <a href="mailto:mudassir@mecharush.in" className="text-[#e62e2d] hover:text-white transition-colors font-mono">mudassir@mecharush.in</a>
               </div>
            </div>
         </div>

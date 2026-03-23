@@ -37,9 +37,11 @@ const HIGHLIGHTS = [
     image: "/assets/events/venture_vault.jpeg",
     tag: "TECH",
     icon: <Cog size={24} />,
-    rules: ["Presentations strictly 5 minutes.", "Ideas must be original.", "Q&A session will follow each pitch."],
-    coordinators: ["Sai Srijith", "Ahamed Ibrahim"],
-    phones: ["+91 730503259", "+91 9361827918"]
+    rules: ["Presentations strictly 5 minutes.", "Ideas must be original.", "Team Size: 1-2 per team", "Available Slots: 20", "Entry Fee: Rs. 150"],
+    coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
+    phones: ["+91 730503259", "+91 9361827918"],
+    linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
+    rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",
   },
   {
     title: "Pathfinder Robot",
@@ -49,7 +51,8 @@ const HIGHLIGHTS = [
     icon: <BrainCircuit size={24} />,
     rules: ["Bot must be autonomous line-follower.", "Robots must be pre-built by the team.", "Fastest completion without track deviations wins."],
     coordinators: ["Mohammed mudassir basha", "Akif"],
-    phones: ["mudassir@mecharush.in", "+91 82708 94966"]
+    phones: ["mudassir@mecharush.in", "+91 82708 94966"],
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
   },
 ];
 
@@ -62,8 +65,6 @@ const CONTACTS = [
 
 const MAP_EMBED = "https://www.google.com/maps?q=B.S.+Abdur+Rahman+Crescent+Institute+Mechanical+Department,+Vandalur,+Chennai&output=embed";
 const ACCENT = "#e62e2d";
-
-
 
 /* ──────────────────── SECTION HEADER ──────────────────── */
 
@@ -122,7 +123,7 @@ export default function Home() {
       <SparkParticleField density={telemetry === "CHAOTIC" ? 3.0 : 0.7} />
       <FireSmokeOverlay isChaotic={telemetry === "CHAOTIC"} />
 
-      <div className={`relative flex flex-col items-center overflow-hidden anomaly-transition ${telemetry === "CHAOTIC" ? "anomaly-active" : ""}`}>
+      <div className="relative flex flex-col items-center overflow-hidden">
 
         {/* ═══════ HERO SECTION ═══════ */}
         <motion.section ref={heroRef} style={{ opacity: heroOpacity }}
@@ -248,9 +249,12 @@ export default function Home() {
                 </span>
               </Link>
               <Link href="/non-tech-events"
-                className="px-9 py-4 rounded-lg border text-white/55 hover:text-white transition-all text-sm font-bold tracking-widest uppercase backdrop-blur-sm hover:border-white/20 hover:bg-white/5"
-                style={{ borderColor: "rgba(255,255,255,0.1)" }}>
-                <span className="flex items-center gap-2"><Gamepad2 size={16} /> Non-Tech Events</span>
+                className="group relative px-9 py-4 text-sm rounded-lg font-bold tracking-widest uppercase text-white overflow-hidden transition-all hover:scale-105 active:scale-95"
+                style={{ background: "#0ea5e9", boxShadow: `0 0 40px rgba(14, 165, 233, 0.5)` }}>
+                <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <span className="relative flex items-center gap-2">
+                  <Gamepad2 size={16} /> Non-Tech Events <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </span>
               </Link>
             </motion.div>
           </motion.div>
@@ -319,7 +323,7 @@ export default function Home() {
               viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }}
               className="space-y-5">
               <p className="text-white/55 leading-relaxed">
-                <span className="font-bold text-white">MECHARUSH '26</span> is the flagship technical symposium
+                <span className="font-bold text-white">MECHARUSH &apos;26</span> is the flagship technical symposium
                 of the Department of Mechanical Engineering at B.S. Abdur Rahman Crescent Institute.
                 A one-day crucible of engineering excellence where students from across the Nation
                 compete, innovate, and push boundaries.
@@ -392,9 +396,9 @@ export default function Home() {
                 description={h.desc}
                 imageIcon={h.icon}
                 imageUrl={h.image}
-                linkUrl="https://surveyheart.com/form/67b9fe792d76a51d9d95f68a"
+                linkUrl={h.linkUrl}
                 linkText="Register Now"
-                rulebookUrl="#"
+                rulebookUrl={h.rulebookUrl}
                 delay={i * 0.12}
                 accent="#e62e2d"
                 rules={h.rules}

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { ArrowLeft, Cpu, Activity, Linkedin, Terminal, Radio, Zap, Wifi, Server, Users } from "lucide-react";
 
 // ── Typing text with blinking cursor, no sound ──────────────────────────────
-const TypingText = ({ text, delay = 0, speed = 18 }: { text: string; delay?: number; speed?: number }) => {
+const TypingText = ({ text, delay = 0, speed = 30 }: { text: string; delay?: number; speed?: number }) => {
   const [displayText, setDisplayText] = useState("");
   const [started, setStarted] = useState(false);
 
@@ -112,9 +112,12 @@ export default function AboutControlPanel() {
       {/* Global CRT Scanning Line */}
       <ScanningLine />
 
-      {/* CRT Scanline Overlay */}
-      <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.15]" 
-           style={{ background: "repeating-linear-gradient(0deg, transparent, transparent 2px, #fff 2px, #fff 4px)" }} />
+      {/* CRT Scanline Overlay (Performant) */}
+      <div className="pointer-events-none fixed inset-0 z-[50] opacity-10" 
+           style={{ 
+              backgroundImage: "linear-gradient(transparent 50%, rgba(0, 0, 0, 0.8) 50%)",
+              backgroundSize: "100% 4px"
+           }} />
 
       {/* Vignette */}
       <div className="pointer-events-none fixed inset-0 z-40 bg-[radial-gradient(circle,transparent_50%,rgba(0,0,0,0.8)_100%)]" />

@@ -9,11 +9,13 @@ const nonTechEvents = [
   {
     title: "IPL Auction",
     description: "A multi-stage strategy competition where participants simulate the role of franchise owners. Build your team while staying within a budget.",
-    coordinators: ["Harrun Shaeik", "Gokularaj"],
+    coordinators: ["Haarun", "Gokul Raj"],
     coordinatorsPhones: ["+91 7305272864", "+91 7200204875"],
     icon: <Users size={20} />,
     imageUrl: "/assets/1773476155332_2.png",
-    linkUrl: "#gforms-ipl",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc7A04ZbeAl3vA5tdbmhmxxYJZuT4mSdz9QFjKdl8NkNfGF9g/viewform?usp=publish-editor",
+    rules: ["Team Size: 2-4 per team", "Available Slots: 10", "Entry Fee: Rs. 300"],
+    rulebookUrl: "/rulebooks/MockIPLAuction_Mecharush26.pdf",
   },
   {
     title: "Football Tournament",
@@ -22,34 +24,42 @@ const nonTechEvents = [
     coordinatorsPhones: ["+91 9894815326", "+91 6369554088"],
     icon: <Trophy size={20} />,
     imageUrl: "/assets/events/football.png",
-    linkUrl: "#gforms-football",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSct1yHkTXW7DyKgtvmpeyUgLGo5ceoFGhw7c_cifZfcDEyXig/viewform?usp=dialog",
+    rules: ["Team Size: 5-7 per team", "Available Slots: 16", "Entry Fee: Rs. 500"],
+    rulebookUrl: "/rulebooks/FootballTournament_Mecharush26.pdf",
   },
   {
     title: "Crescent Chess Knockout",
     description: "An intense 1v1 chess competition featuring multiple rounds, including Blitz and Rapid formats, challenging intellectual depth, strategic planning, and tactical precision.",
-    coordinators: ["Benny Samuel"],
-    coordinatorsPhones: ["+91 9884666827"],
+    coordinators: ["Benny Samuel", "VS. Susikaran"],
+    coordinatorsPhones: ["+91 9884666827", "+91 7305432674"],
     icon: <Users size={20} />,
     imageUrl: "/assets/events/chess.png",
-    linkUrl: "#gforms-chess",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSccs4gxVlXE-Xb9BsJMLIKVV0z9MiutHwLhiW5MbKmoG6Q7iQ/viewform?usp=publish-editor",
+    rules: ["Team Size: Individual", "Available Slots: 64", "Entry Fee: Rs. 100"],
+    rulebookUrl: "/rulebooks/CrescentChess_Mecharush26.pdf",
   },
   {
     title: "Photography",
     description: "Capture the dynamic spirit of the symposium's events, along with the aesthetic and architectural elements of the Mechanical Department, focusing on composition, lighting, and narrative.",
-    coordinators: ["Susikaran V", "Admin"],
-    coordinatorsPhones: ["+91 7305432674", "mudassir@mecharush.in"],
+    coordinators: ["Ashraf", "Ajmal Ahamed"],
+    coordinatorsPhones: ["+91 9363592725", "+91 7010438504"],
     icon: <Camera size={20} />,
     imageUrl: "/events/non-tech/photography.png",
-    linkUrl: "#gforms-photo",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeBTB_FPq_gCv5ZolOytsdCa8_DfYyX1R3DqUH4X62pWLkaUA/viewform?usp=publish-editor",
+    rules: ["Team Size: Individual", "Available Slots: 25", "Entry Fee: Rs. 100"],
+    rulebookUrl: "/rulebooks/Photography_Mecharush26.pdf",
   },
   {
     title: "Tote-Bag Painting",
     description: "A creative painting competition that challenges the artistic skill of participants through the transformation of blank tote bags into creative art. Focuses on visual composition and color harmony.",
-    coordinators: ["Raiyan Hakeem", "Kowsika"],
+    coordinators: ["Rayan Abdul Hakeem", "Kowshika.T"],
     coordinatorsPhones: ["+91 7845980047", "+91 6369280827"],
     icon: <Palette size={20} />,
     imageUrl: "/events/non-tech/tote_bag.png",
-    linkUrl: "#gforms-painting",
+    linkUrl: "https://forms.gle/AFhfQP5G5rVzZokK6",
+    rules: ["Team Size: 1 or 2 per team", "Available Slots: 25", "Entry Fee: Rs. 200"],
+    rulebookUrl: "/rulebooks/ToteBagPainting_Mecharush26.pdf",
   },
 ];
 
@@ -97,7 +107,8 @@ export default function NonTechEventsPage() {
               imageUrl={e.imageUrl}
               linkText="Register Now"
               linkUrl={e.linkUrl || "#"}
-              rules={[]}
+              rulebookUrl={e.rulebookUrl}
+              rules={e.rules}
               delay={i * 0.08}
               accent="#c0c8d8"
             />
@@ -121,9 +132,9 @@ export default function NonTechEventsPage() {
                  <div className="w-16 h-16 rounded-full bg-[#e62e2d]/20 flex items-center justify-center mb-4 border border-[#e62e2d]/50">
                     <Users className="text-[#e62e2d]" size={28} />
                  </div>
-                 <h4 className="text-xl font-bold text-white mb-1">Sathick. A.S</h4>
-                 <p className="text-white/50 text-sm mb-3">Technical Events Coordinator</p>
-                 <a href="tel:+916381032845" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 63810 32845</a>
+                 <h4 className="text-xl font-bold text-white mb-1">Ajmal Ahamed</h4>
+                 <p className="text-white/50 text-sm mb-3">Non-Technical Coordinator</p>
+                 <a href="tel:+917010438504" className="text-[#e62e2d] hover:text-white transition-colors font-mono">+91 70104 38504</a>
               </div>
            </div>
         </div>

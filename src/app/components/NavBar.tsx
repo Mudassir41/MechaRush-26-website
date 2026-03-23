@@ -35,7 +35,7 @@ export default function NavBar() {
       <motion.nav 
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-black/90 backdrop-blur-xl border-b border-[#e62e2d]/20 shadow-[0_0_30px_rgba(230,46,45,0.15)]' : 'bg-transparent'}`}
       >
-        <div className="max-w-7xl mx-auto px-5 h-20 flex items-center justify-between gap-4">
+        <div className="w-full px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
 
           {/* Left — college logo & MechaRush logo */}
           <div className="flex items-center gap-4 flex-shrink-0">
