@@ -19,7 +19,7 @@ const SCHEDULE = [
   { time: "09:00 AM", event: "Inauguration & Registration", icon: "🏁", desc: "Opening ceremony and team check-in" },
   { time: "10:00 AM", event: "Events Kickoff — Slot 1", icon: "⚙️", desc: "First wave of competitions begin" },
   { time: "01:00 PM", event: "Lunch Break & Networking", icon: "☕", desc: "Forge connections over food" },
-  { time: "02:00 PM", event: "Events Resume — Slot 2", icon: "🔧", desc: "Afternoon competitions and challenges" },
+  { time: "01:30 PM", event: "Events Resume — Slot 2", icon: "🔧", desc: "Afternoon competitions and challenges" },
   { time: "03:30 PM", event: "Valedictory & Prize Distribution", icon: "🏆", desc: "Award ceremony and closing" },
 ];
 
