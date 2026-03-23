@@ -139,7 +139,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
 
     // Animate Thrust %
     const animThrust = (now: number) => {
-      const elapsed = now - startRef.current;
+      const elapsed = Math.max(0, now - startRef.current);
       const progress = Math.min(elapsed / TOTAL_CRANK_MS, 1);
       // Ease-in curve so it feels like a real engine spooling
       const eased = Math.pow(progress, 0.6);

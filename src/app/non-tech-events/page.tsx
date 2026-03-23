@@ -14,7 +14,7 @@ const nonTechEvents = [
     icon: <Users size={20} />,
     imageUrl: "/assets/1773476155332_2.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc7A04ZbeAl3vA5tdbmhmxxYJZuT4mSdz9QFjKdl8NkNfGF9g/viewform?usp=publish-editor",
-    rules: ["Team Size: 2-4 per team", "Available Slots: 10", "Entry Fee: Rs. 300"],
+    rules: ["Team Size: 2-4 per team", "Entry Fee: Rs. 300"],
     rulebookUrl: "/rulebooks/MockIPLAuction_Mecharush26.pdf",
   },
   {
@@ -25,7 +25,7 @@ const nonTechEvents = [
     icon: <Trophy size={20} />,
     imageUrl: "/assets/events/football.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSct1yHkTXW7DyKgtvmpeyUgLGo5ceoFGhw7c_cifZfcDEyXig/viewform?usp=dialog",
-    rules: ["Team Size: 5-7 per team", "Available Slots: 16", "Entry Fee: Rs. 500"],
+    rules: ["Team Size: 5-7 per team", "Entry Fee: Rs. 500"],
     rulebookUrl: "/rulebooks/FootballTournament_Mecharush26.pdf",
   },
   {
@@ -36,7 +36,7 @@ const nonTechEvents = [
     icon: <Users size={20} />,
     imageUrl: "/assets/events/chess.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSccs4gxVlXE-Xb9BsJMLIKVV0z9MiutHwLhiW5MbKmoG6Q7iQ/viewform?usp=publish-editor",
-    rules: ["Team Size: Individual", "Available Slots: 64", "Entry Fee: Rs. 100"],
+    rules: ["Team Size: Individual", "Entry Fee: Rs. 100"],
     rulebookUrl: "/rulebooks/CrescentChess_Mecharush26.pdf",
   },
   {
@@ -47,7 +47,7 @@ const nonTechEvents = [
     icon: <Camera size={20} />,
     imageUrl: "/events/non-tech/photography.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeBTB_FPq_gCv5ZolOytsdCa8_DfYyX1R3DqUH4X62pWLkaUA/viewform?usp=publish-editor",
-    rules: ["Team Size: Individual", "Available Slots: 25", "Entry Fee: Rs. 100"],
+    rules: ["Team Size: Individual", "Entry Fee: Rs. 100"],
     rulebookUrl: "/rulebooks/Photography_Mecharush26.pdf",
   },
   {
@@ -58,7 +58,7 @@ const nonTechEvents = [
     icon: <Palette size={20} />,
     imageUrl: "/events/non-tech/tote_bag.png",
     linkUrl: "https://forms.gle/AFhfQP5G5rVzZokK6",
-    rules: ["Team Size: 1 or 2 per team", "Available Slots: 25", "Entry Fee: Rs. 200"],
+    rules: ["Team Size: 1 or 2 per team", "Entry Fee: Rs. 200"],
     rulebookUrl: "/rulebooks/ToteBagPainting_Mecharush26.pdf",
   },
 ];

@@ -37,22 +37,23 @@ const HIGHLIGHTS = [
     image: "/assets/events/venture_vault.jpeg",
     tag: "TECH",
     icon: <Cog size={24} />,
-    rules: ["Presentations strictly 5 minutes.", "Ideas must be original.", "Team Size: 1-2 per team", "Available Slots: 20", "Entry Fee: Rs. 150"],
+    rules: ["Presentations strictly 5 minutes.", "Ideas must be original.", "Team Size: 1-2 per team", "Entry Fee: Rs. 150", "Screening round may be conducted if registrations exceed 50 teams."],
     coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
     phones: ["+91 730503259", "+91 9361827918"],
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
     rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",
   },
   {
-    title: "Pathfinder Robot",
+    title: "Pathfinder",
     desc: "A robotics competition challenging teams to navigate a complex track. Note: Bring your prebuilt line-follower robot! It's a competition of who designed and built the best one.",
-    image: "/assets/pathfinder_hero.png",
+    image: "/events/pathfinder_robot.png",
     tag: "TECH",
     icon: <BrainCircuit size={24} />,
-    rules: ["Bot must be autonomous line-follower.", "Robots must be pre-built by the team.", "Fastest completion without track deviations wins."],
+    rules: ["Team Size: 2-4 per team", "Bot must be autonomous line-follower.", "Robots must be pre-built by the team.", "Fastest completion without track deviations wins.", "Entry Fee: Rs. 400"],
     coordinators: ["Mohammed mudassir basha", "Akif"],
     phones: ["mudassir@mecharush.in", "+91 82708 94966"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
+    rulebookUrl: "/rulebooks/PathFinder_Mecharush26.pdf",
   },
 ];
 
@@ -63,7 +64,7 @@ const CONTACTS = [
   { name: "Sponsorships", role: "Brand & Partnerships", link: "mailto:sponsors@mecharush.in", display: "sponsors@mecharush.in" }
 ];
 
-const MAP_EMBED = "https://www.google.com/maps?q=B.S.+Abdur+Rahman+Crescent+Institute+Mechanical+Department,+Vandalur,+Chennai&output=embed";
+const MAP_EMBED = "https://www.google.com/maps?q=12.8785,80.0499&output=embed";
 const ACCENT = "#e62e2d";
 
 /* ──────────────────── SECTION HEADER ──────────────────── */
@@ -98,8 +99,6 @@ export default function Home() {
   const [emblemState, setEmblemState] = useState<"video" | "image" | "hidden">("hidden");
 
   const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 0.5, 0]);
 
   useEffect(() => {
     if (sessionStorage.getItem("mechrush_ignited")) setIgnitionDone(true);
@@ -126,7 +125,7 @@ export default function Home() {
       <div className="relative flex flex-col items-center overflow-hidden">
 
         {/* ═══════ HERO SECTION ═══════ */}
-        <motion.section ref={heroRef} style={{ opacity: heroOpacity }}
+        <motion.section ref={heroRef}
           className="relative w-full max-w-7xl mx-auto px-6 pt-32 pb-8 flex flex-col items-center min-h-screen">
 
           {/* HUD bracket corners */}
@@ -332,10 +331,10 @@ export default function Home() {
               <div className="mt-8 border-t border-white/10 pt-6">
                 <div className="text-[10px] tracking-widest uppercase font-bold text-white/30 mb-4">In Association With</div>
                 <div className="flex flex-wrap items-center gap-6 opacity-90 hover:opacity-100 transition-all">
-                  <div className="relative h-12 w-32"><img src="/assets/sme_crescent.png" alt="SME" className="w-full h-full object-contain invert brightness-0" /></div>
-                  <div className="relative h-12 w-24"><img src="/assets/asme_logo.png" alt="ASME" className="w-full h-full object-contain invert brightness-0" /></div>
-                  <div className="relative h-12 w-32"><img src="/assets/sae_india_logo.png" alt="SAE" className="w-full h-full object-contain invert brightness-0 saturate-0" /></div>
-                  <div className="relative h-12 w-28"><img src="/assets/ishrae_logo.png" alt="ISHRAE" className="w-full h-full object-contain invert brightness-0" /></div>
+                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/sme.png" alt="SME" className="scale-125 max-h-full max-w-full object-contain" /></div>
+                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/asme.png" alt="ASME" className="max-h-full max-w-full object-contain" /></div>
+                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/sae.png" alt="SAE" className="max-h-full max-w-full object-contain" /></div>
+                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/ishrae.png" alt="ISHRAE" className="scale-110 max-h-full max-w-full object-contain" /></div>
                 </div>
               </div>
 
@@ -450,13 +449,13 @@ export default function Home() {
                   FACILITY MAP // RADAR
                 </span>
               </div>
-              <span className="text-[10px] font-mono text-white/20">12.8785°N, 80.0499°E</span>
+              <span className="text-[10px] font-mono text-white/20">12.8750°N, 80.0848°E</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-[1fr_280px]">
               <div className="relative overflow-hidden" style={{ height: 340 }}>
                 {/* Embedded Crescent map, pin exactly at Crescent using satellite view */}
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15555.454215414545!2d80.0766442659043!3d12.877864448577747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525eaa4f4bfba9%3A0xe9f7ee2d7b57ad23!2sB.S.%20Abdur%20Rahman%20Crescent%20Institute%20Of%20Science%20And%20Technology!5e1!3m2!1sen!2sin!4v1715611111111!5m2!1sen!2sin"
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243.0943189948902!2d80.08484938028838!3d12.874951634921024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52f6173c9177a7%3A0x3483d758b0a926b8!2sSchool%20of%20Mechanical%20Sciences!5e1!3m2!1sen!2sin!4v1774250995292!5m2!1sen!2sin"
                   width="100%" height="100%" style={{ border: 0, filter: "brightness(0.85) contrast(1.1)" }}
                   allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
                 <div className="absolute inset-0 pointer-events-none"
@@ -476,8 +475,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div><div className="text-[9px] tracking-[0.3em] uppercase text-white/20 font-bold">Coordinates</div>
-                  <div className="font-mono text-xs" style={{ color: ACCENT }}>12.8785°N, 80.0499°E</div></div>
-                <a href="https://maps.google.com/?q=B.S.+Abdur+Rahman+Crescent+Institute+Mechanical+Department+Vandalur+Chennai"
+                  <div className="font-mono text-xs" style={{ color: ACCENT }}>12.8750°N, 80.0848°E</div></div>
+                <a href="https://maps.google.com/?q=12.8750,80.0848"
                   target="_blank" rel="noopener noreferrer"
                   className="mt-auto flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold tracking-widest uppercase transition-all hover:scale-105"
                   style={{ background: `${ACCENT}15`, border: `1px solid ${ACCENT}30`, color: ACCENT }}>
