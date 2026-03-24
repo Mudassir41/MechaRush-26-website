@@ -13,7 +13,7 @@ const techEvents = [
     imageUrl: "/assets/trussmaster.jpg",
     coordinators: ["Sakthinarayanan", "Sathick"],
     coordinatorsPhones: ["+91 7358291682", "+91 6381032845"],
-    linkUrl: "#gforms-bridge",
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfZ2a5PCqRyOIr49IAJeWcslMOU_zfJXIp6_RySNvg-ZylANQ/viewform?usp=header",
     rules: [
       "Team should consist of 3 to 4 members",
       "Registration fee for the event is Rs. 200",
@@ -123,11 +123,9 @@ export default function TechEventsPage() {
         >
           <div className="inline-flex items-center gap-2 text-xs tracking-[0.35em] text-[#e62e2d]/60 uppercase font-bold mb-5">
             <div className="w-10 h-px bg-[#e62e2d]/30" />
-            <span className="relative z-10 flex items-center justify-center gap-2 font-bold tracking-widest text-sm uppercase">
-              Register
-              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <span className="relative z-10 flex items-center justify-center font-bold tracking-widest text-sm uppercase">
+              Mecharush '26
             </span>
-            Mecharush '26
             <div className="w-10 h-px bg-[#e62e2d]/30" />
           </div>
           <div className="relative w-full max-w-[500px] h-[70px] sm:h-[100px] mx-auto mb-6">

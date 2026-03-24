@@ -70,7 +70,7 @@ const HIGHLIGHTS = [
 
 const CONTACTS = [
   { name: "Sathick. A.S", role: "Technical Events Coordinator", link: "tel:+916381032845", display: "+91 63810 32845" },
-  { name: "Susikaran V", role: "Non-Technical Events Coordinator", link: "tel:+917305432674", display: "+91 73054 32674" },
+  { name: "V.S Susikaran", role: "Non-Technical Events Coordinator", link: "tel:+917305432674", display: "+91 73054 32674" },
   { name: "Admin Setup", role: "Global Admin", link: "mailto:mudassir@mecharush.in", display: "mudassir@mecharush.in" },
   { name: "Sponsorships", role: "Brand & Partnerships", link: "mailto:sponsors@mecharush.in", display: "sponsors@mecharush.in" }
 ];
@@ -174,30 +174,12 @@ export default function Home() {
                 {emblemState === "image" && (
                   <Image src="/assets/logo.jpeg" alt="Emblem" fill className="object-contain" priority />
                 )}
-                {/* Hidden visual toggle on Emblem */}
-                <button
-                  onClick={() => setEmblemState(s => s === "video" ? "image" : s === "image" ? "hidden" : "video")}
-                  className="absolute inset-0 z-50 opacity-0 cursor-crosshair text-transparent"
-                  title="Toggle Video/Image/Hidden Mode"
-                >
-                  toggle
-                </button>
               </motion.div>
             )}
 
             {/* Title Image (MechaRush Stacked) */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={ignitionDone ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.3 }} className="mb-4 relative w-[90vw] max-w-[800px] h-[90px] sm:h-[130px] mx-auto group">
               <Image src="/assets/mecharush_stacked.png" alt="MechaRush '26" fill className="object-contain" priority />
-              {/* Fallback toggle if emblem is hidden */}
-              {emblemState === "hidden" && (
-                <button
-                  onClick={() => setEmblemState("video")}
-                  className="absolute inset-0 z-50 opacity-0 cursor-crosshair text-transparent"
-                  title="Restore Emblem"
-                >
-                  restore emblem
-                </button>
-              )}
             </motion.div>
 
             <p className="text-white/35 text-base mb-2 font-light tracking-widest uppercase">
@@ -342,10 +324,10 @@ export default function Home() {
               <div className="mt-8 border-t border-white/10 pt-6">
                 <div className="text-[10px] tracking-widest uppercase font-bold text-white/30 mb-4">In Association With</div>
                 <div className="flex flex-wrap items-center gap-6 opacity-90 hover:opacity-100 transition-all">
-                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/sme.png" alt="SME" className="scale-125 max-h-full max-w-full object-contain" /></div>
-                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/asme.png" alt="ASME" className="max-h-full max-w-full object-contain" /></div>
-                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/sae.png" alt="SAE" className="max-h-full max-w-full object-contain" /></div>
-                  <div className="relative h-14 w-28 flex items-center justify-center"><img src="/logos/ishrae.png" alt="ISHRAE" className="scale-110 max-h-full max-w-full object-contain" /></div>
+                  <a href="https://www.asme.org/" target="_blank" rel="noopener noreferrer" className="relative h-14 w-28 flex items-center justify-center hover:scale-105 transition-transform"><img src="/logos/asme.png" alt="ASME" className="max-h-full max-w-full object-contain" /></a>
+                  <a href="https://www.sae.org/" target="_blank" rel="noopener noreferrer" className="relative h-14 w-28 flex items-center justify-center hover:scale-105 transition-transform"><img src="/logos/sae.png" alt="SAE" className="max-h-full max-w-full object-contain" /></a>
+                  <a href="" target="_blank" rel="noopener noreferrer" className="relative h-14 w-28 flex items-center justify-center hover:scale-105 transition-transform"><img src="/logos/sme.png" alt="SME" className="scale-125 max-h-full max-w-full object-contain" /></a>
+                  <a href="https://ishrae.in/" target="_blank" rel="noopener noreferrer" className="relative h-14 w-28 flex items-center justify-center hover:scale-105 transition-transform"><img src="/logos/ishrae.png" alt="ISHRAE" className="scale-110 max-h-full max-w-full object-contain" /></a>
                 </div>
               </div>
 

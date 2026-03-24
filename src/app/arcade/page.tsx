@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import InteractiveForgeGame from "../components/InteractiveForgeGame";
-import SymposiumTerminalGame from "../components/SymposiumTerminalGame";
+import AIEscapeRoom from "../components/AIEscapeRoom";
 import CoreOverloadGame from "../components/CoreOverloadGame";
 import NavBar from "../components/NavBar";
 import FireSmokeOverlay from "../components/FireSmokeOverlay";
@@ -48,7 +48,7 @@ export default function ArcadePage() {
 
         {/* Narrative Game */}
         <div className="mt-8">
-           <SymposiumTerminalGame />
+           <AIEscapeRoom />
         </div>
 
         <GearDivider />

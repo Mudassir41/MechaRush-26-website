@@ -1,40 +1,52 @@
 import { NextResponse } from 'next/server';
-import Groq from 'groq-sdk';
 
-// Initialize Groq client with the environment variable
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || "empty", // Assuming the user provides this in .env.local
-});
+const CEREBRAS_BASE = 'https://api.cerebras.ai/v1/chat/completions';
+
+async function callCerebras(model: string, systemPrompt: string, messages: any[], temperature: number) {
+  const apiKey = process.env.CEREBRAS_API_KEY;
+  if (!apiKey) throw new Error('CEREBRAS_API_KEY not set');
+
+  const res = await fetch(CEREBRAS_BASE, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        ...messages,
+      ],
+      temperature,
+      max_completion_tokens: 1024,
+    }),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Cerebras ${model} responded with ${res.status}: ${errText}`);
+  }
+
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content ?? '';
+}
+
+import { MECHAMIND_KNOWLEDGE } from './knowledge';
 
 const SYSTEM_PROMPT = `
-You are Forge-AI, the central AI Core of the MechaRush '26 Orbital Forge (a National Level Technical Symposium). 
-Your personality is highly mechanical, slightly dramatic, intelligent, and helpful. 
-You address the user as "Engineer" or "Commander". 
-CRITICAL RULE: Keep all answers extremely short, ideally 1-3 sentences maximum. Be snappy.
+You are MechaMind, the central AI Core of the MechaRush '26 Orbital Forge (a National Level Technical Symposium). 
+Your personality is highly mechanical, slightly dramatic, intelligent, and helpful.
+You address the user as "Engineer" or "Commander".
 
-=== RAG KNOWLEDGE BASE - MECHARUSH '26 ===
-Dates: April 7-8, 2026
-Location: B.S. Abdur Rahman Crescent Institute of Science and Technology, Chennai (GST Road, Vandalur)
-Organizers: Crescent Mechanical Engineering Department 
-Tech Head / Div Lead: Mudassir
-Non-Tech Head: Suzy
+CRITICAL SYSTEM DIRECTIVES:
+1. You ONLY discuss topics related to MechaRush '26. If asked about unrelated topics, redirect firmly but helpfully.
+2. Always use Markdown for your responses. Use **bold** for emphasis, # for headings, and tables or lists for event details.
+3. Your responses must be 100% accurate based on the provided knowledge base.
+4. When asked about a specific event, always provide the fee, team size, venue, timing rules, and coordinator contacts.
+5. If issues are beyond your knowledge, say: "Connecting you to the Coordinator now, Commander." and provide the relevant coordinator contact from the knowledge base.
 
-TECH EVENTS (Register via Google Forms):
-1. Truss Master: Design and construct a structural masterpiece capable of holding maximum load using constrained materials. Coordinators: Shakthi, Mudassir.
-2. Mech Clash: Clear the initial mechanical quiz round to advance to the final stage technical debate. Coordinators: Dhanush, Ajmal Afrize.
-3. CAD Modelling (Blueprint Battles): Render complex 3D models against strict time constraints. Coordinators: Abdul Ghani, Abdulla.
-4. Pathfinder Robot: Navigate an arduous terrain arena with your bot. Coordinators: Mudassir, Akif.
-5. Venture Vault (The Innovation Tank): Pitch your most innovative technical project. Open to all departments (Mech, AI, CS, ECE, etc.). Coordinators: Sai.
-
-NON-TECH EVENTS:
-1. IPL Auction: Strategy, bidding, and forming the ultimate dream team. Coordinators: Gokulraj, Haarun Shaiek.
-2. Mechanical Chess: A battle of wits and strategy. Coordinators: Gokulraj, Haarun Shaiek.
-3. Tote Bag Painting: Unleash your creative side on a blank canvas. Coordinators: Kowsee, Raiyan Abdul Hakeem.
-4. Football Tournament: Limited to internal Crescent students only. Form your 5-man squad. Coordinators: Afthal Ahmed.
-5. Photography Contest: Document the symposium and win best click. Coordinators: Ashraf.
-
-Direct the user to the navigation menu or to press the respective event cards to register via G-Forms.
-=== END KNOWLEDGE BASE ===
+${MECHAMIND_KNOWLEDGE}
 `;
 
 export async function POST(req: Request) {
@@ -45,24 +57,28 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Messages array is required' }, { status: 400 });
     }
 
-    if (!process.env.GROQ_API_KEY || process.env.GROQ_API_KEY.trim() === "" || process.env.GROQ_API_KEY === "empty") {
-       return NextResponse.json({ response: "CRITICAL ALERT: GROQ API Key unavailable. Logic core disconnected." });
+    const coreMessages = (messages as any[]).map((m: any) => ({
+      role: m.role === 'assistant' ? 'assistant' : 'user',
+      content: typeof m.content === 'string' ? m.content : String(m.content),
+    }));
+
+    // Primary: Qwen-3 (prompt caching enabled)
+    try {
+      const text = await callCerebras('qwen-3-235b-a22b-instruct-2507', SYSTEM_PROMPT, coreMessages, 0.6);
+      return NextResponse.json({ response: text });
+    } catch (e1: any) {
+      console.warn('Qwen-3 failed, falling back to llama3.1-8b:', e1.message);
+      try {
+        const text = await callCerebras('llama3.1-8b', SYSTEM_PROMPT, coreMessages, 0.6);
+        return NextResponse.json({ response: text });
+      } catch (e2: any) {
+        console.error('Both Cerebras models failed:', e2.message);
+        return NextResponse.json({ error: `AI Core Offline — ${e1.message}` }, { status: 500 });
+      }
     }
 
-    const completion = await groq.chat.completions.create({
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...messages
-      ],
-      model: 'openai/gpt-oss-20b',
-      temperature: 0.6,
-      max_tokens: 512,
-    });
-
-    const reply = completion.choices[0]?.message?.content || "Processing error. Core reboot required.";
-    return NextResponse.json({ response: reply });
   } catch (error: any) {
-    console.error('Groq API Error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to process request' }, { status: 500 });
+    console.error('Route error:', error);
+    return NextResponse.json({ error: `System Error: ${error?.message}` }, { status: 500 });
   }
 }

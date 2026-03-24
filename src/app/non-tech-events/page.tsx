@@ -25,8 +25,8 @@ const nonTechEvents = [
   {
     title: "Football Tournament",
     description: "A high-energy, competitive 5-a-side football tournament designed to test participants' teamwork, agility, tactical awareness, and physical endurance in a fast-paced format.",
-    coordinators: ["Abubakar", "Afthal"],
-    coordinatorsPhones: ["+91 9894815326", "+91 6369554088"],
+    coordinators: ["Abubakar", "Susikaran"],
+    coordinatorsPhones: ["+91 9894815326", "+91 7305432674"],
     icon: <Trophy size={20} />,
     imageUrl: "/assets/events/football.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSct1yHkTXW7DyKgtvmpeyUgLGo5ceoFGhw7c_cifZfcDEyXig/viewform?usp=dialog",
@@ -104,13 +104,12 @@ export default function NonTechEventsPage() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 text-xs tracking-[0.35em] text-white/20 uppercase font-bold mb-4 ml-4">
-            <div className="w-10 h-px bg-white/15" />
-            <span className="relative z-10 flex items-center justify-center gap-2 font-bold tracking-widest text-sm uppercase">
-              Register
-              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          <div className="inline-flex items-center gap-2 text-xs tracking-[0.35em] text-[#e62e2d]/60 uppercase font-bold mb-4 ml-4">
+            <div className="w-10 h-px bg-[#e62e2d]/30" />
+            <span className="relative z-10 flex items-center justify-center font-bold tracking-widest text-sm uppercase">
+              Mecharush '26
             </span>
-            <div className="w-10 h-px bg-white/15" />
+            <div className="w-10 h-px bg-[#e62e2d]/30" />
           </div>
           <div className="relative w-full max-w-[500px] h-[70px] sm:h-[100px] mx-auto mb-6">
             <Image src="/assets/non_tech_header.png" alt="NON-TECH EVENTS" fill className="object-contain drop-shadow-[0_0_20px_rgba(200,200,200,0.3)]" priority />

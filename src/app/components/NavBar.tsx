@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { href: "/about",          label: "About"      },
   { href: "/tech-events",    label: "Tech Events" },
   { href: "/non-tech-events",label: "Non-Tech"   },
+  { href: "/arcade",          label: "Games"      },
   { href: "/#schedule",       label: "Schedule"   },
   { href: "/#location",       label: "Location"   },
 ];
@@ -43,7 +44,7 @@ export default function NavBar() {
               href="https://crescent.education"
               target="_blank"
               rel="noopener noreferrer"
-              className="h-10 w-32 relative flex-shrink-0 transition-transform hover:scale-105"
+              className="h-10 w-32 relative flex-shrink-0 transition-transform hover:scale-105 hidden md:block"
               title="B.S. Abdur Rahman Crescent Institute"
             >
               <img src="/assets/crescent-logo-white.png" alt="Crescent Logo" className="w-full h-full object-contain" />

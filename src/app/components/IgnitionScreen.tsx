@@ -15,17 +15,27 @@ const TOTAL_CRANK_MS = 3200;
 function useAudioEngine() {
   const ctxRef = useRef<AudioContext | null>(null);
   const nodesRef = useRef<AudioNode[]>([]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const cleanup = useCallback(() => {
     nodesRef.current.forEach((n) => {
       try { (n as OscillatorNode).stop?.(); } catch { /* ok */ }
     });
     nodesRef.current = [];
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
+    }
   }, []);
 
   const playIgnition = useCallback(() => {
     const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
     ctxRef.current = ctx;
+
+    // Custom Ignition Audio from WhatsApp
+    const ignitionAudio = new Audio("/assets/ignition_sequence.mpeg");
+    ignitionAudio.play().catch(e => console.log("Audio play blocked", e));
+    audioRef.current = ignitionAudio;
 
     const now = ctx.currentTime;
     const master = ctx.createGain();
