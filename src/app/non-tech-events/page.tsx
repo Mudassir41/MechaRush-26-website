@@ -25,8 +25,8 @@ const nonTechEvents = [
   {
     title: "Football Tournament",
     description: "A high-energy, competitive 5-a-side football tournament designed to test participants' teamwork, agility, tactical awareness, and physical endurance in a fast-paced format.",
-    coordinators: ["Abubakar", "Susikaran"],
-    coordinatorsPhones: ["+91 9894815326", "+91 7305432674"],
+    coordinators: ["Abubakar", "Mohammed Shaki R.U"],
+    coordinatorsPhones: ["+91 9894815326", "+91 7550051758"],
     icon: <Trophy size={20} />,
     imageUrl: "/assets/events/football.png",
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSct1yHkTXW7DyKgtvmpeyUgLGo5ceoFGhw7c_cifZfcDEyXig/viewform?usp=dialog",

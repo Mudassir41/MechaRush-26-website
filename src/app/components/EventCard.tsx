@@ -175,10 +175,20 @@ export default function EventCard({
                         {coordinators.map((name, i) => (
                           <li key={i} className="flex flex-col">
                             <span className="font-semibold text-white/80">{name}</span>
-                            <span className="flex items-center gap-1.5 text-white/30 text-xs mt-0.5">
-                              {coordinatorsPhones?.[i]?.includes("@") ? <Mail size={11} /> : <Phone size={11} />} 
-                              {coordinatorsPhones?.[i] || "—"}
-                            </span>
+                            {coordinatorsPhones?.[i] ? (
+                              <a 
+                                href={coordinatorsPhones[i].includes("@") ? `mailto:${coordinatorsPhones[i]}` : `tel:${coordinatorsPhones[i].replace(/\\s+/g, '')}`}
+                                className="flex items-center gap-1.5 text-white/50 hover:text-white text-xs mt-0.5 transition-colors"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {coordinatorsPhones[i].includes("@") ? <Mail size={11} /> : <Phone size={11} />} 
+                                {coordinatorsPhones[i]}
+                              </a>
+                            ) : (
+                              <span className="flex items-center gap-1.5 text-white/30 text-xs mt-0.5">
+                                <Phone size={11} /> —
+                              </span>
+                            )}
                           </li>
                         ))}
                       </ul>

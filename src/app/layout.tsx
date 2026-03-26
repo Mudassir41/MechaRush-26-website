@@ -12,6 +12,10 @@ const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "MechaRush '26",
   description: "National Level Technical Symposium | Dept of Mechanical Engineering",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

@@ -44,7 +44,7 @@ const HIGHLIGHTS = [
       "Before registering, read the complete rule book first",
       "Screening round may be conducted if registrations exceed 50 teams"
     ],
-    coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
+    coordinators: ["Sai Srijeeth rs", "Ahamed Ibrahim"],
     phones: ["+91 730503259", "+91 9361827918"],
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
     rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",

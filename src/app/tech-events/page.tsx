@@ -9,7 +9,7 @@ const techEvents = [
   {
     title: "Truss Master (Bridge Building)",
     description: "A technical competition designed to test engineering skills and truss knowledge through the construction of structural bridges. Apply principles of structural mechanics, load distribution and material efficiency.",
-    icon: <Bot size={20} />,
+    icon: <Wrench size={20} />,
     imageUrl: "/assets/trussmaster.jpg",
     coordinators: ["Sakthinarayanan", "Sathick"],
     coordinatorsPhones: ["+91 7358291682", "+91 6381032845"],
@@ -31,7 +31,7 @@ const techEvents = [
     coordinatorsPhones: ["+91 6385599422", "+91 9444415408"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfuC_3s3ukELR5BLsc1Pt-ixqTMBsz4UZyxlmK0LzFelviLag/viewform?usp=header",
     rules: [
-      "Team should consist of 1 to 2 members",
+      "Team should consist of 1 or 2 members",
       "Registration fee for the event is Rs. 150",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
@@ -47,7 +47,7 @@ const techEvents = [
     coordinatorsPhones: ["+91 7845346160", "+91 6383996346"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeXE3ivah3i2ma59oNfpw3RExFZ7NDil7Bx4IaVu_QDLQ65Vw/viewform?usp=header",
     rules: [
-      "Team should consist of 1 member",
+      "only Solo leveling",
       "Registration fee for the event is Rs. 100",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
@@ -59,8 +59,8 @@ const techEvents = [
     description: "Bring your pre-built autonomous line-following robot! Navigate a complex track quickly and accurately. This is a competition of who has designed and built the best one.",
     icon: <Bot size={20} />,
     imageUrl: "/events/pathfinder_robot.png",
-    coordinators: ["Mohammed mudassir basha", "Akif"],
-    coordinatorsPhones: ["mudassir@mecharush.in", "+91 82708 94966"],
+    coordinators: ["Mohammed Mudassir Basha", "Akif Abdul Rahman"],
+    coordinatorsPhones: ["+91 8428800217", "+91 8270894966"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
     rules: [
       "Team should consist of 2 to 4 members",
@@ -75,7 +75,7 @@ const techEvents = [
     description: "An innovative idea presentation event where aspiring engineers pitch projects or business models related to technical engineering advancements, focusing on feasibility and market potential.",
     icon: <Target size={20} />,
     imageUrl: "/assets/events/venture_vault.jpeg",
-    coordinators: ["Sai Sreejith", "Ahamed Ibrahim"],
+    coordinators: ["Sai Srijeeth rs", "Ahamed Ibrahim"],
     coordinatorsPhones: ["+91 7305032595", "+91 9361827918"],
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
     rules: [
