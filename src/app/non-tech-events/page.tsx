@@ -32,7 +32,7 @@ const nonTechEvents = [
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSct1yHkTXW7DyKgtvmpeyUgLGo5ceoFGhw7c_cifZfcDEyXig/viewform?usp=dialog",
     rules: [
       "Team should consist of 5 to 7 members",
-      "Registration fee for the event is Rs. 500",
+      "Registration fee for the event is Rs. 600",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
