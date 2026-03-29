@@ -81,7 +81,7 @@ const nonTechEvents = [
     linkUrl: "https://forms.gle/AFhfQP5G5rVzZokK6",
     rules: [
       "Team should consist of 1 to 2 members",
-      "Registration fee for the event is Rs. 200",
+      "Registration fee for the event Solo: Rs. 150, Duo: Rs. 200",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
