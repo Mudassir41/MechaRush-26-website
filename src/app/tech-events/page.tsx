@@ -16,7 +16,8 @@ const techEvents = [
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfZ2a5PCqRyOIr49IAJeWcslMOU_zfJXIp6_RySNvg-ZylANQ/viewform?usp=header",
     rules: [
       "Team should consist of 3 to 4 members",
-      "Registration fee for the event is Rs. 200",
+      "Registration fee for the event is Rs. 200 (Rs. 50 per head)",
+      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
@@ -33,6 +34,7 @@ const techEvents = [
     rules: [
       "Team should consist of 1 or 2 members",
       "Registration fee for the event is Rs. 100",
+      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 750",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
@@ -47,29 +49,15 @@ const techEvents = [
     coordinatorsPhones: ["+91 7845346160", "+91 6383996346"],
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSeXE3ivah3i2ma59oNfpw3RExFZ7NDil7Bx4IaVu_QDLQ65Vw/viewform?usp=header",
     rules: [
-      "only Solo leveling",
+      "Only Solo participation",
       "Registration fee for the event is Rs. 100",
+      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
     rulebookUrl: "/rulebooks/CADMania_EventBook-Mecharush26.pdf",
   },
-  {
-    title: "Pathfinder",
-    description: "Bring your pre-built autonomous line-following robot! Navigate a complex track quickly and accurately. This is a competition of who has designed and built the best one.",
-    icon: <Bot size={20} />,
-    imageUrl: "/events/pathfinder_robot.png",
-    coordinators: ["Mohammed Mudassir Basha", "Akif Abdul Rahman"],
-    coordinatorsPhones: ["+91 8428800217", "+91 8270894966"],
-    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
-    rules: [
-      "Team should consist of 2 to 4 members",
-      "Registration fee for the event is Rs. 400",
-      "Judge's or Organiser's decision is final",
-      "Before registering, read the complete rule book first"
-    ],
-    rulebookUrl: "/rulebooks/PathFinder_Mecharush26.pdf",
-  },
+
   {
     title: "Venture Vault (Idea Presentation)",
     description: "An innovative idea presentation event where aspiring engineers pitch projects or business models related to technical engineering advancements, focusing on feasibility and market potential.",
@@ -80,7 +68,8 @@ const techEvents = [
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
     rules: [
       "Team should consist of 1 to 2 members",
-      "Registration fee for the event is Rs. 150",
+      "Registration fee for the event is Rs. 100 per team",
+      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first",
       "Screening round may be conducted if registrations exceed 50 teams"
@@ -97,7 +86,8 @@ const techEvents = [
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf8EJ1K0JCr-6stUVEmArdDlb85qYdCTDngriu71UeJWrvzjw/viewform?usp=dialog",
     rules: [
       "Team should consist of 4 members",
-      "Registration fee for the event is Rs. 200",
+      "Registration fee for the event is Rs. 200 (Rs. 50 per head)",
+      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],

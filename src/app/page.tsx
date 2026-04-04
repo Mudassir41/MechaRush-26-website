@@ -39,7 +39,8 @@ const HIGHLIGHTS = [
     icon: <Cog size={24} />,
     rules: [
       "Team should consist of 1 to 2 members",
-      "Registration fee for the event is Rs. 150",
+      "Registration fee for the event is Rs. 100 per team",
+      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first",
       "Screening round may be conducted if registrations exceed 50 teams"
@@ -50,21 +51,22 @@ const HIGHLIGHTS = [
     rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",
   },
   {
-    title: "Pathfinder",
-    desc: "A robotics competition challenging teams to navigate a complex track. Note: Bring your prebuilt line-follower robot! It's a competition of who designed and built the best one.",
-    image: "/events/pathfinder_robot.png",
+    title: "Pit Stop Challenge",
+    desc: "An exhilarating challenge that tests teams' speed, precision, and coordination in disassembling and reassembling the tyres of a GO KART that is provided, simulating high-pressure maintenance.",
+    image: "/assets/events/wmremove-transformed.jpeg",
     tag: "TECH",
-    icon: <BrainCircuit size={24} />,
+    icon: <Wrench size={24} />,
     rules: [
-      "Team should consist of 2 to 4 members",
-      "Registration fee for the event is Rs. 400",
+      "Team should consist of 4 members",
+      "Registration fee for the event is Rs. 200 (Rs. 50 per head)",
+      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
-    coordinators: ["Mohammed mudassir basha", "Akif"],
-    phones: ["mudassir@mecharush.in", "+91 82708 94966"],
-    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfOrbbwUpBvk7dl5KZgkTDGDQfWI3YAkNm0z9qHo8ntnIOfoA/viewform?usp=publish-editor",
-    rulebookUrl: "/rulebooks/PathFinder_Mecharush26.pdf",
+    coordinators: ["Dhanush", "Ajmal"],
+    phones: ["+91 9444415408", "+91 7010438504"],
+    linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf8EJ1K0JCr-6stUVEmArdDlb85qYdCTDngriu71UeJWrvzjw/viewform?usp=dialog",
+    rulebookUrl: "/rulebooks/PitStop_EventBook-Mecharush26.pdf",
   },
 ];
 

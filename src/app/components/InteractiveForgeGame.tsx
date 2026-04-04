@@ -78,8 +78,8 @@ export default function InteractiveForgeGame() {
       const parent = canvas.parentElement;
       if (parent) {
         canvas.width = parent.clientWidth;
-        // High DPI support
-        const ratio = window.devicePixelRatio || 1;
+        // High DPI support, capped for mobile performance
+        const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
         canvas.width = parent.clientWidth * ratio;
         canvas.height = 300 * ratio;
         ctx.scale(ratio, ratio);
@@ -91,8 +91,8 @@ export default function InteractiveForgeGame() {
     window.addEventListener("resize", resize);
 
     const render = () => {
-      const w = canvas.width / (window.devicePixelRatio || 1);
-      const h = canvas.height / (window.devicePixelRatio || 1);
+      const w = canvas.width / (Math.min(window.devicePixelRatio || 1, 1.5));
+      const h = canvas.height / (Math.min(window.devicePixelRatio || 1, 1.5));
       const cx = w / 2;
       const cy = h - 40;
       const radius = Math.min(w * 0.4, 200);
@@ -132,11 +132,17 @@ export default function InteractiveForgeGame() {
       ctx.beginPath();
       ctx.arc(cx, cy, radius, tStart, tEnd);
       ctx.lineWidth = 15;
-      ctx.strokeStyle = (streak >= 5 && streak < 10) ? "#f59e0b" : (streak >= 10 ? "#3b82f6" : "#10b981"); 
-      ctx.shadowBlur = streak >= 5 ? 20 : 15;
-      ctx.shadowColor = ctx.strokeStyle;
+      const targetColor = (streak >= 5 && streak < 10) ? "#f59e0b" : (streak >= 10 ? "#3b82f6" : "#10b981");
+      ctx.strokeStyle = targetColor;
+      // ShadowBlur is extremely expensive on phones. Faux glow:
+      if (streak >= 5) {
+         ctx.save();
+         ctx.lineWidth = 25;
+         ctx.strokeStyle = `${targetColor}40`;
+         ctx.stroke();
+         ctx.restore();
+      }
       ctx.stroke();
-      ctx.shadowBlur = 0;
 
       // 3. Draw Needle
       ctx.beginPath();
@@ -146,10 +152,13 @@ export default function InteractiveForgeGame() {
       ctx.lineTo(nx, ny);
       ctx.lineWidth = 4;
       ctx.strokeStyle = "#ffffff";
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = "#ffffff";
+      // Faux needle glow
+      ctx.save();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = "rgba(255,255,255,0.3)";
       ctx.stroke();
-      ctx.shadowBlur = 0;
+      ctx.restore();
+      ctx.stroke();
 
       // 4. Draw Center Hub
       ctx.beginPath();
@@ -172,12 +181,10 @@ export default function InteractiveForgeGame() {
         }
         ctx.globalAlpha = p.life;
         ctx.fillStyle = p.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 0;
+        // Skip particle shadowBlur completely to boost framerate
       }
       ctx.globalAlpha = 1;
 

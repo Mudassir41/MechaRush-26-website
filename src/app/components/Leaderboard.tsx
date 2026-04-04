@@ -17,7 +17,7 @@ interface Props {
   title?: string;
 }
 
-export default function Leaderboard({ currentScore, onClose, accent = "#e62e2d", title = "Global Leaderboard" }: Props) {
+export default function Leaderboard({ gameKey, currentScore, onClose, accent = "#e62e2d", title = "Global Leaderboard" }: Props) {
   const [scores, setScores] = useState<ScoreEntry[]>([]);
   const [name, setName] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -26,7 +26,7 @@ export default function Leaderboard({ currentScore, onClose, accent = "#e62e2d",
   // Load scores from API
   const fetchScores = async () => {
     try {
-      const res = await fetch('/api/leaderboard');
+      const res = await fetch(`/api/leaderboard?gameKey=${gameKey}`);
       if (res.ok) {
         const data = await res.json();
         setScores(data.slice(0, 10)); // keep top 10 for display
@@ -63,7 +63,7 @@ export default function Leaderboard({ currentScore, onClose, accent = "#e62e2d",
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: formattedName, score: currentScore }),
+        body: JSON.stringify({ name: formattedName, score: currentScore, gameKey }),
       });
       // Re-fetch to guarantee sync with server
       fetchScores();

@@ -2,11 +2,13 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, RotateCcw, Cpu, ChevronRight, Zap, Target, Wrench } from "lucide-react";
+import { Send, RotateCcw, Cpu, ChevronRight, Zap, Target, Wrench, BrainCircuit } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-type Phase = "menu" | "theme_select" | "playing" | "end";
+import Leaderboard from "./Leaderboard";
+
+type Phase = "menu" | "playing" | "end" | "leaderboard_entry";
 type Theme = "mars" | "f1" | "factory";
 
 interface Line {
@@ -67,6 +69,7 @@ export default function AIEscapeRoom() {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
   const [bootDone, setBootDone] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -140,6 +143,13 @@ export default function AIEscapeRoom() {
         }
 
         if (aiText.includes("MISSION COMMANDER") || aiText.includes("SURVIVOR") || aiText.includes("SYSTEMS ENGINEER") || aiText.includes("MISSION FAILED")) {
+          // Assign score based on text
+          let currentScore = 0;
+          if (aiText.includes("MISSION COMMANDER")) currentScore = 10000;
+          else if (aiText.includes("SYSTEMS ENGINEER")) currentScore = 7500;
+          else if (aiText.includes("SURVIVOR")) currentScore = 3000;
+          
+          setFinalScore(currentScore);
           setPhase("end");
         }
       } else if (data.error) {
@@ -162,14 +172,17 @@ export default function AIEscapeRoom() {
   };
 
   const handleStartThemeSelect = () => {
-    setPhase("theme_select");
-  };
-
-  const handleSelectTheme = (t: Theme) => {
-    setTheme(t);
+    // Free flow logic: randomly pick a domain immediately
+    const themes: Theme[] = ["mars", "f1", "factory"];
+    const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+    setTheme(randomTheme);
     setPhase("playing");
     setMessages([]);
     setBootDone(false);
+
+    // Initial dramatic SFX
+    const audio = new Audio("/audio/among_us_role_reveal.mpeg");
+    audio.play().catch(e => console.log("Audio dropped:", e));
   };
 
   const handleReboot = () => {
@@ -309,40 +322,6 @@ export default function AIEscapeRoom() {
                   </motion.div>
                 )}
 
-                {/* Theme Select State */}
-                {phase === "theme_select" && (
-                  <motion.div key="theme" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-4">
-                    <span className={lineClass("system")}>SELECT CRISIS DOMAIN:</span>
-                    
-                    <button onClick={() => handleSelectTheme("mars")} className="text-left border border-[#e62e2d]/30 p-4 hover:bg-[#e62e2d]/10 transition-colors group">
-                      <div className="flex items-center gap-2 text-[#e62e2d] font-bold text-lg mb-1">
-                        <Target size={18} /> THE BEYONDER HABITAT (AEROSPACE)
-                      </div>
-                      <div className="text-[#e62e2d]/60 text-xs text-shadow-sm">
-                        Mars surface. -60°C. 0.006 atm. You manage life support, pressure vessels, and solar power. Don't let the crew asphyxiate.
-                      </div>
-                    </button>
-
-                    <button onClick={() => handleSelectTheme("f1")} className="text-left border border-[#00ff60]/30 p-4 hover:bg-[#00ff60]/10 transition-colors group">
-                      <div className="flex items-center gap-2 text-[#00ff60] font-bold text-lg mb-1">
-                        <Zap size={18} /> SCUDERIA PIT WALL (AUTOMOTIVE)
-                      </div>
-                      <div className="text-[#00ff60]/60 text-xs text-shadow-sm">
-                        Monaco Grand Prix. Leading the race. You manage brake thermals, tyre wear, and hybrid energy deployment under massive stress.
-                      </div>
-                    </button>
-
-                    <button onClick={() => handleSelectTheme("factory")} className="text-left border border-[#ffaa00]/30 p-4 hover:bg-[#ffaa00]/10 transition-colors group">
-                      <div className="flex items-center gap-2 text-[#ffaa00] font-bold text-lg mb-1">
-                        <Wrench size={18} /> HEAVY MANUFACTURING (INDUSTRIAL)
-                      </div>
-                      <div className="text-[#ffaa00]/60 text-xs text-shadow-sm">
-                        Machining 50-ton bulkheads. You manage 3000 PSI hydraulics, jammed megawatt motors, and 1600°C molten foundries.
-                      </div>
-                    </button>
-                  </motion.div>
-                )}
-
                 {/* Playing State */}
                 {phase === "playing" && lines.map((l, i) => (
                   <motion.div
@@ -352,9 +331,13 @@ export default function AIEscapeRoom() {
                     transition={{ duration: 0.15 }}
                     className={lineClass(l.type)}
                   >
-                    <div className="flex items-start gap-2">
-                        {l.type === "ai" && <Cpu size={12} className="mt-1 flex-shrink-0" style={{ color: tc }} />}
-                        {l.type === "user" && <ChevronRight size={12} className="mt-1 flex-shrink-0" style={{ color: tc }} />}
+                    <div className={`flex items-start gap-3 ${l.type === "ai" ? "p-3 rounded-lg border" : ""}`} style={{ backgroundColor: l.type === "ai" ? `${tc}0a` : "transparent", borderColor: l.type === "ai" ? `${tc}20` : "transparent" }}>
+                        {l.type === "ai" && (
+                           <div className="mt-0.5 p-1 rounded-md bg-black border shadow-sm" style={{ borderColor: `${tc}40`, boxShadow: `0 0 10px ${tc}30` }}>
+                             <BrainCircuit size={16} className="animate-pulse" style={{ color: tc }} />
+                           </div>
+                        )}
+                        {l.type === "user" && <ChevronRight size={14} className="mt-1 flex-shrink-0" style={{ color: tc }} />}
                         
                         <div className={`leading-relaxed whitespace-pre-wrap ${
                           l.type === "system" ? "opacity-60 italic text-[10px]" : 
@@ -438,6 +421,16 @@ export default function AIEscapeRoom() {
               </button>
             </form>
           )}
+        </div>
+
+        {/* Leaderboard Section */}
+        <div className="mt-12">
+          <Leaderboard 
+            gameKey="ai_escape_room" 
+            title="Crisis Simulator Ranks"
+            accent={activeTheme.color}
+            currentScore={phase === "end" ? finalScore : undefined}
+          />
         </div>
       </div>
     </section>

@@ -2,13 +2,14 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, Cpu, Activity, Linkedin, Terminal, Radio, Zap, Wifi, Server, Users } from "lucide-react";
 
 // ── Typing text with blinking cursor, no sound ──────────────────────────────
 const TypingText = ({ text, delay = 0, speed = 30 }: { text: string; delay?: number; speed?: number }) => {
   const [displayText, setDisplayText] = useState("");
   const [started, setStarted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => setStarted(true), delay);
@@ -17,13 +18,31 @@ const TypingText = ({ text, delay = 0, speed = 30 }: { text: string; delay?: num
 
   useEffect(() => {
     if (!started) return;
+
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/audio/typing_sound_about_page.mpeg");
+      audioRef.current.loop = true;
+    }
+    audioRef.current.play().catch(() => {});
+
     let i = 0;
     const interval = setInterval(() => {
       setDisplayText(text.substring(0, i));
       i++;
-      if (i > text.length) clearInterval(interval);
+      if (i > text.length) {
+        clearInterval(interval);
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }
+      }
     }, speed);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, [started, text, speed]);
 
   return (

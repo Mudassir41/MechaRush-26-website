@@ -1,7 +1,7 @@
 import { createClient } from 'redis';
 import { NextResponse } from 'next/server';
 
-const LEADERBOARD_KEY = 'arcade_leaderboard_v1';
+const DEFAULT_LEADERBOARD_KEY = 'arcade_leaderboard_v1';
 
 // Setup Redis Client connecting to REDIS_URL
 const getClient = async () => {
@@ -13,7 +13,7 @@ const getClient = async () => {
   return client;
 };
 
-export async function GET() {
+export async function GET(req: Request) {
   let client;
   try {
     // If Redis is not configured, return an empty array safely without mock data
@@ -27,8 +27,12 @@ export async function GET() {
     }
 
     // Fetch top 100 scores
+    const { searchParams } = new URL(req.url);
+    const gameKey = searchParams.get('gameKey') || DEFAULT_LEADERBOARD_KEY;
+    const leaderboardStorageKey = `arcade_board_${gameKey}`;
+
     // Node Redis v4 zRangeWithScores returns array of { value: string, score: number }
-    const rawScores = await client.zRangeWithScores(LEADERBOARD_KEY, 0, 99, { REV: true });
+    const rawScores = await client.zRangeWithScores(leaderboardStorageKey, 0, 99, { REV: true });
     
     let formattedScores: any[] = [];
     
@@ -56,7 +60,9 @@ export async function GET() {
 export async function POST(req: Request) {
   let client;
   try {
-    const { name, score } = await req.json();
+    const { name, score, gameKey } = await req.json();
+    
+    const leaderboardStorageKey = gameKey ? `arcade_board_${gameKey}` : DEFAULT_LEADERBOARD_KEY;
 
     if (!name || typeof score !== 'number') {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
@@ -71,10 +77,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Failed to connect to Redis' }, { status: 500 });
     }
 
-    const existingScore = await client.zScore(LEADERBOARD_KEY, name);
+    const existingScore = await client.zScore(leaderboardStorageKey, name);
     
     if (existingScore === null || score > existingScore) {
-      await client.zAdd(LEADERBOARD_KEY, [{ score, value: name }]);
+      await client.zAdd(leaderboardStorageKey, [{ score, value: name }]);
     }
 
     return NextResponse.json({ success: true });

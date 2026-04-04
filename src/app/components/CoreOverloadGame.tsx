@@ -101,6 +101,10 @@ export default function CoreOverloadGame() {
       // Wrong!
       setMessage({ text: "SYSTEM FAILURE", type: "error" });
       setGameState("gameover");
+      
+      const errorAudio = new Audio("/audio/error_reactor_meltdown.mpeg");
+      errorAudio.play().catch(e => console.log("Audio dropped:", e));
+
       if (score > highScore) {
         setHighScore(score);
         localStorage.setItem("mechrush_core_hs", score.toString());

@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useHUDStore } from "../store/hudStore";
 
 type Phase =
-  | "idle"        // waiting for user
+  | "locked"      // awaiting initial tap to unlock browser audio
+  | "idle"        // waiting for launch
   | "pressurizing" // button pressed, fuel pumps start
   | "spooling"    // turbine rising
   | "launching"   // flash + transition
@@ -32,10 +34,15 @@ function useAudioEngine() {
     const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
     ctxRef.current = ctx;
 
-    // Custom Ignition Audio from WhatsApp
-    const ignitionAudio = new Audio("/assets/ignition_sequence.mpeg");
+    // Custom Ignition Audio
+    const ignitionAudio = new Audio("/audio/init_igni_main.mpeg");
     ignitionAudio.play().catch(e => console.log("Audio play blocked", e));
     audioRef.current = ignitionAudio;
+
+    const endAudio = new Audio("/audio/init_ignition_end_effects.mpeg");
+    setTimeout(() => {
+      endAudio.play().catch(e => console.log("Audio blocked", e));
+    }, 3600);
 
     const now = ctx.currentTime;
     const master = ctx.createGain();
@@ -117,10 +124,11 @@ function useAudioEngine() {
 }
 
 export default function IgnitionScreen({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<Phase>("idle");
+  const [phase, setPhase] = useState<Phase>("locked");
   const [thrust, setThrust] = useState(0);
   const [logs, setLogs] = useState<string[]>([]);
   const { playIgnition, cleanup } = useAudioEngine();
+  const { setIgnitionAudioStarted } = useHUDStore();
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number>(0);
 
@@ -138,6 +146,7 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
   const handleIgnite = useCallback(() => {
     if (phase !== "idle") return;
     setPhase("pressurizing");
+    setIgnitionAudioStarted(true);
     playIgnition();
 
     startRef.current = performance.now();
@@ -161,7 +170,18 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
         setThrust(100);
         setPhase("spooling");
         setTimeout(() => setPhase("launching"), 400);
-        setTimeout(() => { cleanup(); onComplete(); }, 1300);
+        setTimeout(() => { 
+           cleanup(); 
+           // Play the dramatic reveal sound right when the page fades in
+           const revealAudio = new Audio("/audio/among_us_role_reveal.mpeg");
+           revealAudio.volume = 0.8;
+           revealAudio.play().catch(e => console.log(e));
+           
+           // Exactly when the "DUN DUN" hits, reveal the UI with a delay
+           setTimeout(() => {
+               onComplete();
+           }, 800);
+        }, 2200);
       }
     };
     rafRef.current = requestAnimationFrame(animThrust);
@@ -353,14 +373,28 @@ export default function IgnitionScreen({ onComplete }: { onComplete: () => void 
             transition={{ delay: 0.7, duration: 0.6 }}
             className="mt-12"
           >
-            {phase === "idle" ? (
+            {phase === "locked" ? (
               <button
+                onClick={() => setPhase("idle")}
+                className="group relative flex flex-col items-center justify-center cursor-pointer"
+              >
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-[#e62e2d]/30 bg-[#e62e2d]/10 flex items-center justify-center animate-pulse group-hover:scale-110 transition-transform shadow-[0_0_30px_rgba(230,46,45,0.2)]">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#e62e2d] shadow-[0_0_20px_#e62e2d]" />
+                </div>
+                <div className="mt-6 text-[10px] sm:text-xs tracking-[0.4em] text-[#e62e2d] font-bold uppercase transition-colors group-hover:text-white">
+                  Establish Connection
+                </div>
+              </button>
+            ) : phase === "idle" ? (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
                 onClick={handleIgnite}
-                className="btn-ignite px-10 py-5 text-lg rounded-lg tracking-widest sm:px-14"
+                className="btn-ignite px-10 py-5 text-lg rounded-lg tracking-widest sm:px-14 shadow-[0_0_50px_rgba(230,46,45,0.5)]"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
                 INITIATE LAUNCH
-              </button>
+              </motion.button>
             ) : phase === "pressurizing" || phase === "spooling" ? (
               <div className="flex items-center gap-3 text-white/50 text-sm tracking-widest uppercase font-bold">
                 <motion.div

@@ -31,6 +31,16 @@ export default function NavBar() {
     setIsScrolled(latest > 250); // Show inline logo after scrolling past hero
   });
 
+  const handleOpenMenu = () => {
+    setMenuOpen(true);
+    new Audio("/audio/tab_open.mpeg").play().catch(e => console.log(e));
+  };
+
+  const handleCloseMenu = () => {
+    setMenuOpen(false);
+    new Audio("/audio/tab_close.mpeg").play().catch(e => console.log(e));
+  };
+
   return (
     <>
       <motion.nav
@@ -73,7 +83,7 @@ export default function NavBar() {
 
           {/* Right — hamburger */}
           <button
-            onClick={() => setMenuOpen(true)}
+            onClick={handleOpenMenu}
             className="relative w-12 h-12 flex items-center justify-center rounded-xl border border-white/10 hover:border-[#e62e2d]/50 hover:bg-[#e62e2d]/10 transition-colors group bg-black/50 backdrop-blur-md"
             aria-label="Open menu"
           >
@@ -92,7 +102,7 @@ export default function NavBar() {
           <>
             {/* Backdrop */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setMenuOpen(false)}
+              onClick={handleCloseMenu}
               className="fixed inset-0 z-[90] bg-black/80 backdrop-blur-md" />
 
             {/* Panel */}
@@ -107,7 +117,7 @@ export default function NavBar() {
                 <div className="relative w-32 h-8">
                   <Image src="/assets/mecharush_inline.png" alt="MechaRush" fill className="object-contain" />
                 </div>
-                <button onClick={() => setMenuOpen(false)}
+                <button onClick={handleCloseMenu}
                   className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#e62e2d]/20 hover:border-[#e62e2d]/50 transition-colors">
                   <X size={18} className="text-white" />
                 </button>
@@ -122,7 +132,7 @@ export default function NavBar() {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: i * 0.05 + 0.1 }}>
                     <Link href={href}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={handleCloseMenu}
                       className="flex items-center gap-4 px-5 py-4 rounded-xl text-sm font-black tracking-widest uppercase text-white/50 hover:text-white hover:bg-[#e62e2d]/10 hover:transition-all">
                       {label}
                     </Link>

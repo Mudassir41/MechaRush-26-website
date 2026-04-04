@@ -16,7 +16,8 @@ const nonTechEvents = [
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc7A04ZbeAl3vA5tdbmhmxxYJZuT4mSdz9QFjKdl8NkNfGF9g/viewform?usp=publish-editor",
     rules: [
       "Team should consist of 2 to 4 members",
-      "Registration fee for the event is Rs. 300",
+      "Registration fee for the event is Rs. 300 per team",
+      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 750",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
@@ -33,7 +34,8 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 5 to 7 members",
       "Only for Crescentians",
-      "Registration fee for the event is Rs. 600",
+      "Registration fee for the event is Rs. 600 (Rs. 120 per head)",
+      "Prize Pool: Winner - Rs. 2000, Runner - Rs. 1500",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
@@ -50,6 +52,7 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 1 member",
       "Registration fee for the event is Rs. 100",
+      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 750",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
@@ -66,6 +69,7 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 1 member",
       "Registration fee for the event is Rs. 100",
+      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 500",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
@@ -82,6 +86,7 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 1 to 2 members",
       "Registration fee for the event Solo: Rs. 150, Duo: Rs. 200",
+      "Prize Pool: Winner - Rs. 750, Runner - Rs. 500",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],

@@ -26,6 +26,19 @@ export default function EventCard({
 }: EventCardProps) {
   const [open, setOpen] = useState(false);
 
+  const handleOpen = () => {
+    const audio = document.getElementById("sfx-tab-open") as HTMLAudioElement;
+    if (audio) { audio.currentTime = 0; audio.volume = 1; audio.play().catch(e => console.log(e)); }
+    setOpen(true);
+  };
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const audio = document.getElementById("sfx-tab-close") as HTMLAudioElement;
+    if (audio) { audio.currentTime = 0; audio.volume = 1; audio.play().catch(e => console.log(e)); }
+    setOpen(false);
+  };
+
   return (
     <>
       <motion.div
@@ -33,7 +46,7 @@ export default function EventCard({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5, delay }}
-        onClick={() => setOpen(true)}
+        onClick={handleOpen}
         className="group relative flex flex-col rounded-xl overflow-hidden cursor-pointer"
         style={{
           background: "rgba(12,16,22,0.88)",
@@ -103,7 +116,7 @@ export default function EventCard({
         {open && (
           <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={(e) => { e.stopPropagation(); setOpen(false); }}
+              onClick={handleClose}
               className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
             <motion.div
@@ -120,7 +133,7 @@ export default function EventCard({
 
               {/* Close button */}
               <button 
-                onClick={(e) => { e.stopPropagation(); setOpen(false); }}
+                onClick={handleClose}
                 className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full flex items-center justify-center text-white/50 hover:text-white bg-black/20 hover:bg-black/50 border border-white/10 transition-all cursor-pointer"
               >
                 <X size={20} />

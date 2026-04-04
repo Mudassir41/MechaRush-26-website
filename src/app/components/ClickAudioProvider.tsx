@@ -41,5 +41,10 @@ export default function ClickAudioProvider() {
     return () => window.removeEventListener("click", handleGlobalClick, true);
   }, []);
 
-  return null;
+  return (
+    <>
+        <audio id="sfx-tab-open" src="/audio/tab_open.mpeg" preload="auto" />
+        <audio id="sfx-tab-close" src="/audio/tab_close.mpeg" preload="auto" />
+    </>
+  );
 }
