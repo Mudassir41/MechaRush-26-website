@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { X, Menu, Phone, Mail } from "lucide-react";
 
@@ -27,6 +28,10 @@ export default function NavBar() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const pathname = usePathname();
+  const isInnerPage = pathname !== "/";
+  const navSolid = isScrolled || isInnerPage;
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 250); // Show inline logo after scrolling past hero
   });
@@ -42,7 +47,7 @@ export default function NavBar() {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-black/90 backdrop-blur-xl border-b border-[#e62e2d]/20 shadow-[0_0_30px_rgba(230,46,45,0.15)]' : 'bg-transparent'}`}
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${navSolid ? 'bg-black/90 backdrop-blur-xl border-b border-[#e62e2d]/20 shadow-[0_0_30px_rgba(230,46,45,0.15)]' : 'bg-transparent'}`}
       >
         <div className="w-full px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
 
@@ -63,7 +68,7 @@ export default function NavBar() {
           {/* Center — Inline Logo (appears on scroll) */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-auto">
             <AnimatePresence>
-              {isScrolled && (
+              {navSolid && (
                 <motion.div
                   initial={{ opacity: 0, y: -20, scale: 0.8 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
