@@ -16,11 +16,11 @@ const techEvents = [
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfZ2a5PCqRyOIr49IAJeWcslMOU_zfJXIp6_RySNvg-ZylANQ/viewform?usp=header",
     rules: [
       "Team should consist of 3 to 4 members",
-      "Registration fee for the event is Rs. 200 (Rs. 50 per head)",
-      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
+      "Registration fee for the event is Rs. 50 per head",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 1500 | Runner: Rs. 1000",
     rulebookUrl: "/rulebooks/TrussMaster_EventBook-MechaRush26.pdf",
   },
   {
@@ -34,10 +34,10 @@ const techEvents = [
     rules: [
       "Team should consist of 1 or 2 members",
       "Registration fee for the event is Rs. 100",
-      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 750",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 1000 | Runner: Rs. 750",
     rulebookUrl: "/rulebooks/MechClash_Mecharush26.pdf",
   },
   {
@@ -51,10 +51,10 @@ const techEvents = [
     rules: [
       "Only Solo participation",
       "Registration fee for the event is Rs. 100",
-      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 1500 | Runner: Rs. 1000",
     rulebookUrl: "/rulebooks/CADMania_EventBook-Mecharush26.pdf",
   },
 
@@ -69,11 +69,11 @@ const techEvents = [
     rules: [
       "Team should consist of 1 to 2 members",
       "Registration fee for the event is Rs. 100 per team",
-      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first",
       "Screening round may be conducted if registrations exceed 50 teams"
     ],
+    prizePool: "Winner: Rs. 1500 | Runner: Rs. 1000",
     rulebookUrl: "/rulebooks/VentureVault_Research_Mecharush26.pdf",
   },
   {
@@ -86,11 +86,11 @@ const techEvents = [
     linkUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf8EJ1K0JCr-6stUVEmArdDlb85qYdCTDngriu71UeJWrvzjw/viewform?usp=dialog",
     rules: [
       "Team should consist of 4 members",
-      "Registration fee for the event is Rs. 200 (Rs. 50 per head)",
-      "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
+      "Registration fee for the event is Rs. 50 per head",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 1500 | Runner: Rs. 1000",
     rulebookUrl: "/rulebooks/PitStop_EventBook-MechaRush26.pdf",
   }
 ];
@@ -140,6 +140,7 @@ export default function TechEventsPage() {
               linkUrl={e.linkUrl || "#"}
               rulebookUrl={e.rulebookUrl}
               rules={e.rules}
+              prizePool={e.prizePool}
               delay={i * 0.08}
               accent="#e62e2d"
             />

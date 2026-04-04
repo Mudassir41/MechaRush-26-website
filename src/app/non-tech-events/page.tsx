@@ -17,10 +17,10 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 2 to 4 members",
       "Registration fee for the event is Rs. 300 per team",
-      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 750",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 1000 | Runner: Rs. 750",
     rulebookUrl: "/rulebooks/MockIPLAuction_Mecharush26.pdf",
   },
   {
@@ -34,11 +34,11 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 5 to 7 members",
       "Only for Crescentians",
-      "Registration fee for the event is Rs. 600 (Rs. 120 per head)",
-      "Prize Pool: Winner - Rs. 2000, Runner - Rs. 1500",
+      "Registration fee for the event is Rs. 120 per head",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 2000 | Runner: Rs. 1500",
     rulebookUrl: "/rulebooks/FootballTournament_Mecharush26.pdf",
   },
   {
@@ -52,10 +52,10 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 1 member",
       "Registration fee for the event is Rs. 100",
-      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 750",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 1000 | Runner: Rs. 750",
     rulebookUrl: "/rulebooks/CrescentChess_Mecharush26.pdf",
   },
   {
@@ -69,10 +69,10 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 1 member",
       "Registration fee for the event is Rs. 100",
-      "Prize Pool: Winner - Rs. 1000, Runner - Rs. 500",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 1000 | Runner: Rs. 500",
     rulebookUrl: "/rulebooks/Photography_Mecharush26.pdf",
   },
   {
@@ -86,10 +86,10 @@ const nonTechEvents = [
     rules: [
       "Team should consist of 1 to 2 members",
       "Registration fee for the event Solo: Rs. 150, Duo: Rs. 200",
-      "Prize Pool: Winner - Rs. 750, Runner - Rs. 500",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
+    prizePool: "Winner: Rs. 750 | Runner: Rs. 500",
     rulebookUrl: "/rulebooks/ToteBagPainting_Mecharush26.pdf",
   },
 ];
@@ -139,6 +139,7 @@ export default function NonTechEventsPage() {
               linkUrl={e.linkUrl || "#"}
               rulebookUrl={e.rulebookUrl}
               rules={e.rules}
+              prizePool={e.prizePool}
               delay={i * 0.08}
               accent="#c0c8d8"
             />

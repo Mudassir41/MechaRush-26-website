@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, User, Phone, X, ShieldAlert, Mail } from "lucide-react";
+import { ArrowRight, User, Phone, X, ShieldAlert, Mail, Banknote } from "lucide-react";
 import { useState } from "react";
 
 interface EventCardProps {
@@ -11,6 +11,7 @@ interface EventCardProps {
   coordinatorsPhones?: string[];
   rules?: string[];
   sponsors?: string[];
+  prizePool?: string;
   linkUrl: string;
   linkText: string;
   imageIcon: React.ReactNode;
@@ -21,7 +22,7 @@ interface EventCardProps {
 }
 
 export default function EventCard({
-  title, description, coordinators, coordinatorsPhones, rules, sponsors,
+  title, description, coordinators, coordinatorsPhones, rules, sponsors, prizePool,
   linkUrl, linkText, imageIcon, imageUrl, delay = 0, accent = "#e62e2d", rulebookUrl
 }: EventCardProps) {
   const [open, setOpen] = useState(false);
@@ -126,20 +127,22 @@ export default function EventCard({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.97 }}
               transition={{ type: "spring", damping: 26, stiffness: 350 }}
-              className="relative w-full sm:max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl pointer-events-auto"
+              className="relative w-full sm:max-w-2xl max-h-[92vh] flex flex-col rounded-t-2xl sm:rounded-2xl pointer-events-auto"
               style={{ background: "#0c1016", border: `1px solid ${accent}30` }}
             >
-              {/* Top accent line */}
-              <div className="h-1 w-full rounded-t-2xl"
-                style={{ background: `linear-gradient(90deg, ${accent}, ${accent}88, transparent)` }} />
-
-              {/* Close button */}
+              {/* Close button (Outside scroll area so it never hides) */}
               <button 
                 onClick={handleClose}
-                className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full flex items-center justify-center text-white/50 hover:text-white bg-black/20 hover:bg-black/50 border border-white/10 transition-all cursor-pointer"
+                className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full flex items-center justify-center text-white bg-black/50 hover:bg-black/80 border border-white/20 transition-all cursor-pointer shadow-lg backdrop-blur-md"
               >
                 <X size={20} />
               </button>
+
+              {/* Scrollable Content Container */}
+              <div className="overflow-y-auto flex-1 w-full min-h-0 rounded-t-2xl sm:rounded-2xl">
+                {/* Top accent line */}
+                <div className="h-1 w-full shrink-0"
+                  style={{ background: `linear-gradient(90deg, ${accent}, ${accent}88, transparent)` }} />
 
               {/* Hero image */}
               {imageUrl && (
@@ -179,36 +182,59 @@ export default function EventCard({
                     </ul>
                   </div>
 
-                  {/* Coordinators */}
-                  {coordinators && coordinators.length > 0 && (
-                    <div>
-                      <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 pb-2 border-b"
-                        style={{ color: accent, borderColor: `${accent}20` }}>
-                        <User size={14} /> Coordinators
-                      </h4>
-                      <ul className="space-y-3 text-sm">
-                        {coordinators.map((name, i) => (
-                          <li key={i} className="flex flex-col">
-                            <span className="font-semibold text-white/80">{name}</span>
-                            {coordinatorsPhones?.[i] ? (
-                              <a 
-                                href={coordinatorsPhones[i].includes("@") ? `mailto:${coordinatorsPhones[i]}` : `tel:${coordinatorsPhones[i].replace(/\\s+/g, '')}`}
-                                className="flex items-center gap-1.5 text-white/50 hover:text-white text-xs mt-0.5 transition-colors"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                {coordinatorsPhones[i].includes("@") ? <Mail size={11} /> : <Phone size={11} />} 
-                                {coordinatorsPhones[i]}
-                              </a>
-                            ) : (
-                              <span className="flex items-center gap-1.5 text-white/30 text-xs mt-0.5">
-                                <Phone size={11} /> —
-                              </span>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <div className="flex flex-col gap-8">
+                    {/* Prize Pool */}
+                    {prizePool && (
+                      <div>
+                        <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 pb-2 border-b"
+                          style={{ color: accent, borderColor: `${accent}20` }}>
+                          <Banknote size={14} /> Prize Pool
+                        </h4>
+                        <div className="flex flex-col gap-2 text-sm font-bold text-white/90 bg-white/5 border border-white/10 p-3 rounded-xl shadow-inner">
+                          {prizePool.split(" | ").map((line, idx) => {
+                            const [label, amount] = line.split(":");
+                            return (
+                              <div key={idx} className="flex justify-between items-center border-b border-white/5 pb-2 last:border-0 last:pb-0">
+                                <span className="text-white/60 text-[10px] uppercase tracking-wider">{label?.trim() || ""}</span>
+                                <span style={{ color: accent }} className="tracking-wide text-sm">{amount?.trim() || ""}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Coordinators */}
+                    {coordinators && coordinators.length > 0 && (
+                      <div>
+                        <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4 pb-2 border-b"
+                          style={{ color: accent, borderColor: `${accent}20` }}>
+                          <User size={14} /> Coordinators
+                        </h4>
+                        <ul className="space-y-3 text-sm">
+                          {coordinators.map((name, i) => (
+                            <li key={i} className="flex flex-col">
+                              <span className="font-semibold text-white/80">{name}</span>
+                              {coordinatorsPhones?.[i] ? (
+                                <a 
+                                  href={coordinatorsPhones[i].includes("@") ? `mailto:${coordinatorsPhones[i]}` : `tel:${coordinatorsPhones[i].replace(/\\s+/g, '')}`}
+                                  className="flex items-center gap-1.5 text-white/50 hover:text-white text-xs mt-0.5 transition-colors"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  {coordinatorsPhones[i].includes("@") ? <Mail size={11} /> : <Phone size={11} />} 
+                                  {coordinatorsPhones[i]}
+                                </a>
+                              ) : (
+                                <span className="flex items-center gap-1.5 text-white/30 text-xs mt-0.5">
+                                  <Phone size={11} /> —
+                                </span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="pt-6 border-t flex flex-wrap items-center justify-end gap-3" style={{ borderColor: `${accent}15` }}>
@@ -224,6 +250,7 @@ export default function EventCard({
                   >
                     {linkText} <ArrowRight size={16} />
                   </a>
+                </div>
                 </div>
               </div>
             </motion.div>
