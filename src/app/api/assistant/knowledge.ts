@@ -25,6 +25,7 @@ LOGISTICS:
    - Coordinators: Md Muneeb (+91 6385599422), Dhanush (+91 9444415408)
    - Link: https://docs.google.com/forms/d/e/1FAIpQLSfuC_3s3ukELR5BLsc1Pt-ixqTMBsz4UZyxlmK0LzFelviLag/viewform
    - Key Rules: Stage 1 = Screen-based Quiz. Stage 2 = Debate.
+   - SPECIAL OFFER: Participants who register for Mech Clash receive completely FREE entry to CAD Mania (and vice versa).
 
 3. CAD MANIA (CAD Modelling)
    - Fee: ₹100 | Solo
@@ -33,6 +34,7 @@ LOGISTICS:
    - Coordinators: Abdul Ghani.A (+91 7845346160), Md Abdulla (+91 6383996346)
    - Link: https://docs.google.com/forms/d/e/1FAIpQLSeXE3ivah3i2ma59oNfpw3RExFZ7NDil7Bx4IaVu_QDLQ65Vw/viewform
    - Key Rules: Convert 2D drawing to 3D model using Creo in 30-60 mins.
+   - SPECIAL OFFER: Participants who register for CAD Mania receive completely FREE entry to Mech Clash (and vice versa).
 
 4. VENTURE VAULT (Idea Presentation)
    - Fee: ₹100 (₹50 per head) | Duo

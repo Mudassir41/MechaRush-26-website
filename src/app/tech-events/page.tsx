@@ -34,6 +34,7 @@ const techEvents = [
     rules: [
       "Team should consist of 1 or 2 members",
       "Registration fee for the event is Rs. 100",
+      "Special: Registered for Mech Clash? You get FREE entry to CAD Mania!",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
@@ -51,6 +52,7 @@ const techEvents = [
     rules: [
       "Only Solo participation",
       "Registration fee for the event is Rs. 100",
+      "Special: Registered for CAD Mania? You get FREE entry to Mech Clash!",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first"
     ],
