@@ -25,6 +25,7 @@ export default function AIAssistant() {
   const recognitionRef = useRef<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const isTextSubmitRef = useRef(false);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && ("SpeechRecognition" in window || "webkitSpeechRecognition" in window)) {
@@ -55,7 +56,11 @@ export default function AIAssistant() {
       };
 
       recognitionRef.current.onerror = (event: any) => {
-        console.error("Speech Recognition Error", event.error);
+        if (event.error === "network") {
+          console.error("Speech Recognition blocked by browser or network (Brave/Chrome requires Google services).");
+        } else {
+          console.error("Speech Recognition Error", event.error);
+        }
         setAiState("idle");
       };
     }
@@ -137,20 +142,40 @@ export default function AIAssistant() {
 
   // TTS: use native browser SpeechSynthesis API
   const speakMessage = (text: string, idx: number) => {
+    if (window.speechSynthesis.getVoices().length === 0) {
+        console.warn("No TTS voices found.");
+        setMessages(prev => [...prev, { role: "assistant", content: "SYSTEM LOG: Audio playback failed. No Text-to-Speech voices are installed on your browser/OS (common on bare Chromium/Linux)." }]);
+        return;
+    }
+
     window.speechSynthesis.cancel();
     
     // Strip markdown formatting characters for cleaner audio reading
     const cleanText = text.replace(/[*_#>]/g, '').trim();
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
+    // Definitively prevent Chrome aggressive garbage collection bug
+    if (!(window as any)._speechUtterances) {
+      (window as any)._speechUtterances = [];
+    }
+    (window as any)._speechUtterances.push(utterance);
+    utteranceRef.current = utterance;
+    
     utterance.onstart = () => setSpeakingIdx(idx);
-    utterance.onend = () => setSpeakingIdx(null);
+    utterance.onend = () => { 
+      setSpeakingIdx(null); 
+      utteranceRef.current = null; 
+      (window as any)._speechUtterances = []; 
+    };
     utterance.onerror = (e) => {
       console.error("TTS Error:", e);
       setSpeakingIdx(null);
+      utteranceRef.current = null;
+      (window as any)._speechUtterances = [];
     };
 
     window.speechSynthesis.speak(utterance);
+    window.speechSynthesis.resume(); // Force audio context unlocking
   };
 
   return (
@@ -220,10 +245,10 @@ export default function AIAssistant() {
                           <ReactMarkdown 
                             remarkPlugins={[remarkGfm]}
                             components={{
-                                ul: ({node, ...props}) => <ul className="flex flex-wrap gap-2 mt-3 p-0 m-0" {...props} />,
+                                ul: ({node, ...props}) => <ul className="flex flex-wrap gap-1.5 mt-2 p-0 m-0" {...props} />,
                                 li: ({node, ...props}) => (
                                   <li 
-                                    className="list-none inline-block bg-[#00e5ff]/10 hover:bg-[#00e5ff]/30 text-[#00e5ff] border border-[#00e5ff]/30 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase cursor-pointer transition-colors shadow-sm"
+                                    className="list-none inline-block bg-[#00e5ff]/10 hover:bg-[#00e5ff]/30 text-[#00e5ff] border border-[#00e5ff]/20 px-2.5 py-1 rounded-md text-[8px] font-bold tracking-widest uppercase cursor-pointer transition-colors shadow-none"
                                     onClick={() => handleSuggestionClick(String(props.children))}
                                   >
                                     {props.children}

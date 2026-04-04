@@ -27,15 +27,17 @@ export default function EventCard({
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    const audio = document.getElementById("sfx-tab-open") as HTMLAudioElement;
-    if (audio) { audio.currentTime = 0; audio.volume = 1; audio.play().catch(e => console.log(e)); }
+    const audio = new Audio("/audio/tab_open.mpeg");
+    audio.volume = 1;
+    audio.play().catch(e => console.log("Audio block", e));
     setOpen(true);
   };
 
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const audio = document.getElementById("sfx-tab-close") as HTMLAudioElement;
-    if (audio) { audio.currentTime = 0; audio.volume = 1; audio.play().catch(e => console.log(e)); }
+    const audio = new Audio("/audio/tab_close.mpeg");
+    audio.volume = 1;
+    audio.play().catch(e => console.log("Audio block", e));
     setOpen(false);
   };
 

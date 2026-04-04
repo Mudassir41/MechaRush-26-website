@@ -33,12 +33,10 @@ export default function NavBar() {
 
   const handleOpenMenu = () => {
     setMenuOpen(true);
-    new Audio("/audio/tab_open.mpeg").play().catch(e => console.log(e));
   };
 
   const handleCloseMenu = () => {
     setMenuOpen(false);
-    new Audio("/audio/tab_close.mpeg").play().catch(e => console.log(e));
   };
 
   return (
