@@ -69,8 +69,8 @@ const techEvents = [
     coordinatorsPhones: ["+91 7305032595", "+91 9361827918"],
     linkUrl: "https://forms.gle/cpHWMjz8Yr13Bg1w5",
     rules: [
-      "Team should consist of 1 to 2 members",
-      "Registration fee for the event is Rs. 100 per team",
+      "Team should consist of 1 to 3 members",
+      "Registration fee: Solo - Rs. 100, Team (up to 3) - Rs. 150",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first",
       "Screening round may be conducted if registrations exceed 50 teams"
@@ -101,12 +101,12 @@ export default function TechEventsPage() {
   return (
     <div className="min-h-screen pt-24 pb-20 px-6 relative">
       {/* Background */}
-      <div className="fixed inset-0 z-[0] pointer-events-none">
+      <div className="fixed inset-0 z-[-1] pointer-events-none">
         <Image src="/assets/bg/engineering_facility.png" alt="Tech Events Background" fill className="object-cover opacity-30 mix-blend-luminosity filter blur-[1px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/80 to-black pointer-events-none" />
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}

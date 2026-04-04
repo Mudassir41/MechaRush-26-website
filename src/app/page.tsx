@@ -38,8 +38,8 @@ const HIGHLIGHTS = [
     tag: "TECH",
     icon: <Cog size={24} />,
     rules: [
-      "Team should consist of 1 to 2 members",
-      "Registration fee for the event is Rs. 100 per team",
+      "Team should consist of 1 to 3 members",
+      "Registration fee: Solo - Rs. 100, Team (up to 3) - Rs. 150",
       "Prize Pool: Winner - Rs. 1500, Runner - Rs. 1000",
       "Judge's or Organiser's decision is final",
       "Before registering, read the complete rule book first",

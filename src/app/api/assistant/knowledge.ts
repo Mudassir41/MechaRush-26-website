@@ -37,7 +37,7 @@ LOGISTICS:
    - SPECIAL OFFER: Participants who register for CAD Mania receive completely FREE entry to Mech Clash (and vice versa).
 
 4. VENTURE VAULT (Idea Presentation)
-   - Fee: ₹100 (₹50 per head) | Duo
+   - Fee: Solo: ₹100, Team: ₹150 | Team: 1-3 members
    - Prize: Winner ₹1500, Runner ₹1000
    - Venue: Convention Hall-2, 1st Floor
    - Coordinators: Sai Sreejith (+91 7305032595), Ahamed Ibrahim (+91 9361827918)

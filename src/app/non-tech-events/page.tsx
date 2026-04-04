@@ -98,12 +98,12 @@ export default function NonTechEventsPage() {
   return (
     <div className="min-h-screen pt-24 pb-20 px-6 relative">
       {/* Background */}
-      <div className="fixed inset-0 z-[0] pointer-events-none">
+      <div className="fixed inset-0 z-[-1] pointer-events-none">
         <Image src="/assets/bg/martian_habitat.png" alt="Non-Tech Events Background" fill className="object-cover opacity-30 mix-blend-luminosity filter blur-[2px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/80 to-black pointer-events-none" />
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
