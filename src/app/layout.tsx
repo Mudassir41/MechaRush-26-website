@@ -6,6 +6,7 @@ import AIAssistant from "./components/AIAssistant";
 import GlobalHUD from "./components/GlobalHUD";
 import ClickAudioProvider from "./components/ClickAudioProvider";
 import EngineAudio from "./components/EngineAudio";
+import { Analytics } from "@vercel/analytics/next";
 
 const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"] });
 
@@ -44,6 +45,7 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
